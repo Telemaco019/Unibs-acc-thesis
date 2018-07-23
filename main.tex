@@ -1,0 +1,96 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage[titletoc]{appendix}
+\usepackage{textcomp}
+\usepackage{pdfpages}
+\usepackage[colorlinks]{hyperref}
+\hypersetup{urlcolor=blue}
+
+
+
+\usepackage[british,english]{babel}
+\usepackage{biblatex}
+\addbibresource{bibliography.bib}
+\DeclareFieldFormat{url}{Available at: \url{#1}}
+
+
+
+\definecolor{light-gray}{gray}{0.95}
+
+\lstset{
+ upquote=true,
+ showspaces=false,
+ showtabs=false,
+ frame=none,
+ tabsize=2,
+ breaklines=true,
+ numbers=none,
+ showstringspaces=false,
+ breakatwhitespace=true,
+ escapeinside={(*@}{@*)},
+ keywordstyle=\bfseries,
+ basicstyle=\footnotesize\ttfamily,
+}
+
+\newcommand{\code}[1]{{\footnotesize\texttt{#1}}}
+
+\setlength\parindent{0pt} % Indentazione paragrafi
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex} % Spaziatura paragrafi
+
+\renewcommand{\labelenumii}{\theenumii}
+\renewcommand{\theenumii}{\theenumi.\arabic{enumii}.}
+
+\begin{document}
+
+  \begin{enumerate}
+    \item Preliminary concepts at the basis of Blockchain \cite{bambara2018blockchain},\cite{bashir2017mastering}
+    \begin{enumerate}
+      \item Introduction to the cryptography concepts used in Blockchain \cite{bashir2017mastering}
+      \begin{itemize}
+        \item Cryptography services (confidentiality, authentication, integrity, non-repudiation)
+        \item Public and private key cryptography
+        \item Elliptic curve cryptography
+        \item Hash functions
+        \item Elliptic curve digital signature algorithm (ECDSA)
+      \end{itemize}
+      \item Distributed systems and decentralization
+      \item Consensus (Byzantine generals problem)
+    \end{enumerate}
+
+    \item Introduction to Blockchain \cite{bambara2018blockchain},\cite{bashir2017mastering}
+    \begin{enumerate}
+      \item What a Blockchain is
+      \item Blockchain features
+      \item Types of Blockchain (public, consortium, private)
+      \item Blockchain history (why it was invented)
+      \item Overview of today Blockchain applications
+    \end{enumerate}
+
+    \item Bitcoin \cite{karame2016bitcoin},\cite{antonopoulos2014mastering}
+    \begin{enumerate}
+      \item Bitcoin protocol specification
+      \begin{itemize}
+        \item Overview of Bitcoin data types (transaction, scripts, adresses, blocks)
+        \item Transactions
+        \item Bitcoin network architecture
+        \item Bitcoin blockchain (blocks structure, Merkle trees, mining, proof of
+        work)
+      \end{itemize}
+      \item Security of transactions
+      \item Privacy
+    \end{enumerate}
+
+    \item Smart contract and Ethereum
+  \end{enumerate}
+
+  \printbibliography
+
+\end{document}
