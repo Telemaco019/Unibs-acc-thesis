@@ -48,7 +48,12 @@
 \renewcommand{\labelenumii}{\theenumii}
 \renewcommand{\theenumii}{\theenumi.\arabic{enumii}.}
 
+\title{Blockchain and cryptocurrencies}
+\date{}
+
 \begin{document}
+
+\maketitle
 
   \begin{enumerate}
     \item Preliminary concepts at the basis of Blockchain \cite{bambara2018blockchain},\cite{bashir2017mastering}
@@ -62,19 +67,19 @@
         \item Elliptic curve digital signature algorithm (ECDSA)
       \end{itemize}
       \item Distributed systems and decentralization
-      \item Consensus (Byzantine generals problem)
+      \item Consensus \& Byzantine generals problem
     \end{enumerate}
 
     \item Introduction to Blockchain \cite{bambara2018blockchain},\cite{bashir2017mastering}
     \begin{enumerate}
-      \item What a Blockchain is
+      \item What is a Blockchain
       \item Blockchain features
       \item Types of Blockchain (public, consortium, private)
       \item Blockchain history (why it was invented)
       \item Overview of today Blockchain applications
     \end{enumerate}
 
-    \item Bitcoin \cite{karame2016bitcoin},\cite{antonopoulos2014mastering}
+    \item Bitcoin \cite{karame2016bitcoin},\cite{antonopoulos2017mastering}
     \begin{enumerate}
       \item Bitcoin protocol specification
       \begin{itemize}
@@ -84,11 +89,59 @@
         \item Bitcoin blockchain (blocks structure, Merkle trees, mining, proof of
         work)
       \end{itemize}
-      \item Security of transactions
-      \item Privacy
+      \item Bitcoin wallets
+%      \item Security of Bitcoin transactions
     \end{enumerate}
 
-    \item Smart contract and Ethereum
+    \item Bitcoin privacy
+    \begin{itemize}
+      \item Considerations on user anonymity in Bitcoin
+      \item Possible attacks
+      \item How to enhance privacy in Bitcoin (explanation of mixing services
+      + reference \cite{heilman-blindly-signed-contracts})
+    \end{itemize}
+
+    %%%% SISTEMA
+    \item Bitcoin blockchain scalability
+    \begin{itemize}
+      \item Considerations on the scalability of the Bitcoin blockchain and
+      possibile solutions \cite{karame2016bitcoin},\cite{croman-scaling-blockchain}
+    \end{itemize}
+
+    \item Alternatives to Bitcoin
+    \begin{itemize}
+      \item Bitcoin limitations
+      \item Alternatives to proof of work \cite{bentov-no-proof-of-work}
+      \item Namecoin
+      \item Litecoin
+      \item ZCash
+    \end{itemize}
+
+    {
+    \color{gray}
+
+    \item Smart contracts
+    \begin{itemize}
+      \item History
+      \item What smart contracts are
+      \item Security
+    \end{itemize}
+
+    \item Ethereum
+    \begin{itemize}
+      \item History
+      \item Ethereum components (Keys, addresses, accounts)
+      \item Ethereum blockchain
+      \item Ethereum network
+      \item Ethereum transactions
+      \item Ethereum virtual machine
+    \end{itemize}
+
+
+    \item (Possibly) Pratical example of blockchain application:
+    development of a distributed application through Ethereum Solidity
+    (Something similar to the application development shown in reference \cite{bambara2018blockchain})
+    }
   \end{enumerate}
 
   \printbibliography

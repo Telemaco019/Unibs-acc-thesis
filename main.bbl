@@ -1,0 +1,456 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{antonopoulos2017mastering}{book}{}
+      \name{author}{1}{}{%
+        {{hash=d9e0f21567058885e3adbbae9520dfb3}{%
+           family={Antonopoulos},
+           familyi={A\bibinitperiod},
+           given={A.M.},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {O'Reilly Media}%
+      }
+      \strng{namehash}{d9e0f21567058885e3adbbae9520dfb3}
+      \strng{fullhash}{d9e0f21567058885e3adbbae9520dfb3}
+      \strng{bibnamehash}{d9e0f21567058885e3adbbae9520dfb3}
+      \strng{authorbibnamehash}{d9e0f21567058885e3adbbae9520dfb3}
+      \strng{authornamehash}{d9e0f21567058885e3adbbae9520dfb3}
+      \strng{authorfullhash}{d9e0f21567058885e3adbbae9520dfb3}
+      \field{sortinit}{A}
+      \field{sortinithash}{d77c7cdd82ff690d4c3ef13216f92f0b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9781491954362}
+      \field{title}{Mastering Bitcoin: Programming the Open Blockchain}
+      \field{year}{2017}
+      \verb{urlraw}
+      \verb https://books.google.it/books?id=MpwnDwAAQBAJ
+      \endverb
+      \verb{url}
+      \verb https://books.google.it/books?id=MpwnDwAAQBAJ
+      \endverb
+    \endentry
+    \entry{bambara2018blockchain}{book}{}
+      \name{author}{6}{}{%
+        {{hash=ffd7b9e0b9060dc18e55be84d41c743c}{%
+           family={Bambara},
+           familyi={B\bibinitperiod},
+           given={J.J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=3ea4456ed6d0864f1ec2979c7405aa19}{%
+           family={Allen},
+           familyi={A\bibinitperiod},
+           given={P.R.},
+           giveni={P\bibinitperiod}}}%
+        {{hash=e990c2e541e43dc8a28985f3cbe208ef}{%
+           family={Iyer},
+           familyi={I\bibinitperiod},
+           given={K.},
+           giveni={K\bibinitperiod}}}%
+        {{hash=aff2cd7f419731cde006432584dc8389}{%
+           family={Madsen},
+           familyi={M\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+        {{hash=ee0a6c96558ebc730ea8eca5adc50ca0}{%
+           family={Lederer},
+           familyi={L\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+        {{hash=af7f23c846d8c3f233956012113fedd8}{%
+           family={Wuehler},
+           familyi={W\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {McGraw-Hill Education}%
+      }
+      \strng{namehash}{c9e2df8b3ec8a9516e1ef2bd522bca5f}
+      \strng{fullhash}{0608a6d5683c6011a330ebbb0eac0669}
+      \strng{bibnamehash}{c9e2df8b3ec8a9516e1ef2bd522bca5f}
+      \strng{authorbibnamehash}{c9e2df8b3ec8a9516e1ef2bd522bca5f}
+      \strng{authornamehash}{c9e2df8b3ec8a9516e1ef2bd522bca5f}
+      \strng{authorfullhash}{0608a6d5683c6011a330ebbb0eac0669}
+      \field{sortinit}{B}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9781260115864}
+      \field{title}{Blockchain: A Practical Guide to Developing Business, Law, and Technology Solutions}
+      \field{year}{2018}
+      \verb{urlraw}
+      \verb https://books.google.it/books?id=z5hIDwAAQBAJ
+      \endverb
+      \verb{url}
+      \verb https://books.google.it/books?id=z5hIDwAAQBAJ
+      \endverb
+    \endentry
+    \entry{bashir2017mastering}{book}{}
+      \name{author}{1}{}{%
+        {{hash=11f9bc2027f03eaa88a002bc8f84ebd2}{%
+           family={Bashir},
+           familyi={B\bibinitperiod},
+           given={I.},
+           giveni={I\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Packt Publishing}%
+      }
+      \strng{namehash}{11f9bc2027f03eaa88a002bc8f84ebd2}
+      \strng{fullhash}{11f9bc2027f03eaa88a002bc8f84ebd2}
+      \strng{bibnamehash}{11f9bc2027f03eaa88a002bc8f84ebd2}
+      \strng{authorbibnamehash}{11f9bc2027f03eaa88a002bc8f84ebd2}
+      \strng{authornamehash}{11f9bc2027f03eaa88a002bc8f84ebd2}
+      \strng{authorfullhash}{11f9bc2027f03eaa88a002bc8f84ebd2}
+      \field{sortinit}{B}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9781787125445}
+      \field{title}{Mastering Blockchain}
+      \field{year}{2017}
+      \verb{urlraw}
+      \verb https://books.google.it/books?id=dMJbMQAACAAJ
+      \endverb
+      \verb{url}
+      \verb https://books.google.it/books?id=dMJbMQAACAAJ
+      \endverb
+    \endentry
+    \entry{bentov-no-proof-of-work}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=bf97e764974352a8876a094898013b36}{%
+           family={Bentov},
+           familyi={B\bibinitperiod},
+           given={Iddo},
+           giveni={I\bibinitperiod}}}%
+        {{hash=015d26e4871eab7050331efee381386a}{%
+           family={Gabizon},
+           familyi={G\bibinitperiod},
+           given={Ariel},
+           giveni={A\bibinitperiod}}}%
+        {{hash=1fb58f42407e658695f8621e93724173}{%
+           family={Mizrahi},
+           familyi={M\bibinitperiod},
+           given={Alex},
+           giveni={A\bibinitperiod}}}%
+      }
+      \name{editor}{6}{}{%
+        {{hash=d0054c54f53e249b95a1f7e7b702a6bf}{%
+           family={Clark},
+           familyi={C\bibinitperiod},
+           given={Jeremy},
+           giveni={J\bibinitperiod}}}%
+        {{hash=b2dd6953fa6beeacfdd192e8898e9254}{%
+           family={Meiklejohn},
+           familyi={M\bibinitperiod},
+           given={Sarah},
+           giveni={S\bibinitperiod}}}%
+        {{hash=6f53d22676bd6ce0be6712c9af94a243}{%
+           family={Ryan},
+           familyi={R\bibinitperiod},
+           given={Peter\bibnamedelima Y.A.},
+           giveni={P\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
+        {{hash=fbc12ed8b42aaf00a4b9db558de8eac1}{%
+           family={Wallach},
+           familyi={W\bibinitperiod},
+           given={Dan},
+           giveni={D\bibinitperiod}}}%
+        {{hash=654776592c0b2eb9b4782218d5047fbf}{%
+           family={Brenner},
+           familyi={B\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=6d83ab050b739259940399c47a243373}{%
+           family={Rohloff},
+           familyi={R\bibinitperiod},
+           given={Kurt},
+           giveni={K\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{ab30d8b7c090aff13f3bd90b0a9f1b62}
+      \strng{fullhash}{ab30d8b7c090aff13f3bd90b0a9f1b62}
+      \strng{bibnamehash}{ab30d8b7c090aff13f3bd90b0a9f1b62}
+      \strng{authorbibnamehash}{ab30d8b7c090aff13f3bd90b0a9f1b62}
+      \strng{authornamehash}{ab30d8b7c090aff13f3bd90b0a9f1b62}
+      \strng{authorfullhash}{ab30d8b7c090aff13f3bd90b0a9f1b62}
+      \strng{editorbibnamehash}{04b6ec59bb3d71274285dace2daf6ef2}
+      \strng{editornamehash}{04b6ec59bb3d71274285dace2daf6ef2}
+      \strng{editorfullhash}{7866222173aadfa626b2f5ffa43d2198}
+      \field{sortinit}{B}
+      \field{sortinithash}{276475738cc058478c1677046f857703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We study decentralized cryptocurrency protocols in which the participants do not deplete physical scarce resources. Such protocols commonly rely on Proof of Stake, i.e., on mechanisms that extend voting power to the stakeholders of the system. We offer analysis of existing protocols that have a substantial amount of popularity. We then present our novel pure Proof of Stake protocols, and argue that they help in mitigating problems that the existing protocols exhibit.}
+      \field{booktitle}{Financial Cryptography and Data Security}
+      \field{isbn}{978-3-662-53357-4}
+      \field{title}{Cryptocurrencies Without Proof of Work}
+      \field{year}{2016}
+      \field{pages}{142\bibrangedash 157}
+      \range{pages}{16}
+    \endentry
+    \entry{croman-scaling-blockchain}{inproceedings}{}
+      \name{author}{12}{}{%
+        {{hash=60823e0d24e1c990fd8b31e16b3b85d6}{%
+           family={Croman},
+           familyi={C\bibinitperiod},
+           given={Kyle},
+           giveni={K\bibinitperiod}}}%
+        {{hash=606da205069239a342783a6ff7f69711}{%
+           family={Decker},
+           familyi={D\bibinitperiod},
+           given={Christian},
+           giveni={C\bibinitperiod}}}%
+        {{hash=183ef43dada4cf2ec046a03670a785d7}{%
+           family={Eyal},
+           familyi={E\bibinitperiod},
+           given={Ittay},
+           giveni={I\bibinitperiod}}}%
+        {{hash=03fc6461bf4f1bf9411c498a28f8c8e6}{%
+           family={Gencer},
+           familyi={G\bibinitperiod},
+           given={Adem\bibnamedelima Efe},
+           giveni={A\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=c865ec9228baea73d3d6c2c3faa7bcc7}{%
+           family={Juels},
+           familyi={J\bibinitperiod},
+           given={Ari},
+           giveni={A\bibinitperiod}}}%
+        {{hash=891826ce375183822ff8ec8a81b87565}{%
+           family={Kosba},
+           familyi={K\bibinitperiod},
+           given={Ahmed},
+           giveni={A\bibinitperiod}}}%
+        {{hash=403caa7edb7a2770a6a678a46079869e}{%
+           family={Miller},
+           familyi={M\bibinitperiod},
+           given={Andrew},
+           giveni={A\bibinitperiod}}}%
+        {{hash=bd8f6be2fb6f2a6af3303717f7903800}{%
+           family={Saxena},
+           familyi={S\bibinitperiod},
+           given={Prateek},
+           giveni={P\bibinitperiod}}}%
+        {{hash=edb728c71cdde40b9afd81bb8c9e733c}{%
+           family={Shi},
+           familyi={S\bibinitperiod},
+           given={Elaine},
+           giveni={E\bibinitperiod}}}%
+        {{hash=97174e4b1d32c0372fa5852180440d20}{%
+           family={G{ü}n\bibnamedelima Sirer},
+           familyi={G\bibinitperiod\bibinitdelim S\bibinitperiod},
+           given={Emin},
+           giveni={E\bibinitperiod}}}%
+        {{hash=d458d5f9b64652055bd81d57e4777b22}{%
+           family={Song},
+           familyi={S\bibinitperiod},
+           given={Dawn},
+           giveni={D\bibinitperiod}}}%
+        {{hash=5c162b9d03517a96680df0dc8d8263eb}{%
+           family={Wattenhofer},
+           familyi={W\bibinitperiod},
+           given={Roger},
+           giveni={R\bibinitperiod}}}%
+      }
+      \name{editor}{6}{}{%
+        {{hash=d0054c54f53e249b95a1f7e7b702a6bf}{%
+           family={Clark},
+           familyi={C\bibinitperiod},
+           given={Jeremy},
+           giveni={J\bibinitperiod}}}%
+        {{hash=b2dd6953fa6beeacfdd192e8898e9254}{%
+           family={Meiklejohn},
+           familyi={M\bibinitperiod},
+           given={Sarah},
+           giveni={S\bibinitperiod}}}%
+        {{hash=6f53d22676bd6ce0be6712c9af94a243}{%
+           family={Ryan},
+           familyi={R\bibinitperiod},
+           given={Peter\bibnamedelima Y.A.},
+           giveni={P\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
+        {{hash=fbc12ed8b42aaf00a4b9db558de8eac1}{%
+           family={Wallach},
+           familyi={W\bibinitperiod},
+           given={Dan},
+           giveni={D\bibinitperiod}}}%
+        {{hash=654776592c0b2eb9b4782218d5047fbf}{%
+           family={Brenner},
+           familyi={B\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=6d83ab050b739259940399c47a243373}{%
+           family={Rohloff},
+           familyi={R\bibinitperiod},
+           given={Kurt},
+           giveni={K\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{5f5654d5fed163047d8749e38caa5d67}
+      \strng{fullhash}{9e22f87452e1b348862f0583129c1334}
+      \strng{bibnamehash}{5f5654d5fed163047d8749e38caa5d67}
+      \strng{authorbibnamehash}{5f5654d5fed163047d8749e38caa5d67}
+      \strng{authornamehash}{5f5654d5fed163047d8749e38caa5d67}
+      \strng{authorfullhash}{9e22f87452e1b348862f0583129c1334}
+      \strng{editorbibnamehash}{04b6ec59bb3d71274285dace2daf6ef2}
+      \strng{editornamehash}{04b6ec59bb3d71274285dace2daf6ef2}
+      \strng{editorfullhash}{7866222173aadfa626b2f5ffa43d2198}
+      \field{sortinit}{C}
+      \field{sortinithash}{963e9d84a3da2344e8833203de5aed05}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The increasing popularity of blockchain-based cryptocurrencies has made scalability a primary and urgent concern. We analyze how fundamental and circumstantial bottlenecks in Bitcoin limit the ability of its current peer-to-peer overlay network to support substantially higher throughputs and lower latencies. Our results suggest that reparameterization of block size and intervals should be viewed only as a first increment toward achieving next-generation, high-load blockchain protocols, and major advances will additionally require a basic rethinking of technical approaches. We offer a structured perspective on the design space for such approaches. Within this perspective, we enumerate and briefly discuss a number of recently proposed protocol ideas and offer several new ideas and open challenges.}
+      \field{booktitle}{Financial Cryptography and Data Security}
+      \field{isbn}{978-3-662-53357-4}
+      \field{title}{On Scaling Decentralized Blockchains}
+      \field{year}{2016}
+      \field{pages}{106\bibrangedash 125}
+      \range{pages}{20}
+    \endentry
+    \entry{heilman-blindly-signed-contracts}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=8510ae7614a46d37ea30eeaec9ecc975}{%
+           family={Heilman},
+           familyi={H\bibinitperiod},
+           given={Ethan},
+           giveni={E\bibinitperiod}}}%
+        {{hash=914f4cd129861491d2275878bbb4ac67}{%
+           family={Baldimtsi},
+           familyi={B\bibinitperiod},
+           given={Foteini},
+           giveni={F\bibinitperiod}}}%
+        {{hash=44afe10a627ebeab3fa6005ad265ca01}{%
+           family={Goldberg},
+           familyi={G\bibinitperiod},
+           given={Sharon},
+           giveni={S\bibinitperiod}}}%
+      }
+      \name{editor}{6}{}{%
+        {{hash=d0054c54f53e249b95a1f7e7b702a6bf}{%
+           family={Clark},
+           familyi={C\bibinitperiod},
+           given={Jeremy},
+           giveni={J\bibinitperiod}}}%
+        {{hash=b2dd6953fa6beeacfdd192e8898e9254}{%
+           family={Meiklejohn},
+           familyi={M\bibinitperiod},
+           given={Sarah},
+           giveni={S\bibinitperiod}}}%
+        {{hash=6f53d22676bd6ce0be6712c9af94a243}{%
+           family={Ryan},
+           familyi={R\bibinitperiod},
+           given={Peter\bibnamedelima Y.A.},
+           giveni={P\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
+        {{hash=fbc12ed8b42aaf00a4b9db558de8eac1}{%
+           family={Wallach},
+           familyi={W\bibinitperiod},
+           given={Dan},
+           giveni={D\bibinitperiod}}}%
+        {{hash=654776592c0b2eb9b4782218d5047fbf}{%
+           family={Brenner},
+           familyi={B\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=6d83ab050b739259940399c47a243373}{%
+           family={Rohloff},
+           familyi={R\bibinitperiod},
+           given={Kurt},
+           giveni={K\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Berlin, Heidelberg}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin Heidelberg}%
+      }
+      \strng{namehash}{8e44cf78e11c412fb1ba0f309c0889e0}
+      \strng{fullhash}{8e44cf78e11c412fb1ba0f309c0889e0}
+      \strng{bibnamehash}{8e44cf78e11c412fb1ba0f309c0889e0}
+      \strng{authorbibnamehash}{8e44cf78e11c412fb1ba0f309c0889e0}
+      \strng{authornamehash}{8e44cf78e11c412fb1ba0f309c0889e0}
+      \strng{authorfullhash}{8e44cf78e11c412fb1ba0f309c0889e0}
+      \strng{editorbibnamehash}{04b6ec59bb3d71274285dace2daf6ef2}
+      \strng{editornamehash}{04b6ec59bb3d71274285dace2daf6ef2}
+      \strng{editorfullhash}{7866222173aadfa626b2f5ffa43d2198}
+      \field{sortinit}{H}
+      \field{sortinithash}{5f15a7bc777ad49ff15aa4d2831b1681}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Although Bitcoin is often perceived to be an anonymous currency, research has shown that a user's Bitcoin transactions can be linked to compromise the user's anonymity. We present solutions to the anonymity problem for both transactions on Bitcoin's blockchain and off the blockchain (in so called micropayment channel networks). We use an untrusted third party to issue anonymous vouchers which users redeem for Bitcoin. Blind signatures and Bitcoin transaction contracts (aka smart contracts) ensure the anonymity and fairness during the bitcoin {\$}{\$}{\backslash}leftrightarrow {\$}{\$} voucher exchange. Our schemes are practical, secure and anonymous.}
+      \field{booktitle}{Financial Cryptography and Data Security}
+      \field{isbn}{978-3-662-53357-4}
+      \field{title}{Blindly Signed Contracts: Anonymous On-Blockchain and Off-Blockchain Bitcoin Transactions}
+      \field{year}{2016}
+      \field{pages}{43\bibrangedash 60}
+      \range{pages}{18}
+    \endentry
+    \entry{karame2016bitcoin}{book}{}
+      \name{author}{2}{}{%
+        {{hash=2db1f0d309a71292d6328bed622fa2fe}{%
+           family={Karame},
+           familyi={K\bibinitperiod},
+           given={G.},
+           giveni={G\bibinitperiod}}}%
+        {{hash=b82d19b8c272500d426cacaecdd0dafb}{%
+           family={Androulaki},
+           familyi={A\bibinitperiod},
+           given={E.},
+           giveni={E\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Artech House}%
+      }
+      \strng{namehash}{98ed9d9ca51ca1a10115e5c4443093e3}
+      \strng{fullhash}{98ed9d9ca51ca1a10115e5c4443093e3}
+      \strng{bibnamehash}{98ed9d9ca51ca1a10115e5c4443093e3}
+      \strng{authorbibnamehash}{98ed9d9ca51ca1a10115e5c4443093e3}
+      \strng{authornamehash}{98ed9d9ca51ca1a10115e5c4443093e3}
+      \strng{authorfullhash}{98ed9d9ca51ca1a10115e5c4443093e3}
+      \field{sortinit}{K}
+      \field{sortinithash}{9fd838a31ba64d981e8f44562bd33f89}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9781630810139}
+      \field{series}{Artech House information security and privacy series}
+      \field{title}{Bitcoin and Blockchain Security}
+      \field{year}{2016}
+      \verb{urlraw}
+      \verb https://books.google.it/books?id=b\_nwjwEACAAJ
+      \endverb
+      \verb{url}
+      \verb https://books.google.it/books?id=b%5C_nwjwEACAAJ
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
