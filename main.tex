@@ -12,7 +12,14 @@
 \usepackage{textcomp}
 \usepackage{pdfpages}
 \usepackage[colorlinks]{hyperref}
-\hypersetup{urlcolor=blue}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={black},
+    urlcolor={blue}
+}
 
 
 
@@ -48,12 +55,29 @@
 \renewcommand{\labelenumii}{\theenumii}
 \renewcommand{\theenumii}{\theenumi.\arabic{enumii}.}
 
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\fancyhf{}
+\fancyhead[LE,RO]{\bfseries\thepage}
+\fancyhead[LO]{\bfseries\rightmark}
+\fancyhead[RE]{\bfseries\leftmark}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+\addtolength{\headheight}{0.5pt}
+\fancypagestyle{plain}{%
+	\fancyhead{}
+	\renewcommand{\headrulewidth}{0pt}
+}
+
 \title{Blockchain and cryptocurrencies}
 \date{}
 
+
 \begin{document}
 
-\maketitle
+  \maketitle
+  \tableofcontents
 
   \begin{enumerate}
     \item Preliminary concepts at the basis of Blockchain \cite{bambara2018blockchain},\cite{bashir2017mastering}
@@ -98,7 +122,7 @@
       \item Considerations on user anonymity in Bitcoin
       \item Possible attacks
       \item How to enhance privacy in Bitcoin (explanation of mixing services
-      + reference \cite{heilman-blindly-signed-contracts})
+      + reference \cite{heilman-blindly-signed-contracts},\cite{saxena-bitcoin-anonymity})
     \end{itemize}
 
     \item Bitcoin blockchain scalability
@@ -142,6 +166,10 @@
 %    (Something similar to the application development shown in reference \cite{bambara2018blockchain})
 %    }
   \end{enumerate}
+
+  \include{cryptography-introduction}
+  \include{blockchain-introduction}
+
 
   \printbibliography
 
