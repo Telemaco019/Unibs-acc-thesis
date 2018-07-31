@@ -1,5 +1,8 @@
-\section{Preliminary cryptographic concepts}
+\section{Introductory concepts}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% *** FIRST SUB-SECTION ***
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Hash functions}
 A hash function is a fuction that maps an arbitrary long input string to a fixed
 length output string. Let $h$ refer to an hash function of length $n$:
@@ -109,9 +112,9 @@ curve cryptography.
 \subsubsection{Key pair generation}
 \begin{enumerate}
   \item Define an elliptic curve $E$ with modulus $P$, coefficients $a$ and $b$ and a
-  generator point $G$ that forms a cyclic group of order $p$, with $p$ prime
+  generator point $A$ that forms a cyclic group of order $p$, with $p$ prime
   \item Choose a random integer $d$ so that ${0 < d < q}$
-  \item Compute the public key $B$ so that ${B = d A}$
+  \item Compute the public key $B$ so that ${B = d  A}$
 \end{enumerate}
 The public key is the sextuple ${K_{pb} = (p,a,b,q,A,B)}$, while the private key
 is the value of $d$ randomly chosen in Step 2: ${K_{pr} = d}$
@@ -124,5 +127,115 @@ is the value of $d$ randomly chosen in Step 2: ${K_{pr} = d}$
   \item Compute ${R = K_e A}$
   \item Initialize a variable $r$ with the x coordinate value of the point $R$
   \item The signature on the message $m$ can be calculated as follow:
-  \[{S=(h(m)+dr)K_e^{-1}\mod q}\]
+  \[{S=(h(m)+d r)K_e^{-1}\bmod q}\]
+  where $h(m)$ is the hash of the message $m$. The signature is the pair ${(S,r)}$.
 \end{enumerate}
+
+\subsubsection{Signature verification}
+A signature can be verified as follow:
+\begin{enumerate}
+  \item Compute ${w=S^{-1}\bmod q}$
+  \item Compute ${u_1=w  h(m)\bmod q}$
+  \item Compute ${u_2=w  r \bmod q}$
+  \item Calculate the point ${P=u_1  A + u_2  B}$
+  \item The signature ${(S,r)}$ is accepted as a valid signature only if:
+   \[{X_P=r \bmod q}\]
+   where $X_P$ is the x-coordinate of the point P calculated in Step 4
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% *** SECOND SUB-SECTION ***
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Distributed systems}
+\subsubsection{What is a distributed system}
+Blockchain at its core is basically a distributed system, therefore it is essential
+to understand distributed systems before understanding Blockchain.
+
+A distributed system is a network that consists of autonomous nodes, connected
+using a distribution middleware, which act in a coordinated way (passing message
+to each other) in order to achieve a common outcome and that can be seen by the
+user as a single logical platform.
+
+A node is basically a computer that can be seen as an individual player inside
+the distributed system and it can be honest, faulty or malicious. Nodes that
+have an arbitrary behavior (which can be malicious) are called \emph{Byzantine nodes}.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.6\linewidth]{img/distributed-system.png}
+	\caption{design of a distributed system. N4 is a Byzantine node while L1 is a
+  broken/slow network link}
+	\label{fig:distributed-system}
+\end{figure}
+
+The main challenge in a distributed system is the fault tollerance: even if some
+of the nodes fault or links break, the system should tollerate this and should
+continue to work correctly. There are essentially two types of fault: a simple node
+crash or the exhibition of malicious or inconsistent behavior arbitrarily. The
+second case is the most difficult to deal with and it's called \emph{Byzantine
+fault}. In order to achieve fault tolerance, replication is usually used.
+
+The desired properties of a distributed system are the following:
+\begin{itemize}
+  \item \textbf{Consistency}: all the nodes have the same lates available copy of
+  the data. It is usually achieved through consensus algorithms which ensure that
+  all nodes have the same copy of the data
+  \item \textbf{Availability}: the system is always working and responding to the
+  input requests without any failures
+  \item \textbf{Partition tolerance}: if a group of nodes fails the distributed
+  system still continues to operate correctly
+\end{itemize}
+There is however a theorem, the \emph{CAP theorem}, which states (and proves)
+that a distributed system cannot have all these three properties at the same time.
+In particular, the theorem states that in the presence of a network partition (due
+for example to a link failure) one has to choose between consistency and availability.
+
+
+\subsubsection{The Byzantine Generals Problem (BGP)}
+The Byzantine Generals Problem (BGP) is a problem described by Leslie Lamport
+\cite{lamport1982byzantine} in which a group of generals, each one leading a portion
+on the Byzantine army, are surrounding a city and they have to formulate a plan
+for attacking it (simplifying, they have to decide wheter to attack or retreat
+from the city). Their only communication way is the messenger and they have to
+agree on a common decision. The issue is that some of the generals may be
+traitors trying to prevent the loyal generals from reaching an agreement by
+communicating a misleading message. The generals need an algorithm to guarantee
+that all the generals agree on the same plan (attack or retreat) regardless of what
+traitors generals do. Loyal generals will always do what the algorithm says they
+should, while the traitors may do anything they wish.
+
+As an analogy with distributed systems:
+\begin{itemize}
+  \item generals can be considered as nodes
+  \item traitors can be considered Byzantine nodes
+  \item the messenger can be seen as the channels of communication between the generals.
+\end{itemize}
+
+\subsubsection{Consensus}
+Consensus is the process of agreement between untrusted nodes on a data value.
+When the involved nodes are only two it's really easy to achieve consensus, while
+in a distributed system with more than two nodes it is really hard (in this case
+the process of achieving consensus is called \emph{distributed consensus}).
+
+A consensus mechanism must meet these requirements:
+\begin{itemize}
+  \item \textbf{Agreement}: all the nodes must agree on the same value
+  \item \textbf{Termination}: the execution of the consensus process must come
+  to an end and the nodes have to reach a decision
+  \item \textbf{Validity}: the agreed value must have been proposed by at least
+  one honest node
+  \item \textbf{Fault tolerance}: the consensus algorithm must be able to run even
+  in the presence of one or more Byzantine (faulty or malicious) nodes
+  \item \textbf{Integrity}: the nodes make decisions only once in a single
+  consensus cycle (in a single cycle a node cannot make the decision more than once).
+\end{itemize}
