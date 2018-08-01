@@ -201,6 +201,7 @@ In particular, the theorem states that in the presence of a network partition (d
 for example to a link failure) one has to choose between consistency and availability.
 
 
+
 \subsubsection{The Byzantine Generals Problem (BGP)}
 The Byzantine Generals Problem (BGP) is a problem described by Leslie Lamport
 \cite{lamport1982byzantine} in which a group of generals, each one leading a portion
@@ -222,21 +223,18 @@ As an analogy with distributed systems:
 \end{itemize}
 
 
-\subsubsection{Byzantine Fault Tolerance (BFT)}
-A distributed system is said to be Byzantine Fault Tolerant when it tolerates a
-the class of failures that belong to the Byzantine Generals’ Problem \cite{byzantine-konstantopoulos}.
-In other words, a Byzantine Failure is a fault that presents different symptoms
-to different observers and for this reason BFT is really difficult to achieve. 
 
 \subsubsection{Consensus}
 Consensus is the process of agreement between untrusted nodes on a data value.
 When the involved nodes are only two it's really easy to achieve consensus, while
 in a distributed system with more than two nodes it is really hard (in this case
 the process of achieving consensus is called \emph{distributed consensus}).
+The data valued agreed is the majority value, therefore the value proposed by
+51\% of the nodes.
 
 A consensus mechanism must meet these requirements:
 \begin{itemize}
-  \item \textbf{Agreement}: all the nodes must agree on the same value
+  \item \textbf{Agreement}: all the correct (non faulty/malicious) nodes must agree on the same value
   \item \textbf{Termination}: the execution of the consensus process must come
   to an end and the nodes have to reach a decision
   \item \textbf{Validity}: the agreed value must have been proposed by at least
@@ -246,3 +244,14 @@ A consensus mechanism must meet these requirements:
   \item \textbf{Integrity}: the nodes make decisions only once in a single
   consensus cycle (in a single cycle a node cannot make the decision more than once).
 \end{itemize}
+
+
+
+\subsubsection{Byzantine Fault Tolerance (BFT)}
+A distributed system is said to be Byzantine Fault Tolerant when it tolerates a
+the class of failures that belong to the Byzantine Generals’ Problem \cite{byzantine-konstantopoulos}.
+In other words, a Byzantine Failure is a fault that presents different symptoms
+to different observers and for this reason BFT is really difficult to achieve.
+
+For example, a Byzantine Fault could be a node acting as a ``traitors'' and
+generating arbitrary data during the process of reaching consensus.
