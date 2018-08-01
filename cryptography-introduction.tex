@@ -13,9 +13,9 @@ length output string. Let $h$ refer to an hash function of length $n$:
 
 $m$ is usually called ``the message'', while $d$ is usually called ``the digest``
 and it can be seen as a compact representation of m. The length of $d$ is the
-length of the hash.
 
 Hash functions are usually used to provide data integrity and they're also used to
+length of the hash.
 construct other cryptographic primitives such as MACs and digital signatures.
 
 \subsubsection{Desired properties}
@@ -185,7 +185,7 @@ crash or the exhibition of malicious or inconsistent behavior arbitrarily. The
 second case is the most difficult to deal with and it's called \emph{Byzantine
 fault}. In order to achieve fault tolerance, replication is usually used.
 
-The desired properties of a distributed system are the following:
+Desired properties of a distributed system are the following:
 \begin{itemize}
   \item \textbf{Consistency}: all the nodes have the same lates available copy of
   the data. It is usually achieved through consensus algorithms which ensure that
