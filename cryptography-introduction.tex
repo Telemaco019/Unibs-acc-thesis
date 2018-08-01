@@ -221,6 +221,13 @@ As an analogy with distributed systems:
   \item the messenger can be seen as the channels of communication between the generals.
 \end{itemize}
 
+
+\subsubsection{Byzantine Fault Tolerance (BFT)}
+A distributed system is said to be Byzantine Fault Tolerant when it tolerates a
+the class of failures that belong to the Byzantine Generals’ Problem \cite{byzantine-konstantopoulos}.
+In other words, a Byzantine Failure is a fault that presents different symptoms
+to different observers and for this reason BFT is really difficult to achieve. 
+
 \subsubsection{Consensus}
 Consensus is the process of agreement between untrusted nodes on a data value.
 When the involved nodes are only two it's really easy to achieve consensus, while

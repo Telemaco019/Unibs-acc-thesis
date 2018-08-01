@@ -14,12 +14,31 @@ permanent way.
 
 
 
+
+
+
+
+
+
 \subsection{Blockchain features}
-Here's a summary of Blockchain features:
+
+\subsubsection*{Decentralization}
+This is the core feature of Blockchain. Thanks to decentralization there's no
+need of a central trusted entity which stores the data and validates the
+transaction, since the same copy of the Blockchain is stored by every node and
+the validation of transaction is achieved through consensus.
+
 \subsubsection*{Distributed consensus}
-Blockchain have a high Byzantine fault tolerance and allows to achieve
+Blockchain have a high Byzantine Fault Tolerance\footnote{without BFT, a peer
+would able to transmit and post false transactions} and allows to achieve
 distributed consensus, therefore allows to have a single version of a data value
 agreed by all parties without requiring a central authority.
+
+\subsubsection*{High availability}
+Blockchain is based on a peer-to-peer network of thousands of nodes and data is
+replicated on each node, therefore the whole system is highly available since even
+if one or more nodes fail the whole network can continue to work correctly.
+
 
 \subsubsection*{Immutability}
 All the data stored in a blockchain is immutable: once a block has been added to
@@ -42,7 +61,17 @@ Blockchain security is due especially to its distributed nature, since for an
 attacker would be a lot easier to tamper with data if it was stored on a single
 central entity.
 
-\subsubsection*{Uniqueneess}
+\subsubsection*{Uniqueness}
+In Blockchain every transaction is unique and has not been spent already.
+This is especially usefull in cryptocurrencies applications of Blockchain,
+where avoidance of double spending is a key requirement.
+
+
+
+
+
+
+
 
 
 
@@ -111,3 +140,13 @@ smart contracts}).
 \subsubsection*{Nodes}
 A node is an active entity which stores a copy of the blockchain and can perform
 and/or valide transactions (following a consensus protocol, e.g. the Proof of Work).
+
+
+
+
+
+
+
+
+
+\subparagraph{Consensus in Blockchain}
