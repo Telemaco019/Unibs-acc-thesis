@@ -150,14 +150,78 @@ and/or valide transactions (following a consensus protocol, e.g. the Proof of Wo
 
 
 \subsection{Consensus in Blockchain}
+Consensus in Blockchain is required to establish wheter the ledger itself or
+a piece of information submitted to it are valid or not. In analogy with the
+Byzantine Generals Problem, the ``generals/lieutenants'' are the nodes partecipating
+in the blockchain, the messangers are the network used by the nodes for communicating
+and the ``traitors'' are the nodes which try to tamper with the data by submitting
+for example false data or by modifying the existing blocks.
+
+In today Blockchain implementations are used four main consensus mechanisms:
+the Pratical Byzantine Fault Tolerance (PBFT), the Proof of Work (PoW),
+the Proof of Stake (PoS) and the Delegated Proof of Stake (DPoS).
+
+\subsubsection{Practical Byzantine Fault Tolerance Algorithm (PBFT)}
+The PBFT is an algorithm proposed by M. Castro and B. Liskov as an optimized solution
+to the Byzantine Generals Problem (more in general, it is an efficiet replication
+algorithm that is able to tolerate Byzantine faults \cite{castro1999practical}).
+
+Simplifying, the algorithm works as follows \cite{blockchain-consensus-medium},
+\cite{castro1999practical}: each ``general'' maintains an
+internal state and when he receives a message, he uses the message in
+conjunction with his internal state to run a computation, which tells to the
+general what to think about the message in question.
+After reaching his individual decision about the message, the general shares that
+decision with all the other ``generals'' in the system.
+A consensus decision is determined based on the total decisions submitted by all
+generals.
 
 
+The advantage of this method is that is very efficient and allows to establish
+consensus with less effort than other methods. The main disadvantage is that it
+precludes the anonimity of users on the system.
 
+Two example of Blockchains which use PBFT are Hyperledger and Ripple.
 
+\subsubsection{Proof of Work (PoW)}
+Contrary to the PBFT, Proof of Work doesn't require all nodes to submit their
+individual conclusions in order for a consensus to be reached. Instead, this
+mechanism relies on proof that enough computational resources have been spent
+before proposing a value for acceptance by the network: only a single node (the first one)
+announces its conclusions about the submitted information and those conclusions
+can then be independently verified by all other nodes in the system.
 
+This is the consensus scheme used by Bitcoin (see chapter \ref{}).
 
+\subsubsection{Proof of Stake (PoS)}
+This consensus mechanism is similar to the PoW but in this case the network
+selects an individual to confirm the validity of new information submitted to
+the ledger based on the nodes' stake in the network. Therefore, instead of any
+individual attempting to carry out an intensive computation in order to propose
+a value, the network itself runs a lottery based on the nodes' stake to decide
+who will announce the results: the more stake one node has, the higher the probability
+to be chosen is.
 
+The main idea behind the PoS mechanism is that if a node that has enough stake in
+the system it means that it has invested enough in the system so that any
+malicious attempt would outweigh the benefits of performing an attack on the
+system.
 
+The main problem of this approach is that the system rewards moore those who
+already are most deeply involved in the network leading consequently to an
+increasingly centralized system.
+
+This mechanism has been adopted by Peercoin.
+
+\subsubsection{Delegated Proof of Stake (DPoS)}
+This method is an evolution of the PoS whereby each node that has stake in the
+system can choose an entity to represent their portion of stake in the system
+by voting. The more stake one node has, the higher is the weight of is vote.
+The entity with most votes (weighted) becomes a delegate which validates transactions
+(and collects rewards for doing so).
+% What if the delegate is incorrect? The nodes stop voting it and change delegate
+
+This method is adopted by Bitshares.
 
 \subsection{Types of Blockchain}
 Blockchain can be distinguished into three different types, each one charaterized
@@ -173,4 +237,20 @@ Blockchain, reward with cryptocurrency miners who join the network.
 
 Public Blockchains have two main disadvantages: the substantial amount of
 computational power required to maintain a distributed ledger at a large scale
-and the lack of privacy for the transactions stored inside the blockchain.  
+and the lack of privacy for the transactions stored inside the blockchain.
+
+\subsubsection*{Private Blockchain}
+Private blockchains are private and open only to an organization or a group of
+individuals. Participants need to obtain an invitation or permission to join the
+Blockchain and mantain the ledger.
+Usually the network is permissioned: there are restrictions on who
+is allowed to participate in the network, and only in certain transactions.
+
+An example of private blockchain with permissioned network is the Linux
+Foundation's Hyperledger Fabric \cite{hyperledger-fabric}.
+
+\subsubsection*{Consortium Blockchain}
+Consortium blockchains are blockchains where the consensus process is controlled
+by a preselected set of nodes (e.g. a consortium of organization, each of which
+operates a node). The right to read the blockchain might be public or permissioned.
+An example of consortium blockchain is R3 \cite{R3}, which is based on the platform Corda.

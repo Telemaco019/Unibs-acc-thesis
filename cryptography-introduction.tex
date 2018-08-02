@@ -202,34 +202,12 @@ for example to a link failure) one has to choose between consistency and availab
 
 
 
-\subsubsection{The Byzantine Generals Problem (BGP)}
-The Byzantine Generals Problem (BGP) is a problem described by Leslie Lamport
-\cite{lamport1982byzantine} in which a group of generals, each one leading a portion
-on the Byzantine army, are surrounding a city and they have to formulate a plan
-for attacking it (simplifying, they have to decide wheter to attack or retreat
-from the city). Their only communication way is the messenger and they have to
-agree on a common decision. The issue is that some of the generals may be
-traitors trying to prevent the loyal generals from reaching an agreement by
-communicating a misleading message. The generals need an algorithm to guarantee
-that all the generals agree on the same plan (attack or retreat) regardless of what
-traitors generals do. Loyal generals will always do what the algorithm says they
-should, while the traitors may do anything they wish.
-
-As an analogy with distributed systems:
-\begin{itemize}
-  \item generals can be considered as nodes
-  \item traitors can be considered Byzantine nodes
-  \item the messenger can be seen as the channels of communication between the generals.
-\end{itemize}
-
-
-
 \subsubsection{Consensus}
 Consensus is the process of agreement between untrusted nodes on a data value.
 When the involved nodes are only two it's really easy to achieve consensus, while
 in a distributed system with more than two nodes it is really hard (in this case
 the process of achieving consensus is called \emph{distributed consensus}).
-The data valued agreed is the majority value, therefore the value proposed by
+The data value agreed is the majority value, therefore the value proposed by
 51\% of the nodes.
 
 A consensus mechanism must meet these requirements:
@@ -244,6 +222,54 @@ A consensus mechanism must meet these requirements:
   \item \textbf{Integrity}: the nodes make decisions only once in a single
   consensus cycle (in a single cycle a node cannot make the decision more than once).
 \end{itemize}
+
+
+
+
+\subsubsection{The Byzantine Generals Problem (BGP)}
+The Byzantine Generals Problem (BGP) is a problem described by Leslie Lamport
+\cite{lamport1982byzantine} in which a group of generals are surrounding a city
+and they have to formulate a plan for attacking it (simplifying, they have to
+decide wheter to attack or retreat from the city).
+Their only communication way is the messenger and they have to
+agree on a common decision. The issue is that some of the generals may be
+traitors trying to prevent the loyal generals from reaching an agreement by
+communicating a misleading message. The generals need an algorithm to guarantee
+that all the loyal generals agree on the same plan (attack or retreat) regardless
+of what traitors generals do. Loyal generals will always do what the algorithm says they
+should, while the traitors may do anything they wish.
+
+As an analogy with distributed systems:
+\begin{itemize}
+  \item generals can be considered as nodes
+  \item traitors can be considered Byzantine nodes
+  \item the messenger can be seen as the channels of communication between the generals.
+\end{itemize}
+
+The problem can be see in term of generals-lieutenants: a General makes the
+decision to attack or retreat, and must communicate the decision to his lieutenants.
+Both the lieutenants and the general can be traitors: they cannot be relied upon
+to properly communicate orders (traitor generals) and they may actively alter
+messages in an attempt to subvert the process (traitor lieutenants).
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=1\linewidth]{img/byzantine-generals-problem.png}
+	\caption{page 3 of the original Lamport's paper \cite{lamport1982byzantine}}
+	\label{fig:byzantine-generals-problem}
+\end{figure}
+
+To solve this problem, Lamport proposed an algorithm for reaching consensus that
+assumes that there are $m$ traitors and $3m$ actors. This implies that the
+algorithm can reach consensus only if $2/3$ of the actors are honest: if the
+traitors are more than $1/3$, consensus cannot be reached. The goal is
+to make the majority of the lieutenants choose the same decision (not a specic one).
+The original algorithm proposed by Lamport is shown in figure \ref{fig:lamport-byzantine-algorithm}.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=1\linewidth]{img/lamport-byzantine-algorithm.png}
+	\caption{Lamport's algorithm for reaching consensus}
+	\label{fig:lamport-byzantine-algorithm}
+\end{figure}
 
 
 
