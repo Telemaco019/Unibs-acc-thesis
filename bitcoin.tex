@@ -31,7 +31,7 @@ However, unlike traditional currencies, bitcoins are enterely virtual and thus
 there are no physical coins. In particular, there are not even virtual coins since
 they are implied in the transactions that send value from a sender to a receiver:
 users have private keys which allow them to prove the ownership of bitcoins and
-sign transactions in order to unlock the value and transferring it to another user.
+sign transactions in order to unlock the value and transfer it to another user.
 These keys are the only requirement for spending bitcoins and therefore they are
 protected in wallets stored in the user's devices.
 
@@ -54,3 +54,52 @@ protected in wallets stored in the user's devices.
 % *** SECOND SUB-SECTION ***
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Bitcoin protocol specification}
+\subsubsection{The reference implementation}
+Bitcoin is an open source project and is developed by a community of volunteers.
+The first implementation was released by Satoshi Nakamato in 2008 (the only member
+of the development community at the time). That implementation during the years
+has been heavily modified and improved evolving into what is known as \emph{Bitcoin
+Core}, which is now the reference implementation of the Bitcoin system. This
+implementation is considered the authoritative one and it specifies how each
+part of the system has to be implemented.
+
+
+\subsubsection{Keys and Addresses}
+As mentioned in this chapter introduction, ownership of bitcoin is established
+through digital keys, bitcoin addresses, and digital signatures.
+
+In order to be included in the Bitcoin blockchain, transactions require a valid
+signature which can be generated only with a private (secret) key. The private
+key therefore proves the ownership of bitcoins by signing transactions and
+transferrig value from a user to another. Keys come in pairs consisting of a
+private (secret) key and a public key and they are generated through Elliptic
+Curve Cryptography. In analogy with the traditional banking,the public key can be
+seen as the bank account number while the private key as the secret PIN (or the
+signature on a check) which provides control over the account by allowing to unlock
+the value and transferring it to other people.
+
+\paragraph{Adresses}
+An address is unique string of digits and characters which identify the originator
+and/or the destination of a transaction. Addresses are derived from public keys
+through one-way cryptographic hashing in order to obtain the public key fingerprint.
+In particular, a Bitcoin address is derived by hashing the user's public key it twice,
+first with the SHA-256 algorithm and then with RIPEMD160. This produces a 160-bit
+hash, which is then prefixed with a version number and finally encoded using
+Base58Check encoding. The final result is a 26-35 chatacters string which begins
+with 1 (public key address) or 3 (pay-to-script-hash address) and it looks like the
+the string below:
+\begin{center}
+  \texttt{1J7mdg5rbQyUHENYdx39WVWK7fsLpEoXZy}
+\end{center}
+
+\paragraph{Base58 and Base58Check}
+Base58 is an encoding scheme which allows to represent long numbers as alphanumeric
+strings. It is a subset of Base64, which represent numbers using 26 lowercase
+letters, 26 capital letters, 10 numerals, and 2 more ``special'' characters and
+it's usually used to encode email attachments. In particular, Base58 is Base64
+without all that characters that are frequently mistaken for one another, namely
+it is Base64 without the 0 (number zero), O (capital o), l (lower L), I (capital i)
+and the two special characters. Base58Check} is a Base58 encoding with
+an additional checksum of four bytes added to the end of the data that is being
+encoded which prevents a mistyped bitcoin address from being accepted by the wallet
+software as a valid destination.
