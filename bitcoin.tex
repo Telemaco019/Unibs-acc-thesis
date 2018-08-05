@@ -53,12 +53,63 @@ part of the system has to be implemented.
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% *** THIRD SUB-SECTION ***
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Scripts} Bitcoin uses a simple stack-based programming language
+called ``Script'' for describing how bitcoins can be spent and transferred in
+order to extend flexibility and support different types of transactions.
+Essentially, a Bitcoin script a list of instructions recorded with each
+transaction that describe how the next person wanting to spend the Bitcoins
+being transferred can gain access to them \cite{script-bitcoin-wiki}.
+
+Script is a very simple language and it's not Turing complete. The language has
+been deliberately designed limiting its operators (it doesn't have loop operators
+and complex control flow different than conditional control flow) in order to
+avoid abuses of the scripts for conducting denial of service attacks, since the
+transaction scripts has to be executed on each node of the network.
+
+Script supports a number of function called ``Opcodes'', uses a reverse polish
+notation in which every operand is followed by its operators and it's evaluated
+from the left to the right using a LIFO stack. Table \ref{tab:opcode-example} shows the most common
+Opcodes while figure \ref{fig:script-example} shows an example of Script program.
+
+
+
+\begin{table}[!ht]
+\footnotesize
+\begin{tabularx}{\textwidth}{l X}
+\hline
+\textbf{Opcode} & \textbf{Description}  \\\hline
+OP\_CHECKSIG & This takes a public key and signature and validates the signature of the hash of the transaction. If it matches, then TRUE is pushed onto the stack; otherwise, FALSE is pushed.  \\
+\\
+OP\_EQUAL & This returns 1 if the inputs are exactly equal; otherwise, 0 is returned.  \\
+\\
+OP\_DUP & This duplicates the top item in the stack.  \\
+\\
+OP\_HASH160 & The input is hashed twice, first with SHA-256 and then with RIPEMD-160. \\
+\\
+OP\_VERIFY & This marks the transaction as invalid if the top stack value is not true. \\
+\\
+OP\_EQUALVERIFY & This is the same as OP\_EQUAL, but it runs OP\_VERIFY afterwards. \\
+\\
+OP\_CHECKMULTISIG & This takes the first signature and compares it against each public key until a match is found and repeats this process until all signatures are checked. If all signatures turn out to be valid, then a value of 1 is returned as a result; otherwise, 0 is returned. \\
+\hline
+\end{tabularx}
+\caption{\footnotesize Most commonly used Opcodes. Taken from the
+bitcoin developer's guide \cite{bitcoin-developer-guide}. }
+\label{tab:opcode-example}
+\end{table}
+
+
+
+
 
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-% *** SECOND SUB-SECTION ***
+% *** THIRD SUB-SECTION ***
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Keys and Addresses}
 As mentioned in this chapter's introduction, ownership of bitcoin is established
@@ -74,20 +125,17 @@ seen as the bank account number while the private key as the secret PIN (or the
 signature on a check) which provides control over the account by allowing to unlock
 the value and transferring it to other people.
 
-\subsubsection{Adresses}
-An address is unique string of digits and characters which identify the originator
-and/or the destination of a transaction. Addresses are derived from public keys
-through one-way cryptographic hashing in order to obtain the public key fingerprint.
-In particular, a Bitcoin address is derived by hashing the user's public key it twice,
-first with the SHA-256 algorithm and then with RIPEMD160. This produces a 160-bit
-hash, which is then prefixed with a version number and finally encoded using
-Base58Check encoding. The final result is a 26-35 chatacters string which begins
-with 1 (public key address) or 3 (pay-to-script-hash address) and it looks like the
-the string below:
-\begin{center}
-  \texttt{1J7mdg5rbQyUHENYdx39WVWK7fsLpEoXZy}
-\end{center}
-The generation process scheme is shown in figure \ref{fig:address-generation}.
+\subsubsection{Adresses} An address is unique string of digits and characters
+which identify the originator and/or the destination of a transaction. Addresses
+are derived from public keys through one-way cryptographic hashing in order to
+obtain the public key fingerprint. In particular, a Bitcoin address is derived
+by hashing the user's public key it twice, first with the SHA-256 algorithm and
+then with RIPEMD160. This produces a 160-bit hash, which is then prefixed with a
+version number and finally encoded using Base58Check encoding. The final result
+is a 26-35 chatacters string which begins with ``$1$'' (public key address) or
+``$3$'' (pay-to-script-hash address) and it looks like the the string below:
+\begin{center} \code{1J7mdg5rbQyUHENYdx39WVWK7fsLpEoXZy} \end{center} The
+generation process scheme is shown in figure \ref{fig:address-generation}.
 
 \begin{figure}[!htb]
 	\centering
@@ -213,3 +261,402 @@ issue, compressed private keys have been introduced: a compressed private key is
 a ``private key from which only compressed public keys should be derived'',
 while uncompressed private keys are ``private keys from which only uncompressed
 public keys should be derived'' \cite{antonopoulos2017mastering}.
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% *** FOURTH SUB-SECTION ***
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Transactions} Transactions are data structures that encode the
+transfer of value between participants in the bitcoin system. In important to
+point out that they are not encrypted and are publicly visible in the
+blockchain. Blockchain blocks are made up of transactions and these can be
+viewed using any online blockchain explorer.
+
+\subsubsection{Transaction inputs and outputs}
+A transaction includes at least one input and output: inputs can be seen as
+coins being spent that the user has created in a previous transaction while
+outputs as coins being created.
+
+\paragraph{Outputs and UXTO} In particular, outputs are discrete and indivisible
+units of bitcoin measured in \emph{Satoshi}\footnote{One Satoshi
+$=10^{-8}$bitcoins}, recorded on the blockchain and recognized as valid by the
+network. All the available and spendable outpus are stored in the blockchain and
+they are called \emph{unspent transaction outputs} or \emph{UTXO}. The balance
+shown by Wallets application is nothing more than the aggregated value all the
+UTXOs the user can spend with the keys it controls. Note that a UXTO can only be
+spent in its entirety by a transaction, consequently, if an UTXO is larger than
+the desired value of a transaction, it must still be consumed in its entirety
+and change must be generated in the transaction (most of the bitcoin
+transactions generate change). Transaction outputs consist of two parts: an
+amount of bitcoin (expressed in Satoshis) and a cryptographic puzzle that
+determines the conditions required to spend the output. This puzzle is also
+known as a \emph{locking script} and it consists of a digital signature and
+public key proving the ownership of the UXTO.
+
+\paragraph{Inputs} Transaction inputs consists of which UTXO will be consumed
+(can be more than one single UXTO) and a proof of ownership through the
+unlocking script to unlock the selected UXTO.
+
+
+\subsubsection{Transactions structure}
+
+\begin{table}[h!]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabularx}{\textwidth}{l l X}
+\toprule
+\textbf{Field} & \textbf{Size} & \textbf{Description}                                    \\ \midrule
+Version Number                    & 4 bytes                             & Used to specify rules to be used by the miners and nodes for transaction processing.                                                                     \\
+\\
+Input counter                     & 1-9 bytes                           & The number of inputs included in the transaction.                                                       \\
+\\
+List of inputs                    & variable                            & Each input is composed of several fields, including Previous transaction hash, Previous Txout-index, Txin-script length, Txin-script, and optional sequence number. The first transaction in a block is also called a coinbase transaction. It specifies one or more transaction inputs. \\
+\\
+Output counter                    & 1-9 bytes                           & A positive integer representing the number of outputs.                        \\
+\\
+List of Outputs                   & variable                            & Outputs included in the transaction. \\
+\\
+lock\_time                         & 4 bytes                             & This defines the earliest time when a transaction becomes valid. It is either a Unix timestamp or a block number.                             \\ \bottomrule
+\end{tabularx}
+}
+\caption{Structure of Bitcoin transactions}
+\label{tab:transaction-structure}
+\end{table}
+
+
+\subsubsection{Transactions life cycle}
+This is the typical life cycle of a transaction:
+\begin{enumerate}
+  \item A sender sends a transaction (using a wallet application)
+  \item The wallet signs the transaction using the sender's private key in order
+  to proof the ownership of the value being transferred
+  \item The transaction is broadcasted to the Bitcoin network using a flooding algorithm.
+  \item Mining nodes include this transaction in the next block to be mined.
+  \item Once a mining node solves the Proof of Work problem it broadcasts the
+  newly mined block to the network and the confirmation process starts: each
+  nodes verify the block and propagate it further
+  \item The receiver start to receive confirmations. After approximately six
+  confirmations, the transaction is considered finalized and confirmed.
+\end{enumerate}
+
+
+
+
+\subsubsection{Transaction fees} Most transactions include transaction fees.
+These fees have to purposes: compensate the bitcoin miners and act as a security
+mechanism by making economically infeasible for attackers to flood the network
+with transactions. The value of the fees dependens on the size of the
+transaction since it's calculated by subtracting the sum of the outputs to the
+sum of the inputs: \[Fees = Sum(Inputs) – Sum(Outputs)\] Fees also  act as an
+incentive for miners to encourage them to include a user transaction in the
+block the miners are creating. Each miner chooses from a memory pool which
+transactions include in the block he will propose based on their priority:  a
+transaction with a higher fee will be picked up sooner by the miners since it's
+more profitable.
+
+
+\subsubsection{Coinbase transactions} A particual kind of transaction is the
+\emph{coinbase transaction}, which is created by the ``winning'' a miner and is
+the first transaction in a block. This transactions create brand-new bitcoins
+that the miner can spend as a reward for mining and do not consume UTXO,
+instead, they have a special type of input called the \emph{coinbase}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% *** FIFTH SUB-SECTION ***
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Bitcoin Blockchain} The Bitcoin blockchain is a linked list of
+blocks of transactions, each one  identified by a SHA-256 hash. Each block
+references the previous one (the \emph{parent block}) by embedding its hash in
+the header. This chains of hashas goes back all the way to the first block ever
+created, known as the \emph{genesis block}.
+
+Although a block can have only one single parent, it can temporarily have
+multiple childrens. This happen during a \emph{blockchain fork}, a temporary
+situation which occurs when miners solve the proof of work of their block almost
+simultaneously. Eventually however the forks are resolved and  only one child
+block becomes part of the blockchain.
+
+Modifying a block causes it hash to change. Consequently, since each block
+contains in its header the hash of its parent block, changing a block causes
+the child’s hash to change, which also requires a change in its child block hash
+and so on. This cascade effect ensures that once a block has many generations
+following it, it cannot be changed without forcing a recalculation of all
+subsequent blocks: since this recalculation requires a huge computation, the
+blockchain history is pratically immutable. This is a key feature of the Bitcoin
+security.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.9\linewidth]{img/bitcoin-blockchain-scheme.png}
+	\caption{Bitcoin blockchain structure scheme}
+	\label{fig:bitcoin-blockchain}
+\end{figure}
+
+
+\subsubsection{The block structure} Table \ref{tab:bloock-structure} summarize
+the structure of a block of the blockchain, while table \ref{} shows the structure
+of the block header.
+
+\begin{table}[h!]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabularx}{\textwidth}{l l X}
+\toprule
+\textbf{Field} & \textbf{Size} & \textbf{Description}     \\ \midrule
+Block size  & 4 bytes  & The size of the block, in bytes.       \\
+\\
+Block header & 80 bytes & Several fields form the block header. \\
+\\
+Transactions counter & 1-9 bytes & How many transactions the block contains. \\
+\\
+Transactions & Variable & The transactions recorded in the block \\ \bottomrule
+\end{tabularx}
+}
+\caption{Structure of a Bitcoin block}
+\label{tab:bloock-structure}
+\end{table}
+
+
+
+\begin{table}[h!]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabularx}{\textwidth}{l l X}
+\toprule
+\textbf{Field} & \textbf{Size} & \textbf{Description}     \\ \midrule
+Version  & 4 bytes  & A version number to track software/protocol upgrades.       \\
+\\
+Previous block hash  & 32 bytes & A reference to the hash of the previous (parent) block in the chain. \\
+\\
+Merkle root & 32 bytes & A hash of the root of the merkle tree of this block’s transactions. \\
+\\
+Timestamp & 4 bytes & The approximate creation time of this block (seconds from Unix Epoch). \\
+\\
+Difficulty target & 4 bytes & The Proof-of-Work algorithm difficulty target for this block. \\
+\\
+Nonce & 4 bytes & A counter used for the Proof-of-Work algorithm. \\ \bottomrule
+\end{tabularx}
+}
+\caption{Structure of a Bitcoin block header}
+\label{tab:bloock-header-structure}
+\end{table}
+
+
+\subsubsection{Merkle trees} Each block summmarize all the transactions it
+contains using a Merkle tree, which is a data structure used for efficiently
+summarizing and verifying the integrity of large sets of data. A Merkle tree  is
+a binary tree containing hashes and it produces an overall digital fingerprint
+of the entire set of transactions, providing a very efficient method to verify
+whether a transaction is included in a block. The hash algorithm used in
+bitcoin’s merkle trees is double-SHA256 (SHA256 applied twice).
+
+In the Bitcoin blocks headers only the 32-byte hash corresponding to the tree
+root is stored, which summarizes all the transactions and allows a node to check
+whether a specific transaction is included in the block by computing the
+$log_2(N)$ hashes which make up a \emph{merkle path} connecting the transaction
+to the root of the tree, with $N$ number of transactions of the block. Figure
+\ref{fig:merkle-tree-path} shows an example of merkle path, while table
+\ref{tab:merkle-tree-sizes} compares the size of a block to the size of a merkle
+path.
+
+ Thanks to merkle trees, a node can download just the block headers (80 bytes
+ per block) and still be able verify whether a transaction is included in a
+ block by retrieving a small merkle path from a full node (which stores the
+ complete blockchain) instead of storing or retrieving the full block, which
+ is a lot more efficient as pointed out by table \ref{tab:merkle-tree-sizes}.
+
+ The nodes that do not maintain a full copy of the blockchain are \emph{called
+ simplified payment verification} (SPV) nodes and they use merkle paths to
+ verify transactions without downloading full blocks.
+
+ \begin{table}[h!]
+ \footnotesize
+
+ \centering
+ \resizebox{\textwidth}{!}{%
+ \begin{tabularx}{\textwidth}{l l l l}
+ \toprule
+ \textbf{Number of transactions}	& \textbf{Approx size of block} & \textbf{Path size} &	\textbf{Path size}   \\ \midrule
+ 16 transactions & 4 kilobytes & 4 hashes & 128 bytes \\
+ \\
+ 512 transactions & 128 kilobytes & 9 hashes & 288 bytes \\
+ \\
+ 2048 transactions & 512 kilobytes & 11 hashes & 352 bytes \\
+ \\
+ 65535 transactions & 16 megabytes & 16 hashes & 512 bytes \\
+ \bottomrule
+ \end{tabularx}
+ }
+ \caption{Merkle tree efficiency}
+ \label{tab:merkle-tree-sizes}
+ \end{table}
+
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=1\linewidth]{img/merkle-tree-path.png}
+	\caption{Example of a Merkle path. The path consists of the four hashes with the
+  blue background and with these hashes any node can prove that $H_K$ is included
+  in the merkle root by computing four additional pair-wise hashes outlined in a
+  dashed line.  }
+	\label{fig:merkle-tree-path}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% *** SIXTH SUB-SECTION ***
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Mining and Proof of Work} Mining is a resource-intensive
+process by which transactions are validated and new blocks are added to the
+blockchain. Transactions that become part of a block and added to the blockchain
+are considered confirmed, which means that the receivers of the transactions can
+spend the value they received.
+
+Roughly one new block is created (\emph{mined}) every 10 minute and Miners after
+mining a block are rewarded with two types of rewards: new coins created with
+each new block (a basecoin transaction) and transaction fees from all the
+transactions included in the block.
+
+\paragraph{Proof of Work} In order to earn the reward, miners compete with each
+other to solve an hard problem based on a cryptographic hash algorithm. The
+solution to the problem, called the Proof-of-Work, is included in the new mined
+block and acts as proof that the miner expended significant computing effort.
+The proof of work requirement is given by the following equation:
+\begin{equation}
+  H ( N || Prev\_hash || Tx || Tx || . . . Tx) < Target
+\end{equation} where H is the SHA256 hash function, N is the nonce
+contained in the block header, $Prev\_hash$ is the hash of the previous block,
+Tx are the transactions cointained in the block, $Target$ is the difficulty
+value and $||$ is the concatenate operator.
+For example, if the target is $0x10000000000000$ then finding a hash less than
+the target means finding a hash that stats with a zero. Consequently, the
+difficulty level of the proof of work can be seen as the number of zeros that the
+hash of the block has to start with. The only way for finding a valid hash therefore
+is to use a the brute force method, changing the nonce value for every hash
+calculation in order to get different hashes until a valid one in found
+(any specific hash input to one and only one hash value).
+Once the miner met the correct number of zeros, the block is immediately
+broadcasted and accepted by other miners.
+The difficulty of this work is always adjusted (increased) so as to limit the
+rate at which new blocks can be generated by the network to one every 10 minutes.
+
+The algorithm for mining a block can be summarized in the following steps:
+\begin{enumerate}
+  \item Retrieve the hash of the previous block from the Bitcoin network
+  \item Choose wich transaction include in the block (according to their priority)
+  \item Compute the double SHA256 hash of the block header
+  \item Check whether the resultant hash is lower than the current difficulty level
+  (target). If so, then stop the process, otherwise change the nonce (usually it is
+  increased by 1) and go back to step 3.
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% *** SEVENTH SUB-SECTION ***
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Consensus} Mining is a key feature of Bitcoin which secures the
+bitcoin system and allows to have network-wide consensus without a central
+authority. In particular, in Bitcoin consensus is not achieved explicitly since
+there is no election or fixed moment when consensus occurs. Instead, consensus
+is an emergent artifact of the asynchronous interaction of thousands of
+independent nodes. For this reason, in Bitcoin the consensus process is called
+\emph{emergent consensus}. Bitcoin’s decentralized consensus emerges from
+four processes that occur independently on nodes across the network:
+\begin{itemize}
+  \item Independent verification of each transaction by every full node
+  \item Independent aggregation of verified transactions into new blocks by mining
+  nodes and inclusion of the proof of work
+  \item Independent verification of the new blocks by every node and assembly
+  into the chain: each node performs a series of tests for validating it before
+  propagating it to its peers and inserting it into the blockchain.
+  This ensures that only valid blocks are propagated on the network: block which
+  are tampered with will thus be rejected.
+  Thanks to this verification, dishonestly miner (for example miners who write
+  themselves a transaction for an arbitrary amount of bitcoin instead of the correct rewardhave)
+  have their blocks rejected and not only lose the reward, but also waste the
+  effort expended to find a Proof-of-Work solution.
+  \item Independent selection, by every node, of the chain with the most
+  cumulative computation demonstrated through Proof-of-Work
+\end{itemize}
+
+
+\paragraph{The 51\% attack} This consensus mechanism is vulnerable to the
+so-called 51\% attack, which can be carried out by a group of miners controlling
+more than 50\% of the total network hashing power. In this situation the
+attackers would be able to prevent new transactions from gaining confirmations,
+allowing them to halt payments between some or all users. The attackers would
+also be able to reverse transactions that were completed while they were in
+control of the network, meaning they could double-spend coins. This attack is
+however hypothetical in Bitcoin and even if it was carried out the attacker
+wouldn't be able to create new coins or alter old blocks.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{figure}[b]
+	\centering
+	\includegraphics[width=1\linewidth]{img/transaction-script-example.png}
+	\caption{Example of a Script program. Image taken from reference \cite{antonopoulos2017mastering}}
+	\label{fig:script-example}
+\end{figure}
