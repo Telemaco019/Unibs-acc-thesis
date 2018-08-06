@@ -15,7 +15,6 @@ $m$ is usually called ``the message'', while $d$ is usually called ``the digest`
 and it can be seen as a compact representation of m. The length of $d$ is the
 
 Hash functions are usually used to provide data integrity and they're also used to
-length of the hash.
 construct other cryptographic primitives such as MACs and digital signatures.
 
 \subsubsection{Desired properties}
@@ -29,7 +28,7 @@ An hash function should ideally meet these properties:
   \textbf{2\textsuperscript{nd} preimage resistance}): given $m_1$ and ${d_1=h(m_1)}$,
   it must be computationally infeasible finding a $m_2 \neq m_1$ so that ${h(m_2)=d_1}$
   \item \textbf{Strong collision resistance}: it must be computationally infeasible
-  finding paris of distinct and colliding messages. Two messages $m_1\neq m_2$
+  finding pairs of distinct and colliding messages. Two messages $m_1\neq m_2$
   collide when ${h(m_1)=h(m_2)}$.
   \item \textbf{Avalanche effect}: changing a single bit of $m$ should cause every
   bit of ${d=h(m)}$ to change with probability ${P=0.5}$
@@ -38,10 +37,10 @@ An hash function should ideally meet these properties:
 \subsubsection{Examples of hash functions}
 \begin{itemize}
   \item \textbf{MD5}: published in 1991, it's a 128-bit hash function that was
-  used for file integrity checks. Today it's considered unsecure and it shouldn't
+  used for file integrity checks. Today it's considered insecure and it shouldn't
   be used anymore.
   \item \textbf{Secure Hash algorithm 1 (SHA-1)}: 160-bit hash function that was
-  used in SSL and TLS implementations. Today is considered unsecure and it's
+  used in SSL and TLS implementations. Today is considered insecure and it's
   deprecated.
   \item \textbf{SHA-2}: family of SHA functions which includes SHA-256, SHA-384
   and SHA-512. SHA-256 is currently used in several parts of the Bitcoin network.
@@ -66,9 +65,9 @@ MAC functions can be constructed using block ciphers or hash functions:
 \begin{itemize}
   \item in the first approach, block ciphers are used in the Cipher block chaining mode (CBC mode):
   the MAC of a message will be the output of the last round of the CBC operation.
-  The length of MAC in this case is the same as the block length of the block cipher
+  The length of MAC, in this case, is the same as the block length of the block cipher
   used to generate it.
-  \item In the second approach they key is hashed with the message using a certain
+  \item In the second approach, they key is hashed with the message using a certain
   construction scheme. The most simple ones are \emph{suffix-only} and
   \emph{prefix-only}, which however are weak and vulnerable:
   \begin{itemize}
@@ -87,7 +86,7 @@ message has been originated. They provide the same service as MACs (authenticati
 and non-repudiation) plus the non-repudiation.
 
 Digital signature is based on public key cryptography: Alice can sign a message
-by encrypting it using its private key. Usually however, for efficiency and security
+by encrypting it using its private key. Usually, however, for efficiency and security
 reasons, Alice doesn't encrypt the message but its digest (hash of the message).
 Figure \ref{fig:digital-signature} shows how a generical digital signature function
 works.
@@ -162,9 +161,9 @@ Blockchain at its core is basically a distributed system, therefore it is essent
 to understand distributed systems before understanding Blockchain.
 
 A distributed system is a network that consists of autonomous nodes, connected
-using a distribution middleware, which act in a coordinated way (passing message
-to each other) in order to achieve a common outcome and that can be seen by the
-user as a single logical platform.
+using a distribution middleware, which acts in a coordinated way (passing
+messages to each other) in order to achieve a common outcome and that can be
+seen by the user as a single logical platform.
 
 A node is basically a computer that can be seen as an individual player inside
 the distributed system and it can be honest, faulty or malicious. Nodes that
@@ -178,8 +177,8 @@ have an arbitrary behavior (which can be malicious) are called \emph{Byzantine n
 	\label{fig:distributed-system}
 \end{figure}
 
-The main challenge in a distributed system is the fault tollerance: even if some
-of the nodes fault or links break, the system should tollerate this and should
+The main challenge in a distributed system is the fault tolerance: even if some
+of the nodes fault or links break, the system should tolerate this and should
 continue to work correctly. There are essentially two types of fault: a simple node
 crash or the exhibition of malicious or inconsistent behavior arbitrarily. The
 second case is the most difficult to deal with and it's called \emph{Byzantine
@@ -212,7 +211,7 @@ The data value agreed is the majority value, therefore the value proposed by
 
 A consensus mechanism must meet these requirements:
 \begin{itemize}
-  \item \textbf{Agreement}: all the correct (non faulty/malicious) nodes must agree on the same value
+  \item \textbf{Agreement}: all the correct (non-faulty/malicious) nodes must agree on the same value
   \item \textbf{Termination}: the execution of the consensus process must come
   to an end and the nodes have to reach a decision
   \item \textbf{Validity}: the agreed value must have been proposed by at least
@@ -230,7 +229,7 @@ A consensus mechanism must meet these requirements:
 The Byzantine Generals Problem (BGP) is a problem described by Leslie Lamport
 \cite{lamport1982byzantine} in which a group of generals are surrounding a city
 and they have to formulate a plan for attacking it (simplifying, they have to
-decide wheter to attack or retreat from the city).
+decide whether to attack or retreat from the city).
 Their only communication way is the messenger and they have to
 agree on a common decision. The issue is that some of the generals may be
 traitors trying to prevent the loyal generals from reaching an agreement by
@@ -262,7 +261,7 @@ To solve this problem, Lamport proposed an algorithm for reaching consensus that
 assumes that there are $m$ traitors and $3m$ actors. This implies that the
 algorithm can reach consensus only if $2/3$ of the actors are honest: if the
 traitors are more than $1/3$, consensus cannot be reached. The goal is
-to make the majority of the lieutenants choose the same decision (not a specic one).
+to make the majority of the lieutenants choose the same decision (not a specific one).
 The original algorithm proposed by Lamport is shown in figure \ref{fig:lamport-byzantine-algorithm}.
 \begin{figure}[!htb]
 	\centering

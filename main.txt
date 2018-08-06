@@ -1,0 +1,1239 @@
+1.  Preliminary concepts at the basis of Blockchain
+    [@bambara2018blockchain],[@bashir2017mastering]
+
+    1.  Introduction to the cryptography concepts used in Blockchain
+        [@bashir2017mastering]
+
+        -   Cryptography services (confidentiality, authentication,
+            integrity, non-repudiation)
+
+        -   Public and private key cryptography
+
+        -   Elliptic curve cryptography
+
+        -   Hash functions
+
+        -   Elliptic curve digital signature algorithm (ECDSA)
+
+    2.  Distributed systems and decentralization
+
+    3.  Consensus & Byzantine generals problem
+
+2.  Introduction to Blockchain
+    [@bambara2018blockchain],[@bashir2017mastering]
+
+    1.  What is a Blockchain
+
+    2.  Blockchain features
+
+    3.  Types of Blockchain (public, consortium, private)
+
+    4.  Blockchain history (why it was invented)
+
+    5.  Overview of today Blockchain applications
+
+3.  Bitcoin [@karame2016bitcoin],[@antonopoulos2017mastering]
+
+    1.  Bitcoin protocol specification
+
+        -   Overview of Bitcoin data types (transaction, scripts,
+            adresses, blocks)
+
+        -   Transactions
+
+        -   Bitcoin network architecture
+
+        -   Bitcoin blockchain (blocks structure, Merkle trees, mining,
+            proof of work)
+
+    2.  Bitcoin wallets
+
+4.  Bitcoin privacy
+
+    -   Considerations on user anonymity in Bitcoin
+
+    -   Possible attacks
+
+    -   How to enhance privacy in Bitcoin (explanation of mixing
+        services + reference
+        [@heilman-blindly-signed-contracts],[@saxena-bitcoin-anonymity])
+
+5.  Bitcoin blockchain scalability
+
+    -   Considerations on the scalability of the Bitcoin blockchain and
+        possibile solutions
+        [@karame2016bitcoin],[@croman-scaling-blockchain]
+
+6.  Alternatives to Bitcoin
+
+    -   Bitcoin limitations
+
+    -   Alternatives to proof of work [@bentov-no-proof-of-work]
+
+    -   Namecoin
+
+    -   Litecoin
+
+    -   ZCash
+
+Introductory concepts
+=====================
+
+Hash functions
+--------------
+
+A hash function is a fuction that maps an arbitrary long input string to
+a fixed length output string. Let $h$ refer to an hash function of
+length $n$:
+
+$$h\colon \{0,1\}^* \to \{0,1\}^n$$
+
+$m$ is usually called “the message”, while $d$ is usually called “the
+digest“ and it can be seen as a compact representation of m. The length
+of $d$ is the
+
+Hash functions are usually used to provide data integrity and they’re
+also used to length of the hash. construct other cryptographic
+primitives such as MACs and digital signatures.
+
+### Desired properties
+
+An hash function should ideally meet these properties:
+
+-   **Computational efficiency**: given m, it must be easy to compute
+    ${d=h(m)}$
+
+-   **Preimage resistance** (also called **one-way property**): given
+    ${d=h(m)}$, it must be computationally infeasible computing $m$ ($m$
+    is the preimage)
+
+-   **Weak collision resistance** (also called **2^nd^ preimage
+    resistance**): given $m_1$ and ${d_1=h(m_1)}$, it must be
+    computationally infeasible finding a $m_2 \neq m_1$ so that
+    ${h(m_2)=d_1}$
+
+-   **Strong collision resistance**: it must be computationally
+    infeasible finding paris of distinct and colliding messages. Two
+    messages $m_1\neq m_2$ collide when ${h(m_1)=h(m_2)}$.
+
+-   **Avalanche effect**: changing a single bit of $m$ should cause
+    every bit of ${d=h(m)}$ to change with probability ${P=0.5}$
+
+### Examples of hash functions
+
+-   **MD5**: published in 1991, it’s a 128-bit hash function that was
+    used for file integrity checks. Today it’s considered unsecure and
+    it shouldn’t be used anymore.
+
+-   **Secure Hash algorithm 1 (SHA-1)**: 160-bit hash function that was
+    used in SSL and TLS implementations. Today is considered unsecure
+    and it’s deprecated.
+
+-   **SHA-2**: family of SHA functions which includes SHA-256, SHA-384
+    and SHA-512. SHA-256 is currently used in several parts of the
+    Bitcoin network.
+
+-   **SHA-3**: latest family of SHA functions, it is a NIST-standardized
+    version of Keccak, which uses a new approach called “sponge
+    construction” instead of the Merkle-Damgard transformation
+    previously used. This family includes SHA3-256, SHA3-384 and
+    SHA3-512.
+
+### Design of SHA-256
+
+### Message Authentication Codes (MACs)
+
+A MAC is an hash function which uses a key and which can therefore be
+used to provide both integrity and authentication (proof of origin).
+Authentication is based on a key pre-shared between the sender and the
+receiver. The receiver can verify both integrity and authentication of a
+message by computing the MAC function of the message and comparing it
+with the one received from the sender: if they are the same then
+integrity and authentication are confirmed (note that it is assumed that
+only the sender and the receiver know the key).
+
+MAC functions can be constructed using block ciphers or hash functions:
+
+-   in the first approach, block ciphers are used in the Cipher block
+    chaining mode (CBC mode): the MAC of a message will be the output of
+    the last round of the CBC operation. The length of MAC in this case
+    is the same as the block length of the block cipher used to generate
+    it.
+
+-   In the second approach they key is hashed with the message using a
+    certain construction scheme. The most simple ones are *suffix-only*
+    and *prefix-only*, which however are weak and vulnerable:
+
+    -   suffix-only: ${d=MAC_k(m)=h(m|k)}$, where $h$ is an hash
+        function
+
+    -   prefix-only: ${d=MAC_k(m)=h(k|m)}$, where $h$ is an hash
+        function
+
+Digital signature
+-----------------
+
+Digital signatures are used to associate a message with the entity from
+which the message has been originated. They provide the same service as
+MACs (authentication and non-repudiation) plus the non-repudiation.
+
+Digital signature is based on public key cryptography: Alice can sign a
+message by encrypting it using its private key. Usually however, for
+efficiency and security reasons, Alice doesn’t encrypt the message but
+its digest (hash of the message). Figure \[fig:digital-signature\] shows
+how a generical digital signature function works.
+
+An example of digital signature algorithms are RSA and ECDSA.
+
+![digital signature signing and verification
+scheme[]{data-label="fig:digital-signature"}](img/digital-signature.png){width="1\linewidth"}
+
+Elliptic Curve Digital Signature Algorithm (ECDSA)
+--------------------------------------------------
+
+ECDSA is a variant of the Digital Signature Algorithm (DSA) which uses
+elliptic curve cryptography.
+
+### Key pair generation
+
+1.  Define an elliptic curve $E$ with modulus $P$, coefficients $a$ and
+    $b$ and a generator point $A$ that forms a cyclic group of order
+    $p$, with $p$ prime
+
+2.  Choose a random integer $d$ so that ${0 < d < q}$
+
+3.  Compute the public key $B$ so that ${B = d  A}$
+
+The public key is the sextuple ${K_{pb} = (p,a,b,q,A,B)}$, while the
+private key is the value of $d$ randomly chosen in Step 2:
+${K_{pr} = d}$
+
+### Signing a message
+
+1.  Choose an ephemeral key $K_e$, where ${0 < K_e < q}$. It should be
+    ensured that $K_e$ is truly random and no two signatures have the
+    same key because otherwise the private key can be calculated
+
+2.  Compute ${R = K_e A}$
+
+3.  Initialize a variable $r$ with the x coordinate value of the point
+    $R$
+
+4.  The signature on the message $m$ can be calculated as follow:
+    $${S=(h(m)+d r)K_e^{-1}\bmod q}$$ where $h(m)$ is the hash of the
+    message $m$. The signature is the pair ${(S,r)}$.
+
+### Signature verification
+
+A signature can be verified as follow:
+
+1.  Compute ${w=S^{-1}\bmod q}$
+
+2.  Compute ${u_1=w  h(m)\bmod q}$
+
+3.  Compute ${u_2=w  r \bmod q}$
+
+4.  Calculate the point ${P=u_1  A + u_2  B}$
+
+5.  The signature ${(S,r)}$ is accepted as a valid signature only if:
+    $${X_P=r \bmod q}$$ where $X_P$ is the x-coordinate of the point P
+    calculated in Step 4
+
+Distributed systems
+-------------------
+
+### What is a distributed system
+
+Blockchain at its core is basically a distributed system, therefore it
+is essential to understand distributed systems before understanding
+Blockchain.
+
+A distributed system is a network that consists of autonomous nodes,
+connected using a distribution middleware, which act in a coordinated
+way (passing message to each other) in order to achieve a common outcome
+and that can be seen by the user as a single logical platform.
+
+A node is basically a computer that can be seen as an individual player
+inside the distributed system and it can be honest, faulty or malicious.
+Nodes that have an arbitrary behavior (which can be malicious) are
+called *Byzantine nodes*.
+
+![design of a distributed system. N4 is a Byzantine node while L1 is a
+broken/slow network
+link[]{data-label="fig:distributed-system"}](img/distributed-system.png){width="0.6\linewidth"}
+
+The main challenge in a distributed system is the fault tollerance: even
+if some of the nodes fault or links break, the system should tollerate
+this and should continue to work correctly. There are essentially two
+types of fault: a simple node crash or the exhibition of malicious or
+inconsistent behavior arbitrarily. The second case is the most difficult
+to deal with and it’s called *Byzantine fault*. In order to achieve
+fault tolerance, replication is usually used.
+
+Desired properties of a distributed system are the following:
+
+-   **Consistency**: all the nodes have the same lates available copy of
+    the data. It is usually achieved through consensus algorithms which
+    ensure that all nodes have the same copy of the data
+
+-   **Availability**: the system is always working and responding to the
+    input requests without any failures
+
+-   **Partition tolerance**: if a group of nodes fails the distributed
+    system still continues to operate correctly
+
+There is however a theorem, the *CAP theorem*, which states (and proves)
+that a distributed system cannot have all these three properties at the
+same time. In particular, the theorem states that in the presence of a
+network partition (due for example to a link failure) one has to choose
+between consistency and availability.
+
+### Consensus
+
+Consensus is the process of agreement between untrusted nodes on a data
+value. When the involved nodes are only two it’s really easy to achieve
+consensus, while in a distributed system with more than two nodes it is
+really hard (in this case the process of achieving consensus is called
+*distributed consensus*). The data value agreed is the majority value,
+therefore the value proposed by 51% of the nodes.
+
+A consensus mechanism must meet these requirements:
+
+-   **Agreement**: all the correct (non faulty/malicious) nodes must
+    agree on the same value
+
+-   **Termination**: the execution of the consensus process must come to
+    an end and the nodes have to reach a decision
+
+-   **Validity**: the agreed value must have been proposed by at least
+    one honest node
+
+-   **Fault tolerance**: the consensus algorithm must be able to run
+    even in the presence of one or more Byzantine (faulty or malicious)
+    nodes
+
+-   **Integrity**: the nodes make decisions only once in a single
+    consensus cycle (in a single cycle a node cannot make the decision
+    more than once).
+
+### The Byzantine Generals Problem (BGP)
+
+The Byzantine Generals Problem (BGP) is a problem described by Leslie
+Lamport [@lamport1982byzantine] in which a group of generals are
+surrounding a city and they have to formulate a plan for attacking it
+(simplifying, they have to decide wheter to attack or retreat from the
+city). Their only communication way is the messenger and they have to
+agree on a common decision. The issue is that some of the generals may
+be traitors trying to prevent the loyal generals from reaching an
+agreement by communicating a misleading message. The generals need an
+algorithm to guarantee that all the loyal generals agree on the same
+plan (attack or retreat) regardless of what traitors generals do. Loyal
+generals will always do what the algorithm says they should, while the
+traitors may do anything they wish.
+
+As an analogy with distributed systems:
+
+-   generals can be considered as nodes
+
+-   traitors can be considered Byzantine nodes
+
+-   the messenger can be seen as the channels of communication between
+    the generals.
+
+The problem can be see in term of generals-lieutenants: a General makes
+the decision to attack or retreat, and must communicate the decision to
+his lieutenants. Both the lieutenants and the general can be traitors:
+they cannot be relied upon to properly communicate orders (traitor
+generals) and they may actively alter messages in an attempt to subvert
+the process (traitor lieutenants).
+
+![page 3 of the original Lamport’s paper
+[@lamport1982byzantine][]{data-label="fig:byzantine-generals-problem"}](img/byzantine-generals-problem.png){width="1\linewidth"}
+
+To solve this problem, Lamport proposed an algorithm for reaching
+consensus that assumes that there are $m$ traitors and $3m$ actors. This
+implies that the algorithm can reach consensus only if $2/3$ of the
+actors are honest: if the traitors are more than $1/3$, consensus cannot
+be reached. The goal is to make the majority of the lieutenants choose
+the same decision (not a specic one). The original algorithm proposed by
+Lamport is shown in figure \[fig:lamport-byzantine-algorithm\].
+
+![Lamport’s algorithm for reaching
+consensus[]{data-label="fig:lamport-byzantine-algorithm"}](img/lamport-byzantine-algorithm.png){width="1\linewidth"}
+
+### Byzantine Fault Tolerance (BFT)
+
+A distributed system is said to be Byzantine Fault Tolerant when it
+tolerates a the class of failures that belong to the Byzantine Generals’
+Problem [@byzantine-konstantopoulos]. In other words, a Byzantine
+Failure is a fault that presents different symptoms to different
+observers and for this reason BFT is really difficult to achieve.
+
+For example, a Byzantine Fault could be a node acting as a “traitors”
+and generating arbitrary data during the process of reaching consensus.
+
+Introduction to Blockchain
+==========================
+
+What is Blockchain
+------------------
+
+From a technical point of view, Blockchain is a distributed ledger that
+is cryptographically secure, append-only, immutable (extremely hard to
+change), and updateable only via consensus among nodes.
+
+From a business point of view, a blockchain can be defined as a platform
+whereby peers can exchange values without the need for a central trusted
+party by using transactions which are stored inside the blockchain in a
+verifiable and permanent way.
+
+Blockchain features
+-------------------
+
+### Decentralization {#decentralization .unnumbered}
+
+This is the core feature of Blockchain. Thanks to decentralization
+there’s no need of a central trusted entity which stores the data and
+validates the transaction, since the same copy of the Blockchain is
+stored by every node and the validation of transaction is achieved
+through consensus.
+
+### Distributed consensus {#distributed-consensus .unnumbered}
+
+Blockchain have a high Byzantine Fault Tolerance[^1] and allows to
+achieve distributed consensus, therefore allows to have a single version
+of a data value agreed by all parties without requiring a central
+authority.
+
+### High availability {#high-availability .unnumbered}
+
+Blockchain is based on a peer-to-peer network of thousands of nodes and
+data is replicated on each node, therefore the whole system is highly
+available since even if one or more nodes fail the whole network can
+continue to work correctly.
+
+### Immutability {#immutability .unnumbered}
+
+All the data stored in a blockchain is immutable: once a block has been
+added to the blockchain, it is considered pratically impossible to
+change it (changing it is computationally infeasible since it would
+require an unaffordable amount of computing resources).
+
+### Transparency {#transparency .unnumbered}
+
+Blockchain is shared between the nodes and everyone can see what is in
+the blockchain, thus allowing the system to be transparent and trusted.
+
+### Security {#security .unnumbered}
+
+Blockchain ensures the integrity and the availability of the data. Since
+private keys and digital signatures are used, it also provide
+authentication and non-repudiation. It doesn’t provide confidentiality,
+due to it’s transparency feature (privacy is however required in certain
+scenarios, thus research in this area is being carried out).
+
+Blockchain security is due especially to its distributed nature, since
+for an attacker would be a lot easier to tamper with data if it was
+stored on a single central entity.
+
+### Uniqueness {#uniqueness .unnumbered}
+
+In Blockchain every transaction is unique and has not been spent
+already. This is especially usefull in cryptocurrencies applications of
+Blockchain, where avoidance of double spending is a key requirement.
+
+Blockchain structure
+--------------------
+
+As shown in figure \[fig:blockchain-basic-schema\], a blockchain
+consists of linked list of ordered fixed-length blocks, each of which
+includes a set of transactions. In this section, the generic elements of
+a blockchain will be presented.
+
+![basic blockchain
+schema[]{data-label="fig:blockchain-basic-schema"}](img/blockchain-basic-schema.png){width="0.5\linewidth"}
+
+### Blocks {#blocks .unnumbered}
+
+A block groups transactions in order to organize them logically and its
+size depends on the blockchain implementation. Generally, a block is
+composed of:
+
+-   a set of transactions
+
+-   a hash which identifies the block
+
+-   a pointer to the previous block hash (unless it’s the genesis block)
+
+-   a nonce
+
+-   a timestamp
+
+The *genesis block* it’s simply the first block in the blockchain and
+therefore it can’t contain any reference to the previous block.
+
+### Addresses {#addresses .unnumbered}
+
+Addresses are unique identifiers which identify the parties involved in
+a transaction. An address is usually a public key or it’s derived from a
+public key.
+
+### Transactions {#transactions .unnumbered}
+
+A transaction is a tranfer of value from an address to another.
+
+### Peer-to-peer network {#peer-to-peer-network .unnumbered}
+
+### Transaction scripts {#transaction-scripts .unnumbered}
+
+Transaction scripts are predefined sets of commands for nodes to
+transfer values from one address to another and perform various other
+functions.
+
+### Programming language and Virtual machine {#programming-language-and-virtual-machine .unnumbered}
+
+A Turing-complete programming language is an extension of transaction
+scripts and it allows the peers to define the operations that has to be
+performed on a transaction, without the limitations of a
+non-Turing-complete transaction script. Programs encapsulate the
+business logic and can for example transfer a value from one address to
+another only if some conditions are met.
+
+A virtual machine allows Turing-complete code to be run on a Blockchain
+as smart contract (e.g. Ethereum virtual machine).
+
+Not every Blockchain supports Turing-complete programming languages and
+virtual machines (e.g. Bitcoin is not Turing-complete[^2]).
+
+### Nodes {#nodes .unnumbered}
+
+A node is an active entity which stores a copy of the blockchain and can
+perform and/or valide transactions (following a consensus protocol, e.g.
+the Proof of Work).
+
+Consensus in Blockchain
+-----------------------
+
+Consensus in Blockchain is required to establish wheter the ledger
+itself or a piece of information submitted to it are valid or not. In
+analogy with the Byzantine Generals Problem, the “generals/lieutenants”
+are the nodes partecipating in the blockchain, the messangers are the
+network used by the nodes for communicating and the “traitors” are the
+nodes which try to tamper with the data by submitting for example false
+data or by modifying the existing blocks.
+
+In today Blockchain implementations are used four main consensus
+mechanisms: the Pratical Byzantine Fault Tolerance (PBFT), the Proof of
+Work (PoW), the Proof of Stake (PoS) and the Delegated Proof of Stake
+(DPoS).
+
+### Practical Byzantine Fault Tolerance Algorithm (PBFT)
+
+The PBFT is an algorithm proposed by M. Castro and B. Liskov as an
+optimized solution to the Byzantine Generals Problem (more in general,
+it is an efficiet replication algorithm that is able to tolerate
+Byzantine faults [@castro1999practical]).
+
+Simplifying, the algorithm works as follows
+[@blockchain-consensus-medium], [@castro1999practical]: each “general”
+maintains an internal state and when he receives a message, he uses the
+message in conjunction with his internal state to run a computation,
+which tells to the general what to think about the message in question.
+After reaching his individual decision about the message, the general
+shares that decision with all the other “generals” in the system. A
+consensus decision is determined based on the total decisions submitted
+by all generals.
+
+The advantage of this method is that is very efficient and allows to
+establish consensus with less effort than other methods. The main
+disadvantage is that it precludes the anonimity of users on the system.
+
+Two example of Blockchains which use PBFT are Hyperledger and Ripple.
+
+### Proof of Work (PoW)
+
+Contrary to the PBFT, Proof of Work doesn’t require all nodes to submit
+their individual conclusions in order for a consensus to be reached.
+Instead, this mechanism relies on proof that enough computational
+resources have been spent before proposing a value for acceptance by the
+network: only a single node (the first one) announces its conclusions
+about the submitted information and those conclusions can then be
+independently verified by all other nodes in the system.
+
+This is the consensus scheme used by Bitcoin (see chapter
+\[sec:Bitcoin\]).
+
+### Proof of Stake (PoS)
+
+This consensus mechanism is similar to the PoW but in this case the
+network selects an individual to confirm the validity of new information
+submitted to the ledger based on the nodes’ stake in the network.
+Therefore, instead of any individual attempting to carry out an
+intensive computation in order to propose a value, the network itself
+runs a lottery based on the nodes’ stake to decide who will announce the
+results: the more stake one node has, the higher the probability to be
+chosen is.
+
+The main idea behind the PoS mechanism is that if a node that has enough
+stake in the system it means that it has invested enough in the system
+so that any malicious attempt would outweigh the benefits of performing
+an attack on the system.
+
+The main problem of this approach is that the system rewards moore those
+who already are most deeply involved in the network leading consequently
+to an increasingly centralized system.
+
+This mechanism has been adopted by Peercoin.
+
+### Delegated Proof of Stake (DPoS)
+
+This method is an evolution of the PoS whereby each node that has stake
+in the system can choose an entity to represent their portion of stake
+in the system by voting. The more stake one node has, the higher is the
+weight of is vote. The entity with most votes (weighted) becomes a
+delegate which validates transactions (and collects rewards for doing
+so). This method is adopted by Bitshares.
+
+Types of Blockchain
+-------------------
+
+Blockchain can be distinguished into three different types, each one
+charaterized by a certain set of attributes.
+
+### Public Blockchain {#public-blockchain .unnumbered}
+
+Public Blockchains are blockchains open to the public in which everyone
+can join the network, mantain the shared ledger and partecipate in the
+consensus process. The ledger is therefore owned by noone and is
+publicly accessible by everyone.
+
+These type of Blockchain typically have an incentivizing mechanism to
+encourage more participants to join the network. Bitcoin for example,
+one the largest public Blockchain, reward with cryptocurrency miners who
+join the network.
+
+Public Blockchains have two main disadvantages: the substantial amount
+of computational power required to maintain a distributed ledger at a
+large scale and the lack of privacy for the transactions stored inside
+the blockchain.
+
+### Private Blockchain {#private-blockchain .unnumbered}
+
+Private blockchains are private and open only to an organization or a
+group of individuals. Participants need to obtain an invitation or
+permission to join the Blockchain and mantain the ledger. Usually the
+network is permissioned: there are restrictions on who is allowed to
+participate in the network, and only in certain transactions.
+
+An example of private blockchain with permissioned network is the Linux
+Foundation’s Hyperledger Fabric [@hyperledger-fabric].
+
+### Consortium Blockchain {#consortium-blockchain .unnumbered}
+
+Consortium blockchains are blockchains where the consensus process is
+controlled by a preselected set of nodes (e.g. a consortium of
+organization, each of which operates a node). The right to read the
+blockchain might be public or permissioned. An example of consortium
+blockchain is R3 [@R3], which is based on the platform Corda.
+
+Bitcoin {#sec:Bitcoin}
+=======
+
+Introduction
+------------
+
+Bitcoin it’s the first fully decentralized cryptocurrency. It was
+invented by Satoshi Nakamoto in 2008 and it was the first real
+implementation of Blockchain. Bitcoin can be either defined as a
+protocol, a digital currency and a platform.
+
+Bitcoin can be seen as a combination of
+
+-   a decentralized peer-to-peer-network (the Bitcoin protocol)
+
+-   a public transaction ledger (the blockchain)
+
+-   a set of rules for validating transactions (consensus rules)
+
+-   a mechanism for reaching distributed consensus on the blockchain
+    (distributed consensus algorithm)
+
+that allows the usage of the digital currency named bitcoin.
+
+From now on, Bitcoin with the capital $B$ will refer to the Bitcoin
+protocol while bitcoin with the lowercase $b$ will refer to the bitcoin
+currency.
+
+Bitcoin is a distributed peer-to-peer system in which users can exchange
+currency over the network just as it can be done with conventional
+currency. However, unlike traditional currencies, bitcoins are enterely
+virtual and thus there are no physical coins. In particular, there are
+not even virtual coins since they are implied in the transactions that
+send value from a sender to a receiver: users have private keys which
+allow them to prove the ownership of bitcoins and sign transactions in
+order to unlock the value and transfer it to another user. These keys
+are the only requirement for spending bitcoins and therefore they are
+protected in wallets stored in the user’s devices.
+
+### The reference implementation {#the-reference-implementation .unnumbered}
+
+Bitcoin is an open source project and is developed by a community of
+volunteers. The first implementation was released by Satoshi Nakamato in
+2008 (the only member of the development community at the time). That
+implementation during the years has been heavily modified and improved
+evolving into what is known as *Bitcoin Core*, which is now the
+reference implementation of the Bitcoin system. This implementation is
+considered the authoritative one and it specifies how each part of the
+system has to be implemented.
+
+Scripts
+-------
+
+Bitcoin uses a simple stack-based programming language called “Script”
+for describing how bitcoins can be spent and transferred in order to
+extend flexibility and support different types of transactions.
+Essentially, a Bitcoin script a list of instructions recorded with each
+transaction that describe how the next person wanting to spend the
+Bitcoins being transferred can gain access to them
+[@script-bitcoin-wiki].
+
+Script is a very simple language and it’s not Turing complete. The
+language has been deliberately designed limiting its operators (it
+doesn’t have loop operators and complex control flow different than
+conditional control flow) in order to avoid abuses of the scripts for
+conducting denial of service attacks, since the transaction scripts has
+to be executed on each node of the network.
+
+Script supports a number of function called “Opcodes”, uses a reverse
+polish notation in which every operand is followed by its operators and
+it’s evaluated from the left to the right using a LIFO stack. Table
+\[tab:opcode-example\] shows the most common Opcodes while figure
+\[fig:script-example\] shows an example of Script program.
+
+[l X]{} **Opcode** & **Description**\
+OP\_CHECKSIG & This takes a public key and signature and validates the
+signature of the hash of the transaction. If it matches, then TRUE is
+pushed onto the stack; otherwise, FALSE is pushed.\
+\
+OP\_EQUAL & This returns 1 if the inputs are exactly equal; otherwise, 0
+is returned.\
+\
+OP\_DUP & This duplicates the top item in the stack.\
+\
+OP\_HASH160 & The input is hashed twice, first with SHA-256 and then
+with RIPEMD-160.\
+\
+OP\_VERIFY & This marks the transaction as invalid if the top stack
+value is not true.\
+\
+OP\_EQUALVERIFY & This is the same as OP\_EQUAL, but it runs OP\_VERIFY
+afterwards.\
+\
+OP\_CHECKMULTISIG & This takes the first signature and compares it
+against each public key until a match is found and repeats this process
+until all signatures are checked. If all signatures turn out to be
+valid, then a value of 1 is returned as a result; otherwise, 0 is
+returned.\
+
+Keys and Addresses
+------------------
+
+As mentioned in this chapter’s introduction, ownership of bitcoin is
+established through digital keys, bitcoin addresses, and digital
+signatures.
+
+In order to be included in the Bitcoin blockchain, transactions require
+a valid signature which can be generated only with a private (secret)
+key. The private key therefore proves the ownership of bitcoins by
+signing transactions and transferrig value from a user to another. Keys
+come in pairs consisting of a private (secret) key and a public key and
+they are generated through Elliptic Curve Cryptography. In analogy with
+the traditional banking,the public key can be seen as the bank account
+number while the private key as the secret PIN (or the signature on a
+check) which provides control over the account by allowing to unlock the
+value and transferring it to other people.
+
+### Adresses
+
+An address is unique string of digits and characters which identify the
+originator and/or the destination of a transaction. Addresses are
+derived from public keys through one-way cryptographic hashing in order
+to obtain the public key fingerprint. In particular, a Bitcoin address
+is derived by hashing the user’s public key it twice, first with the
+SHA-256 algorithm and then with RIPEMD160. This produces a 160-bit hash,
+which is then prefixed with a version number and finally encoded using
+Base58Check encoding. The final result is a 26-35 chatacters string
+which begins with “$1$” (public key address) or “$3$”
+(pay-to-script-hash address) and it looks like the the string below:
+
+[[`1J7mdg5rbQyUHENYdx39WVWK7fsLpEoXZy`]{}]{}
+
+The generation process scheme is shown in figure
+\[fig:address-generation\].
+
+![Bitcoin address generation
+scheme[]{data-label="fig:address-generation"}](img/address-generation.png){width="0.85\linewidth"}
+
+#### Base58 and Base58Check
+
+Base58 is an encoding scheme which allows to represent long numbers as
+alphanumeric strings. It is a subset of Base64, which represent numbers
+using 26 lowercase letters, 26 capital letters, 10 numerals, and 2 more
+“special” characters and it’s usually used to encode email attachments.
+In particular, Base58 is Base64 without all that characters that are
+frequently mistaken for one another, namely it is Base64 without the 0
+(number zero), O (capital o), l (lower L), I (capital i) and the two
+special characters. Base58Check is a Base58 encoding with an additional
+checksum of four bytes added to the end of the data that is being
+encoded which prevents a mistyped bitcoin address from being accepted by
+the wallet software as a valid destination.
+
+#### P2SH and P2PKH
+
+As already mentioned before, Bitcoin addresses that begin with the
+number “$3$” are pay-to-script hash (P2SH) addresses. Unlike the address
+which start with “$1$”, also known as pay-to-public-key-hash (P2PKH),
+which are associated to a public key owned by a user, the P2SH addresses
+designate the beneficiary of a Bitcoin transaction as the hash of a
+script. When a user send a bitcoin to a P2PKH address, that bitcoin can
+only be spent by the receiver by presenting the corresponding private
+key signature and public key hash associated to its address. When
+instead the bitcoin is sent to a P2SH address, namely to the hash of a
+script, the requirements for spending that bitcoin are defined by the
+script and are usually more restrictive (for example it could be
+required more than one signature to prove the ownership). A P2SH address
+is derived from a transaction script in the same way a P2PKH address is
+derived from a public key (double hashing + Base58Check encoding).
+
+### Keys
+
+Public and private keys in Bitcoin are generated through ECC and they
+can be represented in different formats. All the possible
+representations, even if they look different, correspond to the same
+number. This has been done in order to facilitate people to read and
+transcribe the keys without introducing errors.
+
+#### Private keys
+
+Private keys are simply a 256-bit random number. For generating it,
+Bitcoin software uses the underlying operating system’s random number
+generators which usually is initialized by a human source of randomness,
+like for example the elapsed time between the pression of the keys of
+the keyboard.
+
+#### Private key formats
+
+The private key can be represented in different formats (shown in table
+\[tab:private-key-formats\]), each one corresponding to the same 256-bit
+number. Different formats are used in different circumstances: for
+example Hexadecimal and raw binary formats are used internally in
+software while WIF is used by users.
+
+#### Public key generation
+
+Public keys are generated starting from the private keys using elliptic
+curve multiplication, which is a so-called “trap door” function: it is
+easy to do in one direction (multiplication) and impossible to do in the
+reverse direction (division). Bitcoin uses the elliptic curve and the
+set of constants specified by the secp256k1 standard, defined by the
+NIST. The elliptic curve used is defined by the following equation:
+$$\label{eq:bitcoin-curve}
+  y^2 = (x^3 + 7)~\text{over}~(\mathbb{F}_p)$$
+
+or, equivalently:
+
+$$y^2 \bmod p = (x^3 + 7) \bmod p$$
+
+where $p = 2^{256} – 2^{32} – 2^9 – 2^8 – 2^7 – 2^6 – 2^4 – 1$ is a very
+large prime number. Starting from the private key $k$, the public key
+$K$ is calculated multiplying it by a predetermined point on the curve
+called the generator point $G$ (defined by the secp256k1 standard) in
+order to produce another point somewhere else on the curve, which will
+correspond to the public key $K$: $$K = k * G$$ Since the generator
+point $G$ is always the same for all bitcoin users, a private key $k$
+multiplied with $G$ will always result in the same public key $K$. The
+relationship between $k$ and $K$ is fixed and known but it can only be
+calculated in one direction (from $k$ to $K$), so it’s impossible to
+derive from an address (derived from K) the corresponding user’s private
+key.
+
+#### Public key formats
+
+In Bitcoin, since ECC is used, a public key in the uncompressed format
+is a point on an elliptic curve consisting of the coordinates pair
+$(x,y)$. Uncompressed public keys are presented with the prefix
+[[`04`]{}]{} followed by two 256-bit numbers, one for each coordinate,
+and therefore they are 65 Bytes long. The compress format instead
+includes only the x-coordiante since the y one can be derived from it
+and by solving the equation it uses the prefixes [[`03`]{}]{}, if the
+y-coordinate is an odd number, or [[`02`]{}]{}, if it is an even number.
+The length of a compressed public key is therefore 33 Bytes. Compressed
+public keys were introduced in order to reduce the size of the
+transactions, since the most of them also include the public key. The
+reason why two different prefixes are required for compressed keys is
+that the left side of the equation is $y^2$ and therefore the solution
+for $y$ is a square root, which can have a “positive” or “negative
+value”: graphically, this means that the y-coordiante can either be
+above or below the x-axis and therefore two different points can be
+identied since the curve is symmetric. Actually since we are in fhe
+field $\mathbb{F}_p$ it doesn’t make sense talking about positive and
+negative values: the y-coordinate can in fact be *even* or *odd* (which
+correspond to the positive/negative terms used before).
+
+Note that a a public key in both compressed and uncompressed formats
+always corresponds to the same private key, even if the two formats have
+a different representation. The address derived from the compressed
+public key however is different from the address derived from the
+uncompressed one. To solve this issue, compressed private keys have been
+introduced: a compressed private key is a “private key from which only
+compressed public keys should be derived”, while uncompressed private
+keys are “private keys from which only uncompressed public keys should
+be derived” [@antonopoulos2017mastering].
+
+Transactions {#sec:transactions}
+------------
+
+Transactions are data structures that encode the transfer of value
+between participants in the bitcoin system. In important to point out
+that they are not encrypted and are publicly visible in the blockchain.
+Blockchain blocks are made up of transactions and these can be viewed
+using any online blockchain explorer.
+
+### Transaction inputs and outputs
+
+A transaction includes at least one input and output: inputs can be seen
+as coins being spent that the user has created in a previous transaction
+while outputs as coins being created.
+
+#### Outputs and UXTO
+
+In particular, outputs are discrete and indivisible units of bitcoin
+measured in *Satoshi*[^3], recorded on the blockchain and recognized as
+valid by the network. All the available and spendable outpus are stored
+in the blockchain and they are called *unspent transaction outputs* or
+*UTXO*. The balance shown by Wallets application is nothing more than
+the aggregated value all the UTXOs the user can spend with the keys it
+controls. Note that a UXTO can only be spent in its entirety by a
+transaction, consequently, if an UTXO is larger than the desired value
+of a transaction, it must still be consumed in its entirety and change
+must be generated in the transaction (most of the bitcoin transactions
+generate change). Transaction outputs consist of two parts: an amount of
+bitcoin (expressed in Satoshis) and a cryptographic puzzle that
+determines the conditions required to spend the output. This puzzle is
+also known as a *locking script* and it consists of a digital signature
+and public key proving the ownership of the UXTO.
+
+#### Inputs
+
+Transaction inputs consists of which UTXO will be consumed (can be more
+than one single UXTO) and a proof of ownership through the unlocking
+script to unlock the selected UXTO.
+
+### Transactions structure
+
+### Transactions life cycle
+
+This is the typical life cycle of a transaction:
+
+1.  A sender sends a transaction (using a wallet application)
+
+2.  The wallet signs the transaction using the sender’s private key in
+    order to proof the ownership of the value being transferred
+
+3.  The transaction is broadcasted to the Bitcoin network using a
+    flooding algorithm.
+
+4.  Mining nodes include this transaction in the next block to be mined.
+
+5.  Once a mining node solves the Proof of Work problem it broadcasts
+    the newly mined block to the network and the confirmation process
+    starts: each nodes verify the block and propagate it further
+
+6.  The receiver start to receive confirmations. After approximately six
+    confirmations, the transaction is considered finalized and
+    confirmed.
+
+### Transaction fees
+
+Most transactions include transaction fees. These fees have to purposes:
+compensate the bitcoin miners and act as a security mechanism by making
+economically infeasible for attackers to flood the network with
+transactions. The value of the fees dependens on the size of the
+transaction since it’s calculated by subtracting the sum of the outputs
+to the sum of the inputs: $$Fees = Sum(Inputs) – Sum(Outputs)$$ Fees
+also act as an incentive for miners to encourage them to include a user
+transaction in the block the miners are creating. Each miner chooses
+from a memory pool which transactions include in the block he will
+propose based on their priority: a transaction with a higher fee will be
+picked up sooner by the miners since it’s more profitable.
+
+### Coinbase transactions
+
+A particual kind of transaction is the *coinbase transaction*, which is
+created by the “winning” a miner and is the first transaction in a
+block. This transactions create brand-new bitcoins that the miner can
+spend as a reward for mining and do not consume UTXO, instead, they have
+a special type of input called the *coinbase*.
+
+The Bitcoin Blockchain
+----------------------
+
+The Bitcoin blockchain is a linked list of blocks of transactions, each
+one identified by a SHA-256 hash. Each block references the previous one
+(the *parent block*) by embedding its hash in the header. This chains of
+hashas goes back all the way to the first block ever created, known as
+the *genesis block*.
+
+Although a block can have only one single parent, it can temporarily
+have multiple childrens. This happen during a *blockchain fork*, a
+temporary situation which occurs when miners solve the proof of work of
+their block almost simultaneously. Eventually however the forks are
+resolved and only one child block becomes part of the blockchain.
+
+Modifying a block causes it hash to change. Consequently, since each
+block contains in its header the hash of its parent block, changing a
+block causes the child’s hash to change, which also requires a change in
+its child block hash and so on. This cascade effect ensures that once a
+block has many generations following it, it cannot be changed without
+forcing a recalculation of all subsequent blocks: since this
+recalculation requires a huge computation, the blockchain history is
+pratically immutable. This is a key feature of the Bitcoin security.
+
+![Bitcoin blockchain structure
+scheme[]{data-label="fig:bitcoin-blockchain"}](img/bitcoin-blockchain-scheme.png){width="0.9\linewidth"}
+
+### The block structure
+
+Table \[tab:bloock-structure\] summarize the structure of a block of the
+blockchain, while table \[\] shows the structure of the block header.
+
+### Merkle trees
+
+Each block summmarize all the transactions it contains using a Merkle
+tree, which is a data structure used for efficiently summarizing and
+verifying the integrity of large sets of data. A Merkle tree is a binary
+tree containing hashes and it produces an overall digital fingerprint of
+the entire set of transactions, providing a very efficient method to
+verify whether a transaction is included in a block. The hash algorithm
+used in bitcoin’s merkle trees is double-SHA256 (SHA256 applied twice).
+
+In the Bitcoin blocks headers only the 32-byte hash corresponding to the
+tree root is stored, which summarizes all the transactions and allows a
+node to check whether a specific transaction is included in the block by
+computing the $log_2(N)$ hashes which make up a *merkle path* connecting
+the transaction to the root of the tree, with $N$ number of transactions
+of the block. Figure \[fig:merkle-tree-path\] shows an example of merkle
+path, while table \[tab:merkle-tree-sizes\] compares the size of a block
+to the size of a merkle path.
+
+Thanks to merkle trees, a node can download just the block headers (80
+bytes per block) and still be able verify whether a transaction is
+included in a block by retrieving a small merkle path from a full node
+(which stores the complete blockchain) instead of storing or retrieving
+the full block, which is a lot more efficient as pointed out by table
+\[tab:merkle-tree-sizes\].
+
+The nodes that do not maintain a full copy of the blockchain are *called
+simplified payment verification* (SPV) nodes and they use merkle paths
+to verify transactions without downloading full blocks.
+
+![Example of a Merkle path. The path consists of the four hashes with
+the blue background and with these hashes any node can prove that $H_K$
+is included in the merkle root by computing four additional pair-wise
+hashes outlined in a dashed line.
+[]{data-label="fig:merkle-tree-path"}](img/merkle-tree-path.png){width="1\linewidth"}
+
+Mining and Proof of Work
+------------------------
+
+Mining is a resource-intensive process by which transactions are
+validated and new blocks are added to the blockchain. Transactions that
+become part of a block and added to the blockchain are considered
+confirmed, which means that the receivers of the transactions can spend
+the value they received.
+
+Roughly one new block is created (*mined*) every 10 minute and Miners
+after mining a block are rewarded with two types of rewards: new coins
+created with each new block (a basecoin transaction) and transaction
+fees from all the transactions included in the block.
+
+#### Proof of Work
+
+In order to earn the reward, miners compete with each other to solve an
+hard problem based on a cryptographic hash algorithm. The solution to
+the problem, called the Proof-of-Work, is included in the new mined
+block and acts as proof that the miner expended significant computing
+effort. The proof of work requirement is given by the following
+equation: $$H ( N || Prev\_hash || Tx || Tx || . . . Tx) < Target$$
+where H is the SHA256 hash function, N is the nonce contained in the
+block header, $Prev\_hash$ is the hash of the previous block, Tx are the
+transactions cointained in the block, $Target$ is the difficulty value
+and $||$ is the concatenate operator. For example, if the target is
+$0x10000000000000$ then finding a hash less than the target means
+finding a hash that stats with a zero. Consequently, the difficulty
+level of the proof of work can be seen as the number of zeros that the
+hash of the block has to start with. The only way for finding a valid
+hash therefore is to use a the brute force method, changing the nonce
+value for every hash calculation in order to get different hashes until
+a valid one in found (any specific hash input to one and only one hash
+value). Once the miner met the correct number of zeros, the block is
+immediately broadcasted and accepted by other miners. The difficulty of
+this work is always adjusted (increased) so as to limit the rate at
+which new blocks can be generated by the network to one every 10
+minutes.
+
+The algorithm for mining a block can be summarized in the following
+steps:
+
+1.  Retrieve the hash of the previous block from the Bitcoin network
+
+2.  Choose wich transaction include in the block (according to their
+    priority)
+
+3.  Compute the double SHA256 hash of the block header
+
+4.  Check whether the resultant hash is lower than the current
+    difficulty level (target). If so, then stop the process, otherwise
+    change the nonce (usually it is increased by 1) and go back to
+    step 3.
+
+Consensus
+---------
+
+Mining is a key feature of Bitcoin which secures the bitcoin system and
+allows to have network-wide consensus without a central authority. In
+particular, in Bitcoin consensus is not achieved explicitly since there
+is no election or fixed moment when consensus occurs. Instead, consensus
+is an emergent artifact of the asynchronous interaction of thousands of
+independent nodes. For this reason, in Bitcoin the consensus process is
+called *emergent consensus*. Bitcoin’s decentralized consensus emerges
+from four processes that occur independently on nodes across the
+network:
+
+-   Independent verification of each transaction by every full node
+
+-   Independent aggregation of verified transactions into new blocks by
+    mining nodes and inclusion of the proof of work
+
+-   Independent verification of the new blocks by every node and
+    assembly into the chain: each node performs a series of tests for
+    validating it before propagating it to its peers and inserting it
+    into the blockchain. This ensures that only valid blocks are
+    propagated on the network: block which are tampered with will thus
+    be rejected. Thanks to this verification, dishonestly miner (for
+    example miners who write themselves a transaction for an arbitrary
+    amount of bitcoin instead of the correct rewardhave) have their
+    blocks rejected and not only lose the reward, but also waste the
+    effort expended to find a Proof-of-Work solution.
+
+-   Independent selection, by every node, of the chain with the most
+    cumulative computation demonstrated through Proof-of-Work
+
+#### The 51% attack
+
+This consensus mechanism is vulnerable to the so-called 51% attack,
+which can be carried out by a group of miners controlling more than 50%
+of the total network hashing power. In this situation the attackers
+would be able to prevent new transactions from gaining confirmations,
+allowing them to halt payments between some or all users. The attackers
+would also be able to reverse transactions that were completed while
+they were in control of the network, meaning they could double-spend
+coins. This attack is however hypothetical in Bitcoin and even if it was
+carried out the attacker wouldn’t be able to create new coins or alter
+old blocks.
+
+![Example of a Script program. Image taken from reference
+[@antonopoulos2017mastering][]{data-label="fig:script-example"}](img/transaction-script-example.png){width="1\linewidth"}
+
+Bitcoin anonimity issues
+========================
+
+In bitcoin the transactions are exchanged between adresses, which, as
+explained in the previous chapters are basically hashes of public keys.
+The purpose of these adresses is to serve as pseudonyms and provide some
+anonymity. However, since all Bitcoin transactions are stored in a
+publicly available ledger and transactions basically consist of a chain
+of digital signatures which provide cryptographic proofs of funds
+transfer, Bitcoin privacy concerns were raised and in the last few years
+researchers have shown that Bitcoin anonymity is much weaker than was
+initially expected. Users’ transactions in fact can often be easily
+linked together and if any one of those transactions is linked to the
+user’s identity, then all of its transactions may be exposed.
+
+#### Tainted bitcoins
+
+In Bitcoin terminology, tainting means measuring the correlation between
+two (wallet) addresses [@karame2016bitcoin],[@guthm_2016]. Since the
+ledger is publicly available, any entity can therefore taint coins that
+belong to a specific set of addresses and monitor their expenditure
+across the network. Coin tainting could be used for example for allowing
+users to decide to stop interacting with adresses that misbehave,
+deflating consequently the value of all the coins pertaining to those
+address.
+
+Bitcoin transactions basically consist of a chain of digital signatures,
+which makes it possible to track the expenditure of individual bitcoins.
+This allows any entity to taint bitcoins that belong to a specific set
+of addresses and monitor their expenditure across the network.
+
+Bitcoin clients privacy measures
+--------------------------------
+
+Besides address, Bitcoin clients adopts some more privacy measures.
+These measures consist of allowing users to have more than one address
+and encouraging them to frequently change their adresses by transferring
+some of their bitcoins to the newly created addresses. Moreover, for
+each user a new address is automatically created and used for collecting
+the change resulting from any transaction of the user. These addresses
+are called *shadow addresses*.
+
+Compromise of privacy examples
+------------------------------
+
+In the following section it will be shown some examples of how user
+privacy can be compromised by exploiting the existing Bitcoin client
+implementations and carrying out a behaviour-based analysis of the
+public ledger [@karame2016bitcoin]. It’s important to point out that
+there are also other kind of attacks which operates at the network layer
+and which allow the attacker to obtain user information from the Bitcoin
+peer to peer network [@karame2016bitcoin], which however will not be
+discussed in this book.
+
+#### Exploiting multi input transactions
+
+The first method for obtain users information consists of observing the
+multi-input transactions. A multi-input transaction, as discussed in
+chapter \[sec:transactions\], is a transaction which accept more UXTO as
+input. If in a transaction these UXTOs are owned by different addresses,
+then it is straightforward to conclude that the input addresses belong
+to the same user.
+
+#### Exploiting shadow addresses
+
+Another method is to exploit the shadow addresses generated by the
+Bitcoin clients. When a Bitcoin transaction has $n$ output addresses
+$\{a_1 , \dots, a_n \}$ (transaction with multiple recipients) and only
+one address is a new address (namely the address has never appeared in
+the ledger before) it is then possible to assume that the newly
+appearing address is a shadow address for the user that sent the
+transaction.
+
+#### Behavior-based analysis
+
+Besides exploiting Bitcoin client implementations, an attacker can also
+use behavior-based clustering algorithms like K-Means (KMC) and
+Hierarchical Agglomerative Clustering (HAC) for profiling Bitcoin users.
+Without going into the datails of these techniques, in reference \[\]
+these algorithms has been tested in a simulated Bitcoin system and the
+achieved results shows that given 200 simulated user profiles, almost
+42% of the users have their profiles captured with 80% accuracy and the
+profile leakage in Bitcoin is larger when users participate in a large
+number of transactions, while decreases as the number of transactions
+performed by the user decreases.
+
+[^1]: without BFT, a peer would able to transmit and post false
+    transactions
+
+[^2]: It however supports smart contracts
+
+[^3]: One Satoshi $=10^{-8}$bitcoins
