@@ -1,8 +1,8 @@
 \section{Bitcoin anonimity issues} In bitcoin the transactions are exchanged
-between adresses, which, as explained in  the previous chapters are basically
+between adresses, which, as explained in  the previous chapters, are basically
 hashes of public keys. The purpose of these adresses is to serve as pseudonyms
 and provide some anonymity. However, since all Bitcoin transactions are stored
-in a publicly available ledger and transactions basically consist of a chain of
+in a publicly available ledger and they basically consist of a chain of
 digital signatures which provide cryptographic proofs of funds transfer, Bitcoin
 privacy concerns were raised and in the last few years researchers have shown
 that Bitcoin anonymity is much weaker than was initially expected. Users’
@@ -11,29 +11,7 @@ transactions is linked to the user’s identity, then all of its transactions ma
 be exposed.
 
 
-\paragraph{Tainted bitcoins} In Bitcoin terminology, tainting means measuring
-the correlation between two (wallet) addresses
-\cite{karame2016bitcoin},\cite{guthm_2016}. Since the ledger is publicly
-available, any entity can therefore taint coins that belong to a specific set of
-addresses and monitor their expenditure across the network. Coin tainting could
-be used for example for allowing users to decide to stop interacting with
-adresses that misbehave, deflating consequently the value of all the coins
-pertaining to those address.
-
-
-
-Bitcoin transactions basically consist of a chain
-of digital signatures, which makes it possible to track the expenditure of
-individual bitcoins. This allows any entity to taint bitcoins that belong to a
-specific set of addresses and monitor their expenditure across the network.
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% *** FIRST SUB-SECTION ***
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Bitcoin clients privacy measures} Besides address, Bitcoin clients
+\paragraph{Clients privacy measures} Besides addresses, Bitcoin clients
 adopts some more privacy measures. These measures consist of allowing users to
 have more than one address and encouraging them to frequently change their
 adresses by transferring some of their bitcoins to the newly created addresses.
@@ -46,8 +24,9 @@ addresses are called \emph{shadow addresses}.
 
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-% *** SECOND SUB-SECTION ***
+% *** FIRST SUB-SECTION ***
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Compromise of privacy examples} In the following section it will be
 shown some examples of how user privacy can be compromised by exploiting the
