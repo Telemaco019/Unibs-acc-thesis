@@ -1,1 +1,33 @@
-\section{Bitcoin scalability}
+\section{Bitcoin and Blockchain scalability}
+\subsection{Introduction}
+As a consequence of the increasing adoption of Blockchain-based cryptocurrencies,
+their ability to scale has raised concerns and has received a lot of attention
+in the last few years. In particular, the key concerns are:
+\begin{itemize}
+  \item[-] can cryptocurrencies based on decentralized blockchains be scaled up
+  to match the performance of a mainstream payment processor?
+  \item[-] what does it take to get there?
+\end{itemize}
+
+\paragraph{Bitcoin current performance} As reference, Bitcoin today requires
+around 10 minutes to confirm a transaction (a new block is mined every $\sim10$
+minutes) and achieves a maximum throughput of 7 transaction/sec
+\cite{wikipedia_scalability_2018}. Since the transactions are confirmed only
+after the block they belong to is created and added to the blockchain, the
+maximum throughput of Bitcoin is effectively capped at maximum block size
+divided by block interval. In comparison, a payment processor such as Visa
+credit card processes 2000 transactions/sec on average, with a peak rate of
+56,000 transactions/sec \cite{wikipedia_scalability_2018}.
+
+\paragraph{Block size debate} A solution for increasing Bitcoin throughput could
+therefore be to increase the size of the block, which is currently 1MB, in order
+to increase the amount of transactions confirmed every 10 minutes. In the last
+few years there's been a debate about this topic which splitted the community.
+People in favour for increasing the size claim that increasing it would allow
+Bitcoin to easlily reach VISA (and anolog payment systems) numbers, while the
+opposing ones claim that this would damage decentralization because blocks of
+big size require a lot of computational power for being mined and this increases
+the costs of participation, centralizing the miners in a few powerfull nodes.
+Their proposed solutions therefore consist of spending effort for optimizing
+the use of the current block space available and offloading certain processing
+to off-chain networks (off-chain solutions).
