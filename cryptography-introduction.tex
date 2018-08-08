@@ -149,11 +149,62 @@ A signature can be verified as follow:
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% *** SECOND SUB-SECTION ***
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Blind signature} Blind signatures were introduced by David Chaum in
+1982 \cite{chaum1982blind} and refer to a cryptographic primitive that allows an
+entity to digitally sign a message without knowing or being able to read the
+message that it signs. The following analogy introduced by Chaum himself clearly
+explains what blind signatures are:
+
+``\emph{Assume an envelope with both a piece of paper (e.g. a contract) and carbon
+paper inside it. The envelope is sealed and sent to the signer. The signer
+cannot see what is inside the envelope without breaking the seal. The signer
+signs the envelope, and thanks to the carbon paper, the contract inside the
+envelope gets signed too. The signer returns the envelope to the sender, who
+opens it and extracts the carbon-signed contract.}''
+
+Blind signature can be implemented using different schemes. In this section it will be
+briefly discussed the RSA scheme proposed by Chaum. Another scheme based on the
+Diffie-Hellman problem will be discussed in section \ref{sec:enh-sign}.
+
+\subsubsection{RSA signature scheme} In RSA the public parameters are $n=pq$ and
+a chosen $e$ relatively prime to $\varphi(n)$, while the private parameters are
+the primes $p,q$, $\varphi(n)$ and \mbox{$d=e^{-1}\bmod\varphi(n)$}. The signer private
+key is $d$ and its public key is $e$.
+
+The signer can sign a message $m$ by computing the signature $s$:
+\[ s=m^d\bmod n \]
+Anyone can verify the signature using the signer public key and verify if the message
+is equal to the result of the computation below:
+\[ s^e = m^{ed}\bmod n= m \bmod n \]
+
+\subsubsection{RSA blind signature scheme}
+\begin{enumerate}
+  \item Generation of a blinding factor $b=r^{e}\bmod n$,
+  with $r$ random number
+  \item The message $m$ is blinded with the blinding factor $b$ previously
+  calculated: $m_{*}=b\cdot m\bmod n$
+  \item The blinded message $m_*$ is sent to the signer. The signer signs it by
+  computing $s_*$:
+  \[ s_*=m_*^d\bmod n = b^d\cdot m^d\bmod n = r^{e\cdot d}\cdot m^d \bmod n = r\cdot m^d \bmod n \]
+  \item The user can divide $s_*$ by $r$ for retrieving $s=m^d\bmod n$, namely
+  the RSA signature of the message $m$
+\end{enumerate}
+
+
+
+
+
+
+
+
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-% *** SECOND SUB-SECTION ***
+% *** THIRD SUB-SECTION ***
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Distributed systems}
 \subsubsection{What is a distributed system}
