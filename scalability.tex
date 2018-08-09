@@ -19,15 +19,37 @@ divided by block interval. In comparison, a payment processor such as Visa
 credit card processes 2000 transactions/sec on average, with a peak rate of
 56,000 transactions/sec \cite{wikipedia_scalability_2018}.
 
-\paragraph{Block size debate} A solution for increasing Bitcoin throughput could
-therefore be to increase the size of the block, which is currently 1MB, in order
-to increase the amount of transactions confirmed every 10 minutes. In the last
-few years there's been a debate about this topic which splitted the community.
-People in favour for increasing the size claim that increasing it would allow
-Bitcoin to easlily reach VISA (and anolog payment systems) numbers, while the
-opposing ones claim that this would damage decentralization because blocks of
-big size require a lot of computational power for being mined and this increases
-the costs of participation, centralizing the miners in a few powerfull nodes.
-Their proposed solutions therefore consist of spending effort for optimizing
-the use of the current block space available and offloading certain processing
-to off-chain networks (off-chain solutions).
+\paragraph{Bitcoin reparametrization} A solution for increasing Bitcoin
+throughput could therefore be to change the block interval time and to increase
+the size of the block, which is currently 1MB, in order to increase the amount
+of transactions confirmed every 10 minutes. In the last few years there's been a
+debate about this topic which splitted the community. People in favour for
+increasing the size claim that increasing it would allow Bitcoin to easlily
+reach VISA (and anolog payment systems) numbers, while the opposing ones claim
+that this would damage decentralization because blocks of big size require a lot
+of computational power for being mined and this increases the costs of
+participation, centralizing the miners in a few powerfull nodes. Their proposed
+solutions therefore consist of spending effort for optimizing the use of the
+current block space available and offloading certain processing to off-chain
+networks (off-chain solutions).
+
+As discussed in \cite{}, since scalability is not a singular metric and it
+includes various performance and security metrics, reparametrization can achieve
+only limited benefits considering the network performance given by Bitcoin’s
+current peer-to-peer network protocol and the willing to maintain its current
+degree of decentralization. However, it is still an open question wheter
+reparametrization alone can address the growth of Bitcoin to the same order of
+magnitude of systems like the previously mentioned VISA. Following the
+considerations discuessed in \cite{}, the next section will explore the
+reparametrization limitations which shows that likely the scaling problem of
+Bitcoin (and, more in general, of Blockchain systems) cannot be faced with
+reparametrization alone.
+
+
+Interesting point offerend by article ***: their conclusion is that fundamental
+protocol redesign is needed for blockchains to scale significantly while
+retaining their decentralization (reparametrization only is not enough, as
+explained in SECTION 3). They also discuss about new strategies for designing
+new protocols by addressing blockchain limitations through a partition of the
+system in different layers, analyzing the bottlenecks and the limitations of
+each layer (SECTION 4).
