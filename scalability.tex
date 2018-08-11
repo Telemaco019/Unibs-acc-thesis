@@ -20,35 +20,125 @@ credit card processes 2000 transactions/sec on average, with a peak rate of
 56,000 transactions/sec \cite{wikipedia_scalability_2018}.
 
 \paragraph{Bitcoin reparametrization} A solution for increasing Bitcoin
-throughput could therefore be to change the block interval time (currently 10 minutes)
-and to increase the size of the block, which currently is 1MB. In the last few years there's been a
-debate about this topic which splitted the community. People in favour for
-increasing the size claim that increasing it would allow Bitcoin to easlily
-reach VISA (and anolog payment systems) numbers, while the opposing ones claim
-that this would damage decentralization because blocks of big size require a lot
-of computational power for being mined and this increases the costs of
-participation, centralizing the miners in a few powerfull nodes. Their proposed
-solutions therefore consist of spending effort for optimizing the use of the
-current block space available and offloading certain processing to off-chain
-networks (off-chain solutions).
+throughput could therefore changing the block interval time (currently 10
+minutes) and increasing upper limit of the block size, which currently is 1MB.
+In the last few years there's been a debate about this topic which splitted the
+community. People in favour for increasing the size claim that increasing it
+would allow Bitcoin to easlily reach VISA (and anolog payment systems) numbers,
+while the opposing ones claim that this would damage decentralization because
+blocks of big size require a lot of computational power for being mined and this
+increases the costs of participation, centralizing the miners in a few powerfull
+nodes. Their proposed solutions therefore consist of spending effort for
+optimizing the use of the current block space available and offloading certain
+processing to off-chain networks (off-chain solutions).
 
-As discussed in \cite{}, since scalability is not a singular metric and it
-includes various performance and security metrics, reparametrization can achieve
-only limited benefits considering the network performance given by Bitcoin’s
-current peer-to-peer network protocol and the willing to maintain its current
-degree of decentralization. However, it is still an open question wheter
-reparametrization alone can address the growth of Bitcoin to the same order of
-magnitude of systems like the previously mentioned VISA. Following the
-considerations discuessed in \cite{}, the next section will explore the
+As discussed in \cite{croman-scaling-blockchain}, since scalability is not a
+singular metric and it includes various performance and security metrics,
+reparametrization can achieve only limited benefits considering the network
+performance given by Bitcoin’s current peer-to-peer network protocol and the
+willing to maintain its current degree of decentralization. However, it is still
+an open question wheter reparametrization alone can address the growth of
+Bitcoin to the same order of magnitude of systems like the previously mentioned
+VISA. Following the considerations discuessed in
+\cite{croman-scaling-blockchain}, the next section will explore the
 reparametrization limitations which shows that likely the scaling problem of
 Bitcoin (and, more in general, of Blockchain systems) cannot be faced with
 reparametrization alone.
 
+\subsection{Reparametrization limitations}
 
-Interesting point offerend by article ***: their conclusion is that fundamental
-protocol redesign is needed for blockchains to scale significantly while
-retaining their decentralization (reparametrization only is not enough, as
-explained in SECTION 3). They also discuss about new strategies for designing
-new protocols by addressing blockchain limitations through a partition of the
-system in different layers, analyzing the bottlenecks and the limitations of
-each layer (SECTION 4).
+\subsubsection{Current Bitcoin metrics}
+\paragraph{Maximum throughput}  Today Bitcoin’s maximumt hroughput is 7
+transactions/sec \cite{wikipedia_scalability_2018}. This number is limited by
+the maximum block size and the interblock time.
+
+\paragraph{Maximum and average block size} The maximum block size is 1 MB, while
+the average size today is around 800 KB \cite{current-block-size}. In the years
+2014-2015, when the measurements in \cite{croman-scaling-blockchain} were done,
+the average block size was 540 KB.
+
+\paragraph{Latency} The latency is the time required for a transaction obtain a
+single confirmation (therefore the time required for the transaction to be
+included in a block). It is roughly 10 minutes.
+
+
+
+
+
+\subsubsection{Metric definitions}
+\begin{definition}
+  We define the metric ``X\% block propagation delay'' as the time required for
+  X\% of the nodes to receive a full block
+\end{definition}
+\begin{remark}
+  The calculation of this metric is done empirically, carrying out measurements
+  as done in the experiment conducted in \cite{croman-scaling-blockchain}.
+\end{remark}
+
+\begin{definition}\label{def:effective-throughput}
+  We define the metric ``X\% effective throughput'' as the block size divided by
+  the metric ``X\% block propagation delay'':
+
+  \[\text{X\% effective throughput} = \frac{\text{block size}}{\text{X\% block
+  propagation delay}}\]
+\end{definition}
+
+\begin{remark}\label{remark-1}
+  If the transactions rate (or, equivalently, the average block size) exceeds
+  the X\% effective throughput during a block interval, then $(100-X)\%$
+  of the nodes on the network would be unable to receive blocks as they arrive,
+  so they would be effectively disabled. Table \ref{tab:effective-throughput-values}
+  shows the connection between transactions rate and X\% effective throughput.
+\end{remark}
+
+\begin{remark}
+  If the size or properties of the Bitcoin network change then the X\% effective
+  throughput also changes.
+\end{remark}
+
+\begin{table}[h!]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabularx}{\textwidth}{c c c}
+\toprule
+\textbf{X\%} & \textbf{Effective throughput} & \textbf{Transactions/sec}                                    \\ \midrule
+50\% & 492 Kbps & 248 trans./sec \\
+\\
+90\% & 55 Kbps & 26 trans./sec \\ \bottomrule
+\end{tabularx}
+}
+\caption{Effective throughtputs and associated transactions per second. The values
+are calculated assuming that 50\% and 90\% block propagation times are 8.7 seconds
+and 79 seconds respectively, while the average block size is 540KB and the
+transactions are 250-byte transactions. Note that the effective throughput
+values are expressed in kilo-bits per second.}
+\label{tab:effective-throughput-values}
+\end{table}
+
+
+
+
+%Interesting point offerend by article ***: their conclusion is that fundamental
+%protocol redesign is needed for blockchains to scale significantly while
+%retaining their decentralization (reparametrization only is not enough, as
+%explained in SECTION 3). They also discuss about new strategies for designing
+%new protocols by addressing blockchain limitations through a partition of the
+%system in different layers, analyzing the bottlenecks and the limitations of
+%each layer (SECTION 4).
+
+\subsubsection{Throughput and latency limits}
+
+\paragraph{Premises} It is assumed that it is desired to maintain nearly the
+current level of decentralization in the system, namely it is desired to have at
+least 90\% of properly functioning nodes. It is also assumed that the current
+Bitcoin peer-to-peer network is used, without apporting any changes to it since
+they would affect the X\% effective throughput.
+
+\paragraph{Throughput limit} given the two premises above, given the definition
+\ref{def:effective-throughput} and given the remark \ref{remark-1}, the block size and
+interval must satisfy:
+\[ \frac{\text{block size}}{\text{X\% effective throughput}} < \text{block interval} \]
+\emph{Consequence}: Given the current overlay network and today’s 10 min average
+block interval, the block size should not exceed 4 MB. A 4 MB block size
+corresponds to a throughput of at most 27 transactions/sec ($\text{maximum throughput} =
+\text{block size} / \text{block interval}$).
