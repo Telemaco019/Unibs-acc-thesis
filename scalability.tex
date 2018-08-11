@@ -158,9 +158,30 @@ the block interval should not be significantly smaller than 12s.}
 
 
 
-\subsection{Bitcoin bottlenecks} In this section will be discussed techniques
-alternative to the reparametrization that allow the Bitcoin system to scale. In
+\subsection{Bitcoin bottlenecks analysis} This section discusses the bottlenecks
+and the limitations of the Bitcoin system and proposes some techniques
+alternative to the reparametrization that allow the system to scale. In
 particular, the system will be decomposed into a set of abstraction layers
 called \emph{planes} (network, consensus, storage, view and side planes), which
 allows limitations and bottlenecks to be addressed at each plane individually
 and in a structured manner.
+
+\subsubsection{Network plane}
+The function of the network plane is to propagate messages that represent
+valid transactions.
+
+Measurements done in \cite{croman-scaling-blockchain} showed that Bitcoin’s
+network protocol do not fully utilize the available network bandwidth,
+making Bitcoin’s Network Plane a bottleneck in transaction processing. The two
+main inefficiencies of the plane are the following:
+\begin{enumerate}
+  \item In order to avoid denial-of-service caused by the propagation of invalid
+  transactions, each node must fully receive and validate a transaction before
+  further propagating it. This local validation of transactions done by each node
+  contributes significantly to the overall propagation time.
+  \item Bitcoin’s network protocol first propagates all transactions (in order
+  to allow the nodes to create pools from which choose the transactions to include
+  in the block they will mine) and then propagates a block (containing a set of
+  the previously propagated transactions) again when it is mined. This causes
+  some of the transactions to be transmitted twice.
+\end{enumerate}
