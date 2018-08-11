@@ -138,7 +138,29 @@ they would affect the X\% effective throughput.
 \ref{def:effective-throughput} and given the remark \ref{remark-1}, the block size and
 interval must satisfy:
 \[ \frac{\text{block size}}{\text{X\% effective throughput}} < \text{block interval} \]
-\emph{Consequence}: Given the current overlay network and today’s 10 min average
-block interval, the block size should not exceed 4 MB. A 4 MB block size
-corresponds to a throughput of at most 27 transactions/sec ($\text{maximum throughput} =
-\text{block size} / \text{block interval}$).
+\emph{Consequence: given the current overlay network and today’s 10 min average
+block interval, the block size should not exceed 4 MB \cite{croman-scaling-blockchain}.
+A 4 MB block size corresponds to a throughput of at most 27 transactions/sec
+($\text{maximum throughput} = \text{block size} / \text{block interval}$)}.
+
+
+\paragraph{Latency limit} For improving the system latency a simple idea is to
+reduce the block interval. In order to do so and maintain an high effective
+throughput is however necessary to reduce the block size (consequence of the
+throughput limit formula shown in the previous paragraph), but using a block too
+small would not make full use of the network bandwidth. The following guideline
+is the result of the experiments and measurements carried out in
+\cite{croman-scaling-blockchain}:  \emph{given today’s overlay network, to retain at
+least 90\% effective throughput and fully utilize the bandwidth of the network,
+the block interval should not be significantly smaller than 12s.}
+
+
+
+
+
+\subsection{Bitcoin bottlenecks} In this section will be discussed techniques
+alternative to the reparametrization that allow the Bitcoin system to scale. In
+particular, the system will be decomposed into a set of abstraction layers
+called \emph{planes} (network, consensus, storage, view and side planes), which
+allows limitations and bottlenecks to be addressed at each plane individually
+and in a structured manner.
