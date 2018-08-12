@@ -158,13 +158,14 @@ the block interval should not be significantly smaller than 12s.}
 
 
 
-\subsection{Bitcoin bottlenecks analysis} This section discusses the bottlenecks
-and the limitations of the Bitcoin system and proposes some techniques
-alternative to the reparametrization that allow the system to scale. In
+\subsection{Bitcoin bottlenecks analysis}  Besides the throughput and latency
+limits discussed in the previous section, the Bitcoin system has some other
+bottlenecks and limitations that will be  discussed in this section. In
 particular, the system will be decomposed into a set of abstraction layers
 called \emph{planes} (network, consensus, storage, view and side planes), which
 allows limitations and bottlenecks to be addressed at each plane individually
-and in a structured manner.
+and in a structured manner. Some solutions to this limitations will be discussed
+as well.
 
 \subsubsection{Network plane}
 The function of the network plane is to propagate messages that represent
@@ -185,3 +186,33 @@ main inefficiencies of the plane are the following:
   the previously propagated transactions) again when it is mined. This causes
   some of the transactions to be transmitted twice.
 \end{enumerate}
+
+In order to remedy to the first inefficiency a possible solution is proposed in
+\cite{andresen}. The basic idea is to adopt a set reconciliation protocol in
+which nodes only fetch transactions they do not possess in a newly mined block.
+If in fact memory pools were perfectly synchronized, the miners could just
+announce new blocks as the fixed 80-byte block header and the coinbase
+transaction, without including all the transactions of the block. Memory pools
+however are not perfectly synchronized but they're just similar: with a set
+reconciliation protocol is possible to take advantage of this similarity for
+optimizing the blocks broadcast\footnote{Set reconciliation means finding the
+difference between two sets of data. In this case the sets are the set of
+transactions transactions in a new block and the set of transactions that a node
+already knows about (its memory pool).}.
+
+
+\subsubsection{Consensus plane} This layer is responsible for mining and
+achieving consensus. Bottlenecks in this plane are due to the proof of work
+algorithms that introduce a tradeoff among consensus speed, bandwidth and
+security since increasing the former two results in compromising security.
+A solution to this limitation could be using different consensus algorithms, such
+as the Proof of Stake discussed in section \ref{sec:proof-of-stake}.
+
+
+\subsubsection{Storage plane} This plane functions as a global memory which
+stores the Bitcoin ledger and supports the operations \code{read} and
+\code{write}. The main issue with this layer is that each node has to store an
+entire copy of the whole ledger which leads to inefficiencies such as increased
+bandwidth and storage requirements. The Bitcoin blockchain size in fact is
+increasing esponentially and its size in June 2018 was around 178 GB
+\cite{statista}. 
