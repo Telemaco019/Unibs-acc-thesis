@@ -212,7 +212,26 @@ as the Proof of Stake discussed in section \ref{sec:proof-of-stake}.
 \subsubsection{Storage plane} This plane functions as a global memory which
 stores the Bitcoin ledger and supports the operations \code{read} and
 \code{write}. The main issue with this layer is that each node has to store an
-entire copy of the whole ledger which leads to inefficiencies such as increased
-bandwidth and storage requirements. The Bitcoin blockchain size in fact is
-increasing esponentially and its size in June 2018 was around 178 GB
-\cite{statista}. 
+entire copy of the whole blockchain which leads to inefficiencies such as
+increased bandwidth and storage requirements. The Bitcoin blockchain size is in
+fact increasing esponentially and its size in June 2018 was around 178 GB
+\cite{statista}.
+
+
+\subsubsection{View plane} This plane proposes an optimizationbased on the fact
+that miners for operating do not need the full blockchain that stores the entire
+transaction history. Miners in Bitcoin in fact do not operate on the full
+blockchain but instead they operate on a \emph{view} of the ledger called the
+unspent transaction outputs set (UTXO set, see section \ref{}). A \emph{view}
+can be considered as a data structure derived from the full ledger whose state
+is obtained by applying all transactions.
+
+The main issue is that the in Bitcoin the view is not stored in the Storage
+plane and distributed to the nodes but instead the miners have to locally
+compute it from the whole ledger from the beginning of time and this operation
+now requires around four days, as well as the whole blockchain. Storing the
+view in the storage plane instead would therefore eliminate the need for
+mining nodes to store the full blockchain and improve efficiency.
+
+
+\subsubsection{Side plane}

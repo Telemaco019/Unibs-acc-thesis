@@ -531,10 +531,46 @@ path.
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% *** SIXTH SUB-SECTION ***
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The Bitcoin network}
+
+\subsubsection{Node types}
+\paragraph{Full node} A full node is a node that maintains the full copy of the
+blockchain, validates all incoming transactions and blocks and forwards
+transactions and blocks to its peers.
+
+\paragraph{Miner} Miners are nodes that compete to each other to solve the
+proof-of-work and create new blocks. Some miner are also full nodes which
+mantain a full copy of the blockchain, while others don't and instead they
+partecipate to a mining pool which depends on a pool server which maintains a
+full copy of the blockchain.
+
+\paragraph{Lightweight clients} Lightweight clients are clients that do not
+store, nor maintain the full Bitcoin blockchain, but follow a simple payment
+verification (SPV) scheme that allows them to verify that a transaction has been
+included in the blockchain by receiving and verifying only the block headers
+relevant to their wallets. They don't need to perform transaction or block
+validation.
+
+\subsubsection{Network architecture}
+The Bitcoin network architecture is a Peer-to-Peer (P2P) network on top of the
+Internet. P2P means that all the nodes of the network are peers to each other:
+they are all equal, there aren't ``special'' nodes, servers, centralized services
+and heiarchies. The nodes are interconnected in a mesh network with a ``flat''
+topology and the nodes both provide and consume services at the same time.  
+
+
+
+
+
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-% *** SIXTH SUB-SECTION ***
+% *** SEVENTH SUB-SECTION ***
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Mining and Proof of Work} Mining is a resource-intensive
 process by which transactions are validated and new blocks are added to the
@@ -595,7 +631,7 @@ The algorithm for mining a block can be summarized in the following steps:
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-% *** SEVENTH SUB-SECTION ***
+% *** EIGHTH SUB-SECTION ***
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Consensus} Mining is a key feature of Bitcoin which secures the
 bitcoin system and allows to have network-wide consensus without a central
