@@ -415,9 +415,9 @@ security.
 \end{figure}
 
 
-\subsubsection{The block structure} Table \ref{tab:bloock-structure} summarize
-the structure of a block of the blockchain, while table \ref{} shows the structure
-of the block header.
+\subsubsection{The block structure} Table \ref{tab:block-structure} summarize
+the structure of a block of the blockchain, while table
+\ref{tab:block-header-structure} shows the structure of the block header.
 
 \begin{table}[h!]
 \centering
@@ -435,7 +435,7 @@ Transactions & Variable & The transactions recorded in the block \\ \bottomrule
 \end{tabularx}
 }
 \caption{Structure of a Bitcoin block}
-\label{tab:bloock-structure}
+\label{tab:block-structure}
 \end{table}
 
 
@@ -460,11 +460,11 @@ Nonce & 4 bytes & A counter used for the Proof-of-Work algorithm. \\ \bottomrule
 \end{tabularx}
 }
 \caption{Structure of a Bitcoin block header}
-\label{tab:bloock-header-structure}
+\label{tab:block-header-structure}
 \end{table}
 
 
-\subsubsection{Merkle trees} Each block summmarize all the transactions it
+\subsubsection{Merkle trees}\label{sec:merkle-trees} Each block summmarize all the transactions it
 contains using a Merkle tree, which is a data structure used for efficiently
 summarizing and verifying the integrity of large sets of data. A Merkle tree  is
 a binary tree containing hashes and it produces an overall digital fingerprint
@@ -537,29 +537,62 @@ path.
 \subsection{The Bitcoin network}
 
 \subsubsection{Node types}
-\paragraph{Full node} A full node is a node that maintains the full copy of the
-blockchain, validates all incoming transactions and blocks and forwards
-transactions and blocks to its peers.
 
-\paragraph{Miner} Miners are nodes that compete to each other to solve the
+\paragraph{Full nodes} A full node is a node that maintains the full copy of the
+blockchain, validates all incoming transactions and blocks and forwards
+transactions and blocks to its peers. Since they have a copy of the full ledger,
+full nodes can autonomously and authoritatively verify any transaction without
+rely on or trust any other system. The ``price'' for this indipendence however
+is that they have to store the full blockchain, which size is currently around
+178 GB and increases exponentially \cite{statista}. The Bitcoin Core client
+is a full node and in the early years of Bitcoin all nodes were full nodes.
+
+\paragraph{Miners} Miners are nodes that compete to each other to solve the
 proof-of-work and create new blocks. Some miner are also full nodes which
 mantain a full copy of the blockchain, while others don't and instead they
 partecipate to a mining pool which depends on a pool server which maintains a
 full copy of the blockchain.
 
-\paragraph{Lightweight clients} Lightweight clients are clients that do not
-store, nor maintain the full Bitcoin blockchain, but follow a simple payment
-verification (SPV) scheme that allows them to verify that a transaction has been
-included in the blockchain by receiving and verifying only the block headers
-relevant to their wallets. They don't need to perform transaction or block
-validation.
+\paragraph{Lightweight clients} Lightweight clients are clients that stores only
+a subset of the Bitcoin blockchain and follow a simple payment verification
+(SPV) scheme that allows them to verify that a transaction has been included in
+the blockchain by receiving and verifying only the block headers relevant to
+their wallets (they can't have a picture of all the available UTXOs because they
+do not know about all the transactions on the network), without downloading the
+block transactions. This kind of clients are designed to run on storage and
+power constrained devices such as smartphones, tablets, or embedded systems. In
+comparison with a full node: for verifying a transaction a full node checks the
+entire chain of blocks for building the UTXO set, a lightweight client instead
+basically checks how deep the block that contains the transaction is ``buried''
+under other blocks above it. The fact that other nodes accepted the block
+containing the transaction and produced more blocks on top of it assures that
+the transaction is valid (it's not a double-spend transaction). A lightweight
+client checks wheter a transaction belong to a block by requesting a
+\emph{merkle path} (see section \ref{sec:merkle-trees}) which proofs the
+belonging and by validating the proof-of-work of the block by computing the hash
+of the header.
 
-\subsubsection{Network architecture}
-The Bitcoin network architecture is a Peer-to-Peer (P2P) network on top of the
-Internet. P2P means that all the nodes of the network are peers to each other:
-they are all equal, there aren't ``special'' nodes, servers, centralized services
-and heiarchies. The nodes are interconnected in a mesh network with a ``flat''
-topology and the nodes both provide and consume services at the same time.  
+Note that a transaction can however be ``hidden'' from a SPV node because, since
+it doesn't have a copy of the ledger with all the transactions, it cannot verify
+that a transaction \emph{doesn't exist} (it can only verify that a transaction
+\emph{exist}). This vulnerability can be used for example for double spending
+the same amount of UTXO by hiding to the node the first transaction. For counter
+this vulnerability, SPV nodes connects randomly to several nodes in order to
+increase the probability that at least one node is honest. 
+
+\subsubsection{Network architecture} The Bitcoin network architecture is a
+Peer-to-Peer (P2P) network on top of the Internet. P2P means that all the nodes
+of the network are peers to each other: they are all equal, there aren't
+``special'' nodes, servers, centralized services and heiarchies. The nodes are
+interconnected in a mesh network with a ``flat'' topology and the nodes both
+provide and consume services at the same time. This architecture, in combination
+with a consensus algorithm, is the only one that allows to achieve
+decentralization of control. The The term ``bitcoin network'' refers to the
+collection of nodes running the bitcoin P2P protocol.
+
+Note that, despite the node type, all nodes validate and propagate
+transactions/block and discover and maintain connections to peers.
+
 
 
 
@@ -588,7 +621,7 @@ other to solve an hard problem based on a cryptographic hash algorithm. The
 solution to the problem, called the Proof-of-Work, is included in the new mined
 block and acts as proof that the miner expended significant computing effort.
 The proof of work requirement is given by the following equation:
-\begin{equation}
+\begin{equation}\label{eq:proof-of-work}
   H ( N || Prev\_hash || Tx || Tx || . . . Tx) < Target
 \end{equation} where H is the SHA256 hash function, N is the nonce
 contained in the block header, $Prev\_hash$ is the hash of the previous block,
@@ -608,9 +641,11 @@ rate at which new blocks can be generated by the network to one every 10 minutes
 
 The algorithm for mining a block can be summarized in the following steps:
 \begin{enumerate}
-  \item Retrieve the hash of the previous block from the Bitcoin network
-  \item Choose wich transaction include in the block (according to their priority)
-  \item Compute the double SHA256 hash of the block header
+  \item Retrieve the hash of the previous block from the Bitcoin network.
+  \item Choose wich transaction include in the block (according to their priority).
+  \item Compute the double SHA256 hash of the block header (thus in equation
+  \ref{eq:proof-of-work} all the transactions $Tx$ are summarized by the root
+  of the merkle tree contained in the block header).
   \item Check whether the resultant hash is lower than the current difficulty level
   (target). If so, then stop the process, otherwise change the nonce (usually it is
   increased by 1) and go back to step 3.
