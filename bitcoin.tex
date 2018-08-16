@@ -377,14 +377,92 @@ instead, they have a special type of input called the \emph{coinbase}.
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% *** FIFTH SUB-SECTION ***
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Wallets} A Wallet can be seen as an application that serves as a
+user interface and manages user's money. Technically however, a walles is a data
+structure that securely stores the user's private keys required for spending the
+bitcoins he possesses. A wallet therefore doesn't store ``money'' but only pairs
+of public/private keys that the user can use to sign transactions and prove that
+he owns the coins, which are stored in the Blockchain as transaction outputs.
 
+There are two main kinds of wallet: \emph{deterministic} and
+\emph{nondeterministic} wallets.
+
+\paragraph{Nondeterministic wallets} In nondeterministic wallets each key is
+independently generated starting from a random number, so the keys the wallet
+stores are not related to each other. The main disadvantage of this kind of
+wallets if that they are cumbersome to manage because each key has to be backed
+up frequently (otherwise if the wallet becomes inacessible then the founds
+controlled by the key are irrevocably lost). This becomes quite a big problem
+when dealing with avoidance of address reuse for enhancing privacy, which
+consists of using each address for only one transaction (see section \ref{}):
+each address corresponds to a private key, thus avoiding address reuse means
+managing many keys that has to be backed up frequently. The Bitcoin core client
+includes a type-0 nondeterministic wallet, which use for anything other than
+simple tests is however discuraged by the developers.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.5\linewidth]{img/nondeterministic-wallet.png}
+	\caption{Type-0 nondeterministic wallet: a collection of randomly generated keys}
+	\label{fig:nondeterministic-wallet}
+\end{figure}
+
+\paragraph{Deterministic wallets} In deterministic wallets all the keys are
+derived from a single master key called the \emph{seed}, so all the keys are
+related to each other and can be generated again if one has the original seed.
+This means that a single backup of the seed at creation time is enough and thus
+the wallet is easy manageable even if avoiding address reuse. The seed also
+allows export/import a wallet, making therefore easy the migration of the user's
+keys between different wallet implementations. The most advanced deterministic
+wallets is the HD wallet defined by the BIP-32 standard, in which the keys are
+derived in a tree structure such that a parent key can derive a sequence of
+children keys, each of which can derive a sequence of grandchildren keys and so
+on. Deriving keys in this ways offers two main advantages:
+\begin{enumerate}
+  \item The tree scheme offers great flexibility, for example a branch can be used
+  for receiving payments while another one can be used for receiving only
+  the change from outgoing payments. Moreover, in an enterprise context, different
+  branches can be assigned to different departement of the company.
+  \item The user can derive a sequence of public keys without the need to access
+  the corresponding private keys. This is useful for example for making an unsecure
+  server issuing a different public key for each transaction without providing
+  it the corresponding private keys so that it cannot spend the funds.
+\end{enumerate}
+Usually the seeds are created according to the standard BIP-39, which defines
+the seeds as a sequence of english words called \emph{mnemonic} so that they are
+easy to transcribe, export and import across wallets. Today this standard is adopted
+by the most of wallet implementations. \emph{The seed (and the mnemonic as well) has
+of course to be random}. Below there's an example of comparison between an
+hexadecimal seed and a mnemonic seed:
+\begin{lstlisting}[title=Hex seed for a deterministic wallet:]
+0C1E24E5917779D297E14D45F14E1A1A
+\end{lstlisting}
+\begin{lstlisting}[title=12-word mnemonic seed for a deterministic wallet:]
+army van defense carry jealous true
+garbage claim echo media make crunch
+\end{lstlisting}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.5\linewidth]{img/deterministic-wallet.png}
+	\caption{Type-0 nondeterministic wallet: a collection of randomly generated keys}
+	\label{fig:deterministic-wallet}
+\end{figure}
+
+
+Bitcoin wallets can also be divided in other four categories:
+\begin{enumerate}
+  \item 
+\end{enumerate}
 
 
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-% *** FIFTH SUB-SECTION ***
+% *** SIXTH SUB-SECTION ***
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The Bitcoin Blockchain} The Bitcoin blockchain is a linked list of
 blocks of transactions, each one  identified by a SHA-256 hash. Each block
@@ -532,9 +610,22 @@ path.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-% *** SIXTH SUB-SECTION ***
+% *** SEVENTH SUB-SECTION ***
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The Bitcoin network}
+
+\subsubsection{Network architecture} The Bitcoin network architecture is a
+Peer-to-Peer (P2P) network on top of the Internet. P2P means that all the nodes
+of the network are peers to each other: they are all equal, there aren't
+``special'' nodes, servers, centralized services and heiarchies. The nodes are
+interconnected in a mesh network with a ``flat'' topology and the nodes both
+provide and consume services at the same time. This architecture, in combination
+with a consensus algorithm, is the only one that allows to achieve
+decentralization of control. The The term ``bitcoin network'' refers to the
+collection of nodes running the bitcoin P2P protocol.
+
+Note that, despite the node type, all nodes validate and propagate
+transactions/block and discover and maintain connections to peers.
 
 \subsubsection{Node types}
 
@@ -578,20 +669,8 @@ that a transaction \emph{doesn't exist} (it can only verify that a transaction
 \emph{exist}). This vulnerability can be used for example for double spending
 the same amount of UTXO by hiding to the node the first transaction. For counter
 this vulnerability, SPV nodes connects randomly to several nodes in order to
-increase the probability that at least one node is honest. 
+increase the probability to find at least one honest node.
 
-\subsubsection{Network architecture} The Bitcoin network architecture is a
-Peer-to-Peer (P2P) network on top of the Internet. P2P means that all the nodes
-of the network are peers to each other: they are all equal, there aren't
-``special'' nodes, servers, centralized services and heiarchies. The nodes are
-interconnected in a mesh network with a ``flat'' topology and the nodes both
-provide and consume services at the same time. This architecture, in combination
-with a consensus algorithm, is the only one that allows to achieve
-decentralization of control. The The term ``bitcoin network'' refers to the
-collection of nodes running the bitcoin P2P protocol.
-
-Note that, despite the node type, all nodes validate and propagate
-transactions/block and discover and maintain connections to peers.
 
 
 
@@ -603,7 +682,7 @@ transactions/block and discover and maintain connections to peers.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-% *** SEVENTH SUB-SECTION ***
+% *** EIGHTH SUB-SECTION ***
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Mining and Proof of Work} Mining is a resource-intensive
 process by which transactions are validated and new blocks are added to the
@@ -666,7 +745,7 @@ The algorithm for mining a block can be summarized in the following steps:
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-% *** EIGHTH SUB-SECTION ***
+% *** NINETH SUB-SECTION ***
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Consensus} Mining is a key feature of Bitcoin which secures the
 bitcoin system and allows to have network-wide consensus without a central
