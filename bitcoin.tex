@@ -454,7 +454,20 @@ garbage claim echo media make crunch
 
 Bitcoin wallets can also be divided in other four categories:
 \begin{enumerate}
-  \item 
+  \item Mobile wallets: they are implemented using SPV (simple payment verification)
+  nodes which allows power and storage constrained devices to verify transactions
+  without downloading the whole blockchain.
+  \item Desktop wallets: wallets that offer more services than mobile wallets,
+  such as transactions anonymization and multisignature. They also generally
+  support SPV mode.
+  \item Online wallets: web-based wallets that store the keys in the cloud, providing
+  high availability and ubiquity (they can be accessed from anywhere and from
+  any device). The main issue is that the private keys are not under the control
+  of the owner, which puts the BTCs that one possesses at serious risk.
+  \item Hardware wallets: dedicated physical devices that hold private keys
+  and offer payment assistance. They offer great security, but on the other hand
+  the main issue is the recoverability of the keys in case of hardware failure.
+  An example of hardware wallet is the Trezor hardware wallet \cite{trezorwallet}.
 \end{enumerate}
 
 
