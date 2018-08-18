@@ -1,32 +1,32 @@
 \section{Bitcoin anonimity issues} In bitcoin the transactions are exchanged
-between adresses, which, as explained in  the previous chapters, are basically
-hashes of public keys. The purpose of these adresses is to serve as pseudonyms
+between addresses, which, as explained in the previous chapters, are basically
+hashes of public keys. The purpose of these addresses is to serve as pseudonyms
 and provide some anonymity. However, since all Bitcoin transactions are stored
 in a publicly available ledger and they basically consist of a chain of
 digital signatures which provide cryptographic proofs of funds transfer, Bitcoin
-privacy concerns were raised and in the last few years researchers have shown
+privacy concerns were raised and in the last few years, researchers have shown
 that Bitcoin anonymity is much weaker than was initially expected. Users’
-transactions in fact can often be easily linked together and if any one of those
+transactions in fact can often be easily linked together and if anyone of those
 transactions is linked to the user’s identity, then all of its transactions may
 be exposed. For these reasons Bitcoin is sometimes compared to a bank making
 bank statements publicly available online but blanking out the names.
 
-\paragraph{Tainted bitcoins} The main consequence of this lack of anonimity is
+\paragraph{Tainted bitcoins} The main consequence of this lack of anonymity is
 that the history of each bitcoin can be traced and therefore some funds (for example
 stolen bitcoins or bitcoins known to have been used for illegal purposes) can be
 marked as \emph{tainted}, deflating consequently their value.  This can be done
-for example by warning users to don't accept coins that comes from a given
+for example by warning users to don't accept coins that come from a given
 address using alert messages or by coding a list of banned Bitcoin addresses
-within the official Bitcoin client releases. Also users are less likely to
+within the official Bitcoin client releases. Also, users are less likely to
 accept coins that are tainted since owning them  can be a risk and they can ask
 the payer to use different coins as payment.
 
 
 \paragraph{Clients privacy measures} Besides addresses, Bitcoin clients
-adopts some more privacy measures. These measures consist of allowing users to
+adopt some more privacy measures. These measures consist of allowing users to
 have more than one address and encouraging them to frequently change their
-adresses by transferring some of their bitcoins to the newly created addresses.
-Moreover, for each user a new address is automatically created and used for
+addresses by transferring some of their bitcoins to the newly created addresses.
+Moreover, for each user, a new address is automatically created and used for
 collecting the change resulting from any transaction of the user. These
 addresses are called \emph{shadow addresses}.
 
@@ -39,19 +39,19 @@ addresses are called \emph{shadow addresses}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % *** FIRST SUB-SECTION ***
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Compromise of privacy examples} In the following section it will be
+\subsection{Compromise of privacy examples} In the following section, it will be
 shown some examples of how user privacy can be compromised by exploiting the
-existing Bitcoin client implementations and carrying out a behaviour-based
+existing Bitcoin client implementations and carrying out a behavior-based
 analysis of the public ledger \cite{karame2016bitcoin}. It's important to point
-out that there are also other kind of attacks which operates at the network
+out that there are also other kinds of attacks which operates at the network
 layer and which allow the attacker to obtain user information from the Bitcoin
 peer to peer network \cite{karame2016bitcoin}, which however will not be
 discussed in this book.
 
-\paragraph{Exploiting multi input transactions} The first method for obtain
+\paragraph{Exploiting multi input transactions} The first method for obtaining
 users information consists of observing the multi-input transactions. A
 multi-input transaction, as discussed in chapter \ref{sec:transactions}, is a
-transaction which accept  more UXTO as input. If in a transaction these UXTOs
+transaction which accepts more UXTO as input. If in a transaction these UXTOs
 are owned by different addresses, then it is straightforward to conclude that
 the input addresses belong to the same user.
 
@@ -65,7 +65,7 @@ address is a shadow address for the user that sent the transaction.
 \paragraph{Behavior-based analysis} Besides exploiting Bitcoin client
 implementations, an attacker can also use behavior-based clustering algorithms
 like K-Means (KMC) and Hierarchical Agglomerative Clustering (HAC) for profiling
-Bitcoin users. Without going into the datails of these techniques, in reference
+Bitcoin users. Without going into the details of these techniques, in reference
 \ref{} these algorithms has been tested in a simulated Bitcoin system and the
 achieved results shows that given 200 simulated user profiles, almost 42\% of
 the users have their profiles captured with 80\% accuracy and the profile
