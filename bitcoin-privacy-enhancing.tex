@@ -5,7 +5,7 @@ There are basically two approaches for enhancing users privacy in Bitcoin:
   \item Mixing services: they achieve users privacy generally without degrading
   the performance of the system. However, they require absolute trust in a third
   party.
-  \item Cryptograpic extensions of Bitcoin: extensions of the Bitcoin protocol
+  \item Cryptographic extensions of Bitcoin: extensions of the Bitcoin protocol
   which eliminate the need for trusted third parties but tend to be less efficient
   in terms of performance.
 \end{itemize}
@@ -25,11 +25,11 @@ the second uses more mixing parties and it is considered secure only if $2/3$ of
 the mixing parties are honest.
 
 There is also another kind of mixing services in which the service acts as a
-``coin hisory resetter''. In this case the user sends to the mixer a certain
+``coin history resetter''. In this case, the user sends to the mixer a certain
 amount of bitcoin and a return address and the mixer sends back to the user (to
 the specified address) someone else’s coins of the same value. Examples of this
-kind of services are BitLaundry and Bitcoin Fog. The problem of these services is
-that they do not protect form network-layer attacks since the eventually the
+kind of services are BitLaundry and Bitcoin Fog. The problem of these services
+is that they do not protect form network-layer attacks since the eventually the
 user is the one making payments (instead of the mixing service).
 
 \begin{figure}[!htb]
@@ -54,8 +54,8 @@ Heilman, F. Baldimtsi and S. Goldberg \cite{heilman-blindly-signed-contracts},
 is based on the scheme used in eCash \cite{Chaum1984} and, unlike other previous
 schemes that are efficient but achieve limited security/anonymity or other which
 provide strong anonymity but are slow and require large numbers of transactions,
-it provides anonimity at reasonable speed using an untrusted third party (which
-can therefore be malicious).
+it provides anonymity at reasonable speed using an untrusted third party (which
+can, therefore, be malicious).
 
 \subsubsection{High-level overview of the scheme}
 \paragraph{Scenario}
@@ -86,7 +86,7 @@ voucher $V$. Finally, $B$ redeems $V$ with $I$ to obtain the bitcoin. With this
 scheme $I$ does not know who $A$ wants to pay it cannot read the blinded serial
 number $\overline{sn}$ that it signs and it cannot link a message/signature
 $(sn, \sigma)$ pair to its blinded value $(\overline{sn}, \overline\sigma)$.
-Blindness therefore ensures that $I$ cannot link a voucher it redeems with a
+Blindness, therefore, ensures that $I$ cannot link a voucher it redeems with a
 voucher it issues. Blind signatures are also unforgeable, which ensures that a
 malicious user cannot issue a valid voucher to itself.
 \begin{figure}[!htb]
@@ -101,7 +101,7 @@ has to be honest: if $I$ is malicious it could refuse to issue a voucher to $A$
 after receiving its bitcoin and thus the scheme fails. To solve this, the scheme
 proposed in \cite{heilman-blindly-signed-contracts} uses Bitcoin
 \emph{transaction contracts} for achieving blockchain-enforced \emph{fair
-exchange}. An high level view of the scheme is shown in figure
+exchange}. An high-level view of the scheme is shown in figure
 \ref{fig:heilman-scheme}. The scheme consists of four blockchain transactions
 that are confirmed in three blocks on the blockchain and the key idea is that
 $A$ transfers a bitcoin to $I$ if and only if it receives a valid voucher $V$ in
@@ -127,7 +127,7 @@ return. The four transactions implement two fair exchanges:
 	\label{fig:heilman-scheme}
 \end{figure}
 
-\subsubsection{Fair exchange implementation} In the following section it will be
+\subsubsection{Fair exchange implementation} In the following section, it will be
 explained how the transaction contracts $T_{offer(BTC\rightarrow V)}$ and (2)
 $T_{fulfill(BTC\rightarrow V)}$ implement the fair exchange $BTC\rightarrow V$
 used in our protocol scheme shown in figure \ref{fig:heilman-scheme}. The
@@ -194,10 +194,10 @@ The signature scheme works as follow:
 
 \subsubsection{Anonymity considerations} While in the eCash protocol of figure
 \ref{fig:eCash-scheme} the anonymity level of users depends on the total number
-of payments using $I$, in the scheme proposed by Heilman shown in figure \ref{fig:heilman-scheme} the anonimity level
-depends on the number of payment through $I$ in a given epoch. The protocol in
-fact runs in epochs and provides set-anonymity within each epoch. An epoch is the
-three-blocks window in which the four transaction required by the protocol are
+of payments using $I$, in the scheme proposed by Heilman shown in figure \ref{fig:heilman-scheme} the anonymity level
+depends on the number of payment through $I$ in a given epoch. The protocol, in
+fact, runs in epochs and provides set-anonymity within each epoch. An epoch is the
+three-blocks window in which the four transactions required by the protocol are
 confirmed and stored, as shown in figure \ref{fig:epochs}.
 \begin{figure}[!htb]
 	\centering
@@ -206,7 +206,7 @@ confirmed and stored, as shown in figure \ref{fig:epochs}.
 	\label{fig:epochs}
 \end{figure}
 
-The anonimity considerations about the proposed scheme are based on the following
+The anonymity considerations about the proposed scheme are based on the following
 assumptions:
 \begin{itemize}
   \item all the users coordinate on epoch so that the transactions arrangement
@@ -214,7 +214,7 @@ assumptions:
   block so that its height\footnote{height=distance from the genesis block}
   is multiple of three)
   \item the payer $A$ and the payee $B$ trust each other. If $A$ or $B$ were malicious
-  they could easily conspire with $I$ revealing the other part identity: for exmple
+  they could easily conspire with $I$ revealing the other part identity: for example
   $A$ could comunicate $I$ the serial number of the received voucher so that when
   $I$ can identify $B$ when he redeems that voucher
   \item payees B always receive payments in a fresh ephemeral address $address_B$
@@ -222,7 +222,7 @@ assumptions:
   accept one payment per epoch.
 \end{itemize}
 
-\paragraph{Epoch set-anonimity} As consequence of assumptions (2) and (3), in
+\paragraph{Epoch set-anonymity} As consequence of assumptions (2) and (3), in
 every epoch there are exactly $n$ addresses making payments (playing the role of
 payer $A$) and $n$ receiving addresses (playing the role of $B$). Anyone looking
 at the blockchain can therefore see the participating addresses of payers and
@@ -230,9 +230,9 @@ payees, but the probability of successfully linking any chosen payer $A$ to a
 payee $B$ should not be more than $1/n$, namely an attacker observing the
 blockchain can do no better than randomly guessing who paid whom during an epoch.
 
-\paragraph{Transparency of anonimity} Users in learn the size of their anonymity
-set (number of partecipants in their epoch) only after a transaction completes
-by looking at the blockchain.  If particular $B$ feels his anonymity set is too
+\paragraph{Transparency of anonymity} Users learn the size of their anonymity
+set (number of participants in their epoch) only after a transaction completes
+by looking at the blockchain. If particular $B$ feels his anonymity set is too
 small in one epoch, he can increase the size of it by using the scheme as  a
 mixing service and making a new transaction to another address owned by him. For
 example:  $address_B$ gets paid in an epoch with $n = 4$. $B$ can create a fresh
