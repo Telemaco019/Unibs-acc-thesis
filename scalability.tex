@@ -22,13 +22,13 @@ credit card processes 2000 transactions/sec on average, with a peak rate of
 \paragraph{Bitcoin reparametrization} A solution for increasing Bitcoin
 throughput could therefore changing the block interval time (currently 10
 minutes) and increasing upper limit of the block size, which currently is 1MB.
-In the last few years there's been a debate about this topic which splitted the
+In the last few years there's been a debate about this topic which split the
 community. People in favour for increasing the size claim that increasing it
-would allow Bitcoin to easlily reach VISA (and anolog payment systems) numbers,
+would allow Bitcoin to easily reach VISA (and analog payment systems) numbers,
 while the opposing ones claim that this would damage decentralization because
 blocks of big size require a lot of computational power for being mined and this
-increases the costs of participation, centralizing the miners in a few powerfull
-nodes. Their proposed solutions therefore consist of spending effort for
+increases the costs of participation, centralizing the miners in a few powerful
+nodes. Their proposed solutions, therefore, consist of spending effort for
 optimizing the use of the current block space available and offloading certain
 processing to off-chain networks (off-chain solutions).
 
@@ -37,18 +37,18 @@ singular metric and it includes various performance and security metrics,
 reparametrization can achieve only limited benefits considering the network
 performance given by Bitcoin’s current peer-to-peer network protocol and the
 willing to maintain its current degree of decentralization. However, it is still
-an open question wheter reparametrization alone can address the growth of
+an open question whether reparametrization alone can address the growth of
 Bitcoin to the same order of magnitude of systems like the previously mentioned
-VISA. Following the considerations discuessed in
+VISA. Following the considerations discussedssed in
 \cite{croman-scaling-blockchain}, the next section will explore the
-reparametrization limitations which shows that likely the scaling problem of
+reparametrization limitations which show that likely the scaling problem of
 Bitcoin (and, more in general, of Blockchain systems) cannot be faced with
 reparametrization alone.
 
 \subsection{Reparametrization limitations}
 
 \subsubsection{Current Bitcoin metrics}
-\paragraph{Maximum throughput}  Today Bitcoin’s maximumt hroughput is 7
+\paragraph{Maximum throughput}  Today Bitcoin’s maximum throughput is 7
 transactions/sec \cite{wikipedia_scalability_2018}. This number is limited by
 the maximum block size and the interblock time.
 
@@ -107,7 +107,7 @@ included in a block). It is roughly 10 minutes.
 90\% & 55 Kbps & 26 trans./sec \\ \bottomrule
 \end{tabularx}
 }
-\caption{Effective throughtputs and associated transactions per second. The values
+\caption{Effective throughputs and associated transactions per second. The values
 are calculated assuming that 50\% and 90\% block propagation times are 8.7 seconds
 and 79 seconds respectively, while the average block size is 540KB and the
 transactions are 250-byte transactions. Note that the effective throughput
@@ -131,10 +131,10 @@ values are expressed in kilo-bits per second.}
 \paragraph{Premises} It is assumed that it is desired to maintain nearly the
 current level of decentralization in the system, namely it is desired to have at
 least 90\% of properly functioning nodes. It is also assumed that the current
-Bitcoin peer-to-peer network is used, without apporting any changes to it since
+Bitcoin peer-to-peer network is used, without bringing any changes to it since
 they would affect the X\% effective throughput.
 
-\paragraph{Throughput limit} given the two premises above, given the definition
+\paragraph{Throughput limit} Given the two premises above, given the definition
 \ref{def:effective-throughput} and given the remark \ref{remark-1}, the block size and
 interval must satisfy:
 \[ \frac{\text{block size}}{\text{X\% effective throughput}} < \text{block interval} \]
@@ -172,7 +172,7 @@ The function of the network plane is to propagate messages that represent
 valid transactions.
 
 Measurements done in \cite{croman-scaling-blockchain} showed that Bitcoin’s
-network protocol do not fully utilize the available network bandwidth,
+network protocol does not fully utilize the available network bandwidth,
 making Bitcoin’s Network Plane a bottleneck in transaction processing. The two
 main inefficiencies of the plane are the following:
 \begin{enumerate}
@@ -187,7 +187,7 @@ main inefficiencies of the plane are the following:
   some of the transactions to be transmitted twice.
 \end{enumerate}
 
-In order to remedy to the first inefficiency a possible solution is proposed in
+In order to remedy to the first inefficiency, a possible solution is proposed in
 \cite{andresen}. The basic idea is to adopt a set reconciliation protocol in
 which nodes only fetch transactions they do not possess in a newly mined block.
 If in fact memory pools were perfectly synchronized, the miners could just
@@ -213,15 +213,15 @@ as the Proof of Stake discussed in section \ref{sec:proof-of-stake}.
 stores the Bitcoin ledger and supports the operations \code{read} and
 \code{write}. The main issue with this layer is that each node has to store an
 entire copy of the whole blockchain which leads to inefficiencies such as
-increased bandwidth and storage requirements. The Bitcoin blockchain size is in
-fact increasing esponentially and its size in June 2018 was around 178 GB
+increased bandwidth and storage requirements. The Bitcoin blockchain size, in
+fact, is increasing exponentially and its size in June 2018 was around 178 GB
 \cite{statista}.
 
 
-\subsubsection{View plane} This plane proposes an optimizationbased on the fact
+\subsubsection{View plane} This plane proposes an optimization based on the fact
 that miners for operating do not need the full blockchain that stores the entire
 transaction history. Miners in Bitcoin in fact do not operate on the full
-blockchain but instead they operate on a \emph{view} of the ledger called the
+blockchain but, instead, they operate on a \emph{view} of the ledger called the
 unspent transaction outputs set (UTXO set, see section \ref{}). A \emph{view}
 can be considered as a data structure derived from the full ledger whose state
 is obtained by applying all transactions.
@@ -234,4 +234,16 @@ view in the storage plane instead would therefore eliminate the need for
 mining nodes to store the full blockchain and improve efficiency.
 
 
-\subsubsection{Side plane}
+\subsubsection{Side plane} This plane represents the off-chain transactions,
+namely transactions that are not carried out over the blockchain but over an
+out-of-band connection over the internet. These transactions are basically
+transfer agreements which generally occur between two parties and are not stored
+in the Blockchain, that however is still used to secure them. The advantages of
+this transactions are the higher throughput (transactions are recorded
+immediately without having to wait for network confirmations), the higher
+privacy (transfers are not visible on the public blockchain) and the
+inexpensiveness (there are no fees since there is no participant required to
+validate the transaction). The main issue with these transactions is that they
+rely critically on the nature of the links between the involved parties which
+essentially form a separate network plane: reference \cite{croman-scaling-blockchain}
+pointed out that this network can act as a bottleneck as well. 
