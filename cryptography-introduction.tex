@@ -50,7 +50,67 @@ An hash function should ideally meet these properties:
   includes SHA3-256, SHA3-384 and SHA3-512.
 \end{itemize}
 
-\subsubsection{Design of SHA-256}
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Design of SHA-256} SHA-256 works on 512-bits blocks and the input
+message size has to be $< 2^{64}$bit. The outpus size is 256 bits. The algorithm
+can be divided in two phases: pre-processing and hash computation.
+
+\paragraph{Pre-processing}
+\begin{enumerate}
+  \item Padding of the message so that its length is a multiple of 512 bits.
+  \item Parsing the message into N blocks of 512 bits $M(0), M(1), \dots, M(N)$.
+  The first 32 bits of a block $i$ are denoted $M_0(i)$, the next 32 bits
+  are $M_1(i)$ and so on up to $M_{15}(i)$.
+  \item Setup of the initial has value $H(0)$, which is a sequence of eight 32-bits
+  words obtained by taking the first 32-bits of the fractional parts of the
+  square roots of the first eight prime numbers.
+\end{enumerate}
+
+
+\paragraph{Hash computation} The blocks of the message are processed one at a
+time, beginning with $H(0)$, as follows:
+\[ H(i) = H(i-1) + C_{M(i)}(H(i-1)) \]
+where $+$ is the $\bmod 32$ addition and $C$ is the SHA-256 compression function,
+which is shown if figure \ref{fig:sha256-compress-function} and it's basically
+a block cipher which uses the message block $M(i)$ as key.
+
+$H(N)$ is the hash of the message $M$.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=1\linewidth]{img/sha-256-round.png}
+	\caption{A round of the SHA-256 compress function $C$. The symbol $\boxplus$
+  denotes the $\bmod 32$ addition, $Maj(X, Y, Z)=(X \cap Y) \oplus (X \cap Z) \oplus (Y \cap Z)$,
+  $Ch(X,Y,Z)=	(X \cap Y) \oplus (!X \cap Z)$, $W_j$ and $K_j$ and round constants
+  and $\sum_0$ and $\sum_1$ perform bitwise rotation.}
+	\label{fig:sha256-compress-function}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \subsubsection{Message Authentication Codes (MACs)}
 A MAC is an hash function which uses a key and which can therefore be used to
