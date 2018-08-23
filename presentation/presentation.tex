@@ -1,6 +1,10 @@
 \documentclass{beamer}
 \usepackage{graphicx}
 \usepackage[utf8]{inputenc}
+\usepackage{biblatex}
+\setbeamercovered{transparent=15}
+\addbibresource{../bibliography.bib}
+
 \setbeamerfont{institute}{size=\large}
 \setbeamerfont{date}{size=\small}
 
@@ -20,8 +24,13 @@ the Bitcoin protocol and its scalability and privacy aspects}
   \begin{frame}
     \titlepage
   \end{frame}
+  \begin{frame}{Summary}
+    \tableofcontents
+  \end{frame}
 
+  %%%%%%%%%%%%%%%%%%%%%
   %%% FIRST SECTION %%%
+  %%%%%%%%%%%%%%%%%%%%%
   \section{Introduction}
   \begin{frame}{Introduction}
     \framesubtitle{Distributed systems}
@@ -100,14 +109,87 @@ the Bitcoin protocol and its scalability and privacy aspects}
   \begin{frame}{Introduction}
     \framesubtitle{Distributed systems}
     \begin{block}{The Byzantine generals problem}
-     A group of generals are surrounding a city and they have to decide
-     whether to attack or retreat. Their only communication way
-     is the messenger and they have to agree on a common decision.
-     Some of the generals may be traitors trying to prevent the loyal generals
-     from reaching an agreement by communicating a misleading message.
-     The generals need an algorithm to guarantee that all the loyal generals agree on
-     the same plan (attack or retreat) regardless of what traitors generals do.
+      \begin{itemize}
+        \item Problem formulated by Leslie Lamport \cite{lamport1982byzantine}
+        \item A group of generals are surrounding a city and they have to agree
+        on a common decision: attack or retreat.
+        \item Their only communication way is a messenger
+        \item Some of the generals may be \emph{traitors}: they communicate
+        misleading message for preventing the loyal generals from reaching an
+        agreement
+        \item Requirement: algorithm that allows the loyal generals to agree
+        on the same plan regardless of traitors general
+      \end{itemize}
     \end{block}
+  \end{frame}
+
+
+
+
+
+
+
+  %%%%%%%%%%%%%%%%%%%%%
+  %%% SECOND SECTION %%%
+  %%%%%%%%%%%%%%%%%%%%%
+  \section{Blockchain}
+  \begin{frame}{Introduction to Blockchain}
+    \framesubtitle{What is Blockchain}
+
+    \begin{block}{Business definition}
+      Blockchain is a platform whereby peers can exchange values without the need
+      for a central trusted party by using transactions which are stored inside
+      the platform in a verifiable and permanent way.
+    \end{block}
+
+    \begin{block}{Technical definition}
+      Blockchain is a distributed ledger that is
+      \begin{itemize}
+        \item cryptographically secure
+        \item append-only
+        \item immutable (extremely hard to change)
+        \item updateable only via consensus among nodes
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+
+
+
+  \begin{frame}[allowframebreaks]{Introduction to Blockchain}
+    \framesubtitle{Blockchain features}
+
+    \begin{itemize}
+      \item \textbf{Decentralization}: no need of a central trusted entity
+      which stores the data and validates the transaction, the same copy of the
+      Blockchain is stored by every node and the validation of transaction is
+      achieved through consensus \pause
+      \item \textbf{Distributed consensus}: Blockchain has high Byzantine Fault
+      Tolerance and allows to have a single version of a data value agreed by all
+      parties through a consensus algorithm \pause
+      \item \textbf{High availability}: Blockchain is based on a peer-to-peer
+      network and data replicated on each node: even if one or more nodes fail
+      the whole network can continue to work correctly \pause
+      \item \textbf{Immutability}: once a block has been added to the blockchain,
+      changing it is computationally infeasible \pause
+      \item \textbf{Transparency}: every node can see what is in the blockchain \pause
+      \item \textbf{Security}: \pause
+      \item \textbf{Uniqueness}:
+    \end{itemize}
+  \end{frame}
+
+
+
+
+
+
+
+
+
+
+
+  \begin{frame}{References}
+    \printbibliography
   \end{frame}
 
 \end{document}
