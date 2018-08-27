@@ -14,6 +14,24 @@
 \usetheme{Madrid}
 \usecolortheme{orchid}
 
+%\AtBeginSection[]{
+%  \begin{frame}
+%  \vfill
+%  \centering
+%  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+%    \usebeamerfont{title}\insertsectionhead\par%
+%  \end{beamercolorbox}
+%  \vfill
+%  \end{frame}
+%}
+\AtBeginSubsection[]{
+  \begin{frame}[allowframebreaks,noframenumbering]
+    \frametitle{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+
 \title{Blockchain and Bitcoin}
 \subtitle[]{Overview of Blockchain technology and cryptocurrencies, focusing on
 the Bitcoin protocol and its scalability and privacy aspects}
@@ -399,11 +417,344 @@ the Bitcoin protocol and its scalability and privacy aspects}
   %%% THIRD SECTION %%%
   %%%%%%%%%%%%%%%%%%%%%
   \section{Bitcoin}
-  \begin{frame}{}
+  \subsection{What is Bitcoin}
+  \begin{frame}{What is Bitcoin}
+    \begin{itemize}
+      \item First fully decentralized cryptocurrency \pause
+      \item Invented by Satoshi Nakamoto in 2008: first real implementation of
+      Blockchain \pause
+      \item Bitcoin can be either defined as a protocol, a digital currency
+      and a platform: \pause
+      \begin{itemize}
+        \item Bitcoin (capital B)  \MVRightarrow\, Bitcoin protocol
+        \item bitcoin (lowercase b) \MVRightarrow\, bitcoin  currency
+      \end{itemize} \pause
+    \end{itemize}
 
+    \begin{block}{The reference implementation}
+      \begin{itemize}
+        \item Bitcoin is an open source project and is developed by a community of volunteers
+        \item The reference implementation is \textbf{Bitcoin Core}
+        \item It is considered the authoritative implementation and it specifies
+        how each part of the system has to be implemented.
+      \end{itemize}
+    \end{block}
   \end{frame}
 
 
+
+
+  \begin{frame}{What is Bitcoin (Cont. 1)}
+    Bitcoin can be seen as a combination of:
+    \begin{itemize}
+      \item a decentralized peer-to-peer-network (the Bitcoin protocol) \pause
+      \item a public transaction ledger (the blockchain) \pause
+      \item a set of rules for validating transactions (consensus rules) \pause
+      \item a mechanism for reaching distributed consensus on the blockchain
+      (distributed consensus algorithm) \pause
+    \end{itemize}
+  \end{frame}
+
+
+
+
+
+  \begin{frame}{What is Bitcoin (Cont. 2)}
+    Bitcoins are entirely ``virtual'':
+    \begin{itemize}
+      \item there aren't any physical or virtual coins stored anywhere \pause
+      \item the coins are implied in the transactions that send value from a sender to
+      a receiver
+    \end{itemize}
+  \end{frame}
+
+
+
+
+
+  \subsection{Scripts}
+  \begin{frame}{Bitcoin scripts}
+    \begin{itemize}
+      \item Script = list of instructions recorded with each transaction that describes
+      how the next person wanting to spend the Bitcoins being transferred can
+      gain access to them \pause
+      \item Programming language used: ``\red{Script}'' \cite{script-bitcoin-wiki} \pause
+      \begin{itemize}
+        \item very simple programming language \pause
+        \item not Turing-complete {\tiny(no loops and no complex control flow instructions)} \pause
+        \item deliberately disegned like this for avoiding abuses of the scripts
+        for conducting denial of service attacks {\tiny(each scripts has to be
+        executed on each node of the network)}
+      \end{itemize}
+    \end{itemize}
+  \end{frame}
+
+
+
+
+  \subsection{Keys and addresses}
+  \begin{frame}{Keys and addresses}
+    \begin{itemize}
+      \item Ownership of bitcoins is established through digital keys, Bitcoin addresses, and digital signatures \pause
+      \item In order to be included in the blockchain, transactions require a valid
+      signature which can be generated only with a private (secret) key \pause
+      \item The private key proves the ownership of bitcoins by signing transactions and
+      transferring value from a user to another \pause
+    \end{itemize}
+    \begin{block}{Analogy with traditional banking}
+      \begin{itemize}
+        \item public key \MVRightarrow\, bank account number
+        \item private key \MVRightarrow\, secret PIN (or signature on a check)
+        which which allows to unlock the value and transferring it to other people
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+
+
+
+
+  \begin{frame}{Keys and addresses (Cont. 1)}
+    \begin{block}{Addresses}
+      \begin{itemize}
+        \item unique strings of digits and characters which identify the
+        originator and/or the destination of a transaction \pause
+        \item derived from public keys through one-way cryptographic hashing:
+        \begin{enumerate}
+          \item Double hashing: SHA-256 + RIPEMD160
+          \item 160-bit hash as result
+          \item Base58Check encoding of the 160-bit hash
+          \item Result: 26-35 characters string which begins with “1” (\red{public key
+          address}) or “3” (\red{pay-to-script-hash address})
+        \end{enumerate}
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+
+
+
+
+  \begin{frame}{Keys and addresses (Cont. 2)}
+    \begin{block}{Keys}
+      \begin{itemize}
+        \item Private keys are 256-bit random numbers and can be represented
+        in different formats \pause
+        \item Public keys are generated starting from the private keys using
+        elliptic curve multiplication: \pause
+        \begin{itemize}
+          \item ``Trap door'' function \pause
+          \item Elliptic curve  specified by the secp256k1 standard, defined by the NIST:
+          \[ y^2 \bmod p = (x^3 + 7) \bmod p \]
+          where $p = 2^{256} – 2^{32} – 2^9 – 2^8 – 2^7 – 2^6 – 2^4 – 1$ is a very large prime number \pause
+          \item Public key $K=k*G$, where $k$ is the private key and $G$ is
+          a point on the curve defined by the standard \pause
+          \item The generator point $G$ is always the same for all Bitcoin users
+        \end{itemize}
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+
+
+
+
+  \begin{frame}{Keys and addresses (Cont. 3)}
+    \begin{block}{Public key formats}
+      \begin{itemize}
+        \item \textbf{Uncompressed format}: the key is the coordinates pair
+        $(x,y)$ of a point on the curve \MVRightarrow\, prefix $04$ followed by
+        two 256-bit numbers (65 Bytes) \pause
+        \item \textbf{Compressed format}: prefix $03$ (if the y-coordinate is an
+        odd number) or $02$ (if the y-coordinate is an even number) followed
+        by the x-coordinate \MVRightarrow\ 33 Bytes. \pause
+        \begin{itemize}
+          \item the y-coordinate can be derived from the x one \pause
+        \end{itemize}
+        \item Address derived from a compressed public key $\neq$ address derived
+        from the uncompressed version \pause
+        \begin{itemize}
+          \item solution: \textbf{compressed private keys} \pause
+          \item private keys from which only compressed
+          public keys should be derived
+        \end{itemize}
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+
+
+
+  \subsection{Transactions}
+  \begin{frame}{Transactions}
+    \begin{itemize}
+      \item Data structures that encode the transfer of value between participants
+      in the bitcoin system \pause
+      \item They're public visible by anyone \pause
+      \item A transaction includes at least one input and output
+    \end{itemize}
+  \end{frame}
+
+
+
+
+
+  \begin{frame}{Transactions (Cont. 1)}
+    \begin{block}{Transaction outputs}
+      \begin{itemize}
+        \item Discrete and indivisible units of bitcoin measured in Satoshi \pause
+        \item Can be seen as coins being created in a transaction \pause
+        \item Consist of two parts:
+        \begin{enumerate}
+          \item amount of bitcoin (expressed in Satoshi)
+          \item set of conditions required for spending the output (\textbf{locking script})\pause
+        \end{enumerate}
+        \item All the available and spendable outputs are stored in the blockchain
+        and they are called unspent transaction outputs or (\textbf{UTXO}) \pause
+        \item Balance shown by Wallets application is the aggregated value of
+        all the UTXOs the user can spend with the keys it controls \pause
+        \item UXTO can only be spent in its entirety by a transaction \pause
+        \begin{itemize}
+          \item[$\rightarrow$] usually transactions generate \emph{change}
+        \end{itemize}
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+
+
+
+
+  \begin{frame}{Transactions (Cont. 2)}
+    \begin{block}{Transaction inputs}
+      A transaction input consists of: \pause
+      \begin{enumerate}
+        \item one or more UTXOs that will be consumed \pause
+        \item a proof of ownership through the locking script to unlock the selected UXTO \pause
+        \begin{itemize}
+          \item[$\rightarrow$] usually consists of a digital signature and a public key
+        \end{itemize}
+      \end{enumerate}
+    \end{block}
+  \end{frame}
+
+
+
+
+
+  \begin{frame}{Transactions (Cont. 3)}
+    \begin{block}{Transaction typical life cycle}
+      \begin{enumerate}
+        \item A sender sends a transaction (using a wallet application) \pause
+        \item The wallet signs the transaction using the sender’s private key in order
+        to prove the ownership of the value being transferred \pause
+        \item The transaction is broadcasted to the Bitcoin network \pause
+        \item Mining nodes include this transaction in the next block to be mined \pause
+        \item When a node solves the Proof of Work it broadcasts the
+        newly block to the network \pause
+        \item Confirmation process starts: each node verifies the new block and
+        propagate it further
+      \end{enumerate}
+    \end{block}
+  \end{frame}
+
+
+
+
+  \begin{frame}{Transactions (Cont. 4)}
+    \begin{block}{Transaction fees}
+      \begin{itemize}
+        \item Included in almost every transaction \pause
+        \item Two purposes:
+        \begin{enumerate}
+          \item Compensate the miners \pause
+          \item Act as a security mechanism: economically infeasible for attackers
+          to flood the network with transactions \pause
+        \end{enumerate}
+        \item Their value depends on the size of the transaction:
+        \[ Fees = Sum(Inputs)–Sum(Outputs) \] \pause
+        \item
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+
+
+
+
+  \begin{frame}{Transactions (Cont. 4)}
+    \begin{block}{Coinbase transactions}
+      \begin{itemize}
+        \item First transaction in a block \pause
+        \item Created by the first node which solves the proof-of-work \pause
+        \item Create brand-new bitcoins that the miner can spend as a reward for
+        mining \pause
+        \item Do not consume UTXO: they have special type of input called coinbase
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+
+
+
+
+  \subsection{Wallets}
+  \begin{frame}{Wallets}
+    \begin{itemize}
+      \item Applications that serve as a user interface and manage user’s money \pause
+      \item Technically: data structures that securely store the user’s private
+      keys required for spending the bitcoins he possesses \pause
+      \item They don't store ``money'' but only pairs of public/private keys \pause
+      \item Two kind of wallets: \emph{deterministic} and \emph{nondeterministic}
+    \end{itemize}
+  \end{frame}
+
+
+
+
+  \begin{frame}{Wallets (Cont. 1)}
+    \begin{block}{Nondeterministic wallets}
+      \begin{itemize}
+        \item Each key is independently generated starting from a random number
+        \MVRightarrow\, keys stored in the wallet are not related to each other \pause
+        \item Main disadvantage: cumbersome to manage \pause
+        \begin{itemize}
+          \item[-] they have to be backed up frequently \MVRightarrow\, each key
+          has to be backed up \pause
+          \item[-] address reuse avoidance \MVRightarrow\, many addresses \MVRightarrow\,
+          many keys that has to be backed up frequently
+        \end{itemize}
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+
+
+
+  \begin{frame}{Wallets (Cont. 2)}
+    \begin{block}{Deterministic wallets}
+      \begin{itemize}
+        \item All the keys are derived from a single master key (the \emph{seed}) \pause
+        \item The stored keys can be generated again if one has the original seed \pause
+        \item Only the seed has to be backed up \pause
+        \item Easily manageable, even if using address reuse avoidance \pause
+        \item Keys usually derived in a tree structure (BIP-32 standard) \pause
+        \item Seeds usually created according to BIP-39 standard \pause
+        \begin{itemize}
+          \item[-] sequence of english words called \emph{mnemonic} \pause
+          \item[-] easy to transcribe, export and import across wallets
+        \end{itemize}
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+
+
+
+  \subsection{Bitcoin Blockchain}
+  \begin{frame}{Bitcoin Blockchain}
+
+  \end{frame}
 
 
 
