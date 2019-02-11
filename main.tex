@@ -15,6 +15,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{booktabs}
+\usepackage{csquotes}
 \usepackage{graphicx}
 \usepackage{xcolor}
 \hypersetup{
@@ -31,7 +32,7 @@
 \theoremstyle{remark}
 \newtheorem{remark}{Remark}[section]
 
-\usepackage[british,english]{babel}
+\usepackage[english]{babel}
 \usepackage{biblatex}
 \addbibresource{bibliography.bib}
 \DeclareFieldFormat{url}{Available at: \url{#1}}
@@ -86,11 +87,32 @@
   focusing on the Bitcoin protocol and its scalability and \\ privacy aspects
 }
 \date{}
-\author{Michele Zanotti}
 
 \begin{document}
-
   \maketitle
+  
+  \begin{figure}[h!]
+		\begin{center}
+			\includegraphics[width=0.5\textwidth]{img/1017px-Logo_unibs.png} 
+		\end{center}
+	\end{figure}
+	
+	\begin{center}
+    
+		\begin{tabular}{c}
+        	Michele Zanotti\\
+        	Matricola: 708855\\
+        	\\
+        \end{tabular}
+
+        \begin{tabular}{l l}
+        	Professor:&  Luca Giuzzi \\
+       		Subject:& Algebra per Codici e Crittografia \\ %
+        \end{tabular}
+		
+	\end{center}
+    \pagebreak
+  
   \tableofcontents
 
   \include{cryptography-introduction}

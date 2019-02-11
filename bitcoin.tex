@@ -346,7 +346,7 @@ This is the typical life cycle of a transaction:
   newly mined block to the network and the confirmation process starts: each
   nodes verify the block and propagate it further
   \item The receiver start to receive confirmations. After approximately six
-  confirmations, the transaction is considered finalized and confirmed.
+  confirmations, the transaction is considered finalised and confirmed.
 \end{enumerate}
 
 
@@ -356,14 +356,13 @@ This is the typical life cycle of a transaction:
 These fees have to purposes: compensate the bitcoin miners and act as a security
 mechanism by making economically infeasible for attackers to flood the network
 with transactions. The value of the fees depends on the size of the
-transaction since it's calculated by subtracting the sum of the outputs to the
-sum of the inputs: \[Fees = Sum(Inputs) – Sum(Outputs)\] Fees also  act as an
-incentive for miners to encourage them to include a user transaction in the
-block the miners are creating. Each miner chooses from a memory pool which
-transactions include in the block he will propose based on their priority:  a
-transaction with a higher fee will be picked up sooner by the miners since it's
-more profitable.
+transaction since it's calculated as the difference between the amount being spent and the amount being received (which must be zero or more): \[Fees = Sum(Inputs) – Sum(Outputs)\]
 
+Fees also act as an incentive for miners to encourage them to include a user transaction in the block the miners are creating. Each miner chooses from a memory pool which transactions include in the block he will propose based on their priority: a transaction with a higher fee will be picked up sooner by the miners since it's more profitable.
+
+In Bitcoin, the spender is the one who specifies how much fee to pay. In principle, the higher the fee is the fastest the transaction will be included in a block and confirmed. For instance, the fees that have to be paid for having the transaction included mined on the next block (around 10 minutes) are much higher than the fees that have to be paid for having the transaction mined within six blocks (around 1 hour).  
+
+There is a minimum fee that has to be paid for assuring that the transaction will be confirmed in a reasonable time. The value of the minimum fee varies over time and depends on the supply and demand of the Bitcoin market. Note that a fee of 0 bitcoin can as well be paid, however, the respective transaction will likely never be mined in a block (and thus will never be confirmed). 
 
 \subsubsection{Coinbase transactions} A particular kind of transaction is the
 \emph{coinbase transaction}, which is created by the ``winning'' a miner and is
