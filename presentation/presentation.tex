@@ -4,6 +4,7 @@
 \usepackage{biblatex}
 \usepackage{marvosym}
 \usepackage{booktabs}
+\usepackage{multicol}
 \usepackage{tabularx}
 \setbeamercovered{transparent=15}
 \addbibresource{../bibliography.bib}
@@ -28,8 +29,10 @@
 %}
 \AtBeginSubsection[]{
   \begin{frame}[allowframebreaks,noframenumbering]
-    \frametitle{Outline}
-    \tableofcontents[currentsection,currentsubsection]
+    \frametitle{\contentsname}
+    \begin{multicols}{2}
+        \tableofcontents[currentsection,currentsubsection]
+    \end{multicols}
   \end{frame}
 }
 
@@ -46,51 +49,66 @@ the Bitcoin protocol and its scalability and privacy aspects}
     \titlepage
   \end{frame}
   \begin{frame}{Summary}
-    \tableofcontents
+    \frametitle{\contentsname}
+    \begin{multicols}{2}
+        \tableofcontents
+    \end{multicols}
   \end{frame}
+
+
+
+
 
   %%%%%%%%%%%%%%%%%%%%%
-  %%% FIRST SECTION %%%
+  %%% SECOND SECTION %%%
   %%%%%%%%%%%%%%%%%%%%%
-  \section{Introduction}
+  \section{Introduction to Blockchain}
+  \subsection{Preliminary concepts}
+ % \begin{frame}{Introduction}
+ %   \framesubtitle{Distributed systems}
+ %   \begin{columns}[onlytextwidth]
+ %     \column{.5\textwidth} \begin{block}{Distributed system}
+ %       A \textcolor{red}{distributed system} is a network that %consists of autonomous nodes,
+ %       connected using a distribution middleware, which acts in %a coordinated way
+ %       (passing messages to each other) in order to achieve a %common outcome and
+ %       that can be seen by the user as a single logical %platform.
+ %     \end{block}
+
+  %    \column{.5\textwidth}
+  %    \begin{figure}[!htb]
+  %      \centering
+  %      \includegraphics[width=0.7\linewidth]{../img/distributed-%system.png}
+  %    \end{figure}
+  %  \end{columns}
+  %\end{frame}
+
+
+
+
+%  \begin{frame}{Introduction}
+%    \framesubtitle{Distributed systems}
+%      The desired properties of a distributed system are the %following:\vspace{10pt}
+%      \begin{itemize}
+%        \item \textbf{Consistency}: all the nodes have the same %lates available copy of the data.
+%        \item \textbf{Availability}: the system is always working %and responding to the
+%        input requests without any failures.
+%        \item \textbf{Partition tolerance}: if a group of nodes %fails the distributed system
+%        still continues to operate correctly
+%      \end{itemize}
+%  \end{frame}
+
+
+\begin{frame}{Introduction}
+    \begin{block}{Distributed system}
+    A \textcolor{red}{distributed system} is a network that consists of autonomous nodes,
+    connected using a distribution middleware, which acts in a coordinated way
+    (passing messages to each other) in order to achieve a common outcome and
+    that can be seen by the user as a single logical platform.
+    \end{block}
+\end{frame}
+
+
   \begin{frame}{Introduction}
-    \framesubtitle{Distributed systems}
-    \begin{columns}[onlytextwidth]
-      \column{.5\textwidth} \begin{block}{Distributed system}
-        A \textcolor{red}{distributed system} is a network that consists of autonomous nodes,
-        connected using a distribution middleware, which acts in a coordinated way
-        (passing messages to each other) in order to achieve a common outcome and
-        that can be seen by the user as a single logical platform.
-      \end{block}
-
-      \column{.5\textwidth}
-      \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=0.7\linewidth]{../img/distributed-system.png}
-      \end{figure}
-    \end{columns}
-  \end{frame}
-
-
-
-
-  \begin{frame}{Introduction}
-    \framesubtitle{Distributed systems}
-      The desired properties of a distributed system are the following:\vspace{10pt}
-      \begin{itemize}
-        \item \textbf{Consistency}: all the nodes have the same lates available copy of the data.
-        \item \textbf{Availability}: the system is always working and responding to the
-        input requests without any failures.
-        \item \textbf{Partition tolerance}: if a group of nodes fails the distributed system
-        still continues to operate correctly
-      \end{itemize}
-  \end{frame}
-
-
-
-
-  \begin{frame}{Introduction}
-    \framesubtitle{Distributed systems}
     Even if some of the nodes fault or links break, a distributed system should tolerate
     this and should continue to work correctly. There are two types of fault:
     \begin{itemize}
@@ -104,12 +122,41 @@ the Bitcoin protocol and its scalability and privacy aspects}
       which can even be malicious.
     \end{block}
   \end{frame}
+  
+  
+  
+  
+  \begin{frame}{Introduction}
+        \begin{block}{The Byzantine generals problem}
+          \begin{itemize}
+            \item Problem formulated by Leslie Lamport \cite{lamport1982byzantine}
+            \item A group of generals are surrounding a city and they have to agree
+            on a common decision: attack or retreat.
+            \item Their only communication way is a messenger
+            \item Some of the generals may be \emph{traitors}: they communicate
+            misleading message for preventing the loyal generals from reaching an
+            agreement
+            \item Requirement: algorithm that allows the loyal generals to agree
+            on the same plan regardless of traitors general
+          \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \begin{frame}{Introduction}
+        \begin{figure}[!htb]
+                \centering
+                \includegraphics[width=0.5\linewidth]{../img/byzantine.jpg}
+        \end{figure}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.7\linewidth]{../img/byzantine-generals-problem.png}
+        \end{figure}
+    \end{frame}
 
 
 
 
   \begin{frame}{Introduction}
-    \framesubtitle{Distributed systems}
     \begin{block}{Consensus}
       \red{Consensus} is the process of agreement between untrusted nodes on a data
       value.
@@ -128,48 +175,10 @@ the Bitcoin protocol and its scalability and privacy aspects}
     \end{itemize}
   \end{frame}
 
-
-
-  \begin{frame}{Introduction}
-    \framesubtitle{Distributed systems}
-        \begin{block}{The Byzantine generals problem}
-          \begin{itemize}
-            \item Problem formulated by Leslie Lamport \cite{lamport1982byzantine}
-            \item A group of generals are surrounding a city and they have to agree
-            on a common decision: attack or retreat.
-            \item Their only communication way is a messenger
-            \item Some of the generals may be \emph{traitors}: they communicate
-            misleading message for preventing the loyal generals from reaching an
-            agreement
-            \item Requirement: algorithm that allows the loyal generals to agree
-            on the same plan regardless of traitors general
-          \end{itemize}
-        \end{block}
-\end{frame}
-
-\begin{frame}{Introduction}
-    \framesubtitle{Distributed system}
-    \begin{figure}[!htb]
-            \centering
-            \includegraphics[width=0.5\linewidth]{../img/byzantine.jpg}
-    \end{figure}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.7\linewidth]{../img/byzantine-generals-problem.png}
-    \end{figure}
-\end{frame}
-
-
-
-
-
-
-  %%%%%%%%%%%%%%%%%%%%%
-  %%% SECOND SECTION %%%
-  %%%%%%%%%%%%%%%%%%%%%
-  \section{Introduction to Blockchain}
+  
+  
+  
   \subsection{Definition}
-
   \begin{frame}{What is Blockchain}
     \begin{block}{Business definition}
       Blockchain is a platform whereby peers can exchange values without the need
@@ -237,6 +246,10 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
   \begin{frame}{Blockchain structure}
     \framesubtitle{Blocks structure}
+        \begin{figure}[!htb]
+          \centering
+          \includegraphics[width=0.3\linewidth]{../img/blockchain-basic-schema.png}
+        \end{figure}
       \begin{itemize}
         \item  A block is a group of transactions. Generally, it is composed of:
         \begin{itemize}
@@ -273,7 +286,12 @@ the Bitcoin protocol and its scalability and privacy aspects}
       \begin{itemize}
         \item Required to establish whether the ledger itself or new blocks are
         valid or not
-        \item Analogy with the Byzantine Generals Problem: ``generals'' are the nodes of the Blockchain, ``messengers'' are the network links and ``traitors'' are malicious nodes which try to tamper with the data
+        \item Analogy with the Byzantine Generals Problem:
+        \begin{itemize}
+            \item[-]``generals'' are the nodes of the Blockchain
+            \item[-]``messengers'' are the network links
+            \item[-]``traitors'' are malicious nodes which try to tamper with the data
+        \end{itemize} 
       \end{itemize}
   \end{frame}
   
@@ -306,7 +324,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
         \item  A consensus decision is determined based on the total decisions
         submitted by all generals \pause
         \item \textcolor{green}{Pro}: very efficient \pause
-        \item \red{Cons}: precludes users anonimity \pause
+        \item \red{Cons}: precludes users anonymity \pause
         \item Mechanism adopted by Hyperledger and Ripple
       \end{itemize}
     \end{block}
@@ -511,7 +529,12 @@ the Bitcoin protocol and its scalability and privacy aspects}
   \subsection{Keys and addresses}
   \begin{frame}{Keys and addresses}
     \begin{itemize}
-      \item Ownership of bitcoins is established through digital keys, Bitcoin addresses, and digital signatures 
+      \item Ownership of bitcoins is established through:
+      \begin{itemize}
+          \item digital keys
+          \item Bitcoin addresses
+          \item digital signatures
+      \end{itemize} 
       \item In order to be included in the blockchain, transactions require a valid
       signature which can be generated only with a private (secret) key 
       \item The private key proves the ownership of bitcoins by signing transactions and
@@ -617,19 +640,16 @@ the Bitcoin protocol and its scalability and privacy aspects}
   \begin{frame}{Transactions (Cont. 1)}
     \begin{block}{Transaction outputs}
       \begin{itemize}
-        \item Discrete and indivisible units of bitcoin measured in Satoshi 
-        \item Can be seen as coins being created in a transaction \pause 
         \item Consist of two parts:
         \begin{enumerate}
-          \item amount of bitcoin (expressed in Satoshi)
+          \item amount of bitcoin (discrete and indivisible, expressed in Satoshi)
           \item set of conditions required for spending the output (\textbf{locking script})
         \end{enumerate}
         \pause
         \item All the available and spendable outputs are stored in the blockchain
-        and they are called unspent transaction outputs or (\textbf{UTXO}) 
-        \item Balance shown by Wallets application is the aggregated value of
-        all the UTXOs the user can spend with the keys it controls 
-        \item UXTO can only be spent in its entirety by a transaction \pause
+        and they are called unspent transaction outputs (\textbf{UTXO}) 
+        \item Wallet balance = e aggregated value of all the UTXOs the user can spend with the keys it controls 
+        \item UXTO can only be spent in its entirety 
         \begin{itemize}
           \item[$\rightarrow$] usually transactions generate \emph{change}
         \end{itemize}
@@ -646,35 +666,66 @@ the Bitcoin protocol and its scalability and privacy aspects}
       A transaction input consists of: 
       \begin{enumerate}
         \item one or more UTXOs that will be consumed 
-        \item a proof of ownership through the locking script to unlock the selected UXTO \pause
+        \item a proof of ownership through the locking script to unlock the selected UXTO 
         \begin{itemize}
           \item[$\rightarrow$] usually consists of a digital signature and a public key
         \end{itemize}
       \end{enumerate}
     \end{block}
   \end{frame}
-
-
-
-
-
+  
+  
+  
+  
   \begin{frame}{Transactions (Cont. 3)}
-    \begin{block}{Transaction typical life cycle}
-      \begin{enumerate}
-        \item A sender sends a transaction (using a wallet application) 
-        \item The wallet signs the transaction using the sender’s private key in order
-        to prove the ownership of the value being transferred 
-        \item The transaction is broadcasted to the Bitcoin network 
-        \item Mining nodes include this transaction in the next block to be mined 
-        \item When a node solves the Proof of Work it broadcasts the
-        newly block to the network 
-        \item Confirmation process starts: each node verifies the new block and propagate it further
-      \end{enumerate}
+    \begin{block}{Example of transaction}
+        \textbf{Input}\\
+        \begin{itemize}
+            \item Previous tx: \begin{tiny}f5d8ee39a430901c91a5917b9f2dc19d6d1a0e9cea205b009ca73dd04470b9a6\end{tiny}
+            \item Index: 0
+            \item scriptSig: 
+            \begin{enumerate}
+                \item \begin{tiny}304502206e21798a42fae0e854281abd38bacd1aeed3ee3738d9e1446618c4571d10\end{tiny}
+                \item \begin{tiny}90db022100e2ac980643b0b82c0e88ffdfec6b64e3e6ba35e7ba5fdd7d5d6cc8d25c6b241501\end{tiny}
+            \end{enumerate}
+        \end{itemize}
+
+        \textbf{Output}\\
+        \begin{itemize}
+            \item Value: 5000000000
+            \item scriptPubKey: OP\_DUP OP\_HASH160 \begin{tiny}i404371705fa9bd789a2fcd52d2c580b65d35549d\end{tiny}\\ OP\_EQUALVERIFY OP\_CHECKSIG
+        \end{itemize}
     \end{block}
   \end{frame}
+  
+  
+  
+  
+%  \begin{frame}{Transactions (Cont. 4)}
+%      \begin{figure}
+%          \centering
+%          \includegraphics[width=0.8\linewidth]{../img/Transaction.png}
+%      \end{figure}
+%  \end{frame}
 
 
 
+
+
+%  \begin{frame}{Transactions (Cont. 3)}
+%    \begin{block}{Transaction typical life cycle}
+%      \begin{enumerate}
+%        \item A sender sends a transaction (using a wallet application) 
+%        \item The wallet signs the transaction using the sender’s private %key in order
+%        to prove the ownership of the value being transferred 
+%        \item The transaction is broadcasted to the Bitcoin network 
+%        \item Mining nodes include this transaction in the next block to %be mined 
+%        \item When a node solves the Proof of Work it broadcasts the
+%        newly block to the network 
+%        \item Confirmation process starts: each node verifies the new %block and propagate it further
+%      \end{enumerate}
+%    \end{block}
+%  \end{frame}
 
   \begin{frame}{Transactions (Cont. 4)}
     \begin{block}{Transaction fees}
@@ -850,7 +901,10 @@ the Bitcoin protocol and its scalability and privacy aspects}
     \begin{itemize}
         \item no ``special'' nodes (all the nodes consume and provide services) 
         \item flat network topology
-        \item nodes connected in a mesh
+        \item nodes connected in a mesh (each node connected only to few peers)
+        \begin{itemize}
+            \item[\MVRightarrow] DoS attack prevention % otherwise a node could broadcast many bad-formed blocks/transactions
+        \end{itemize}
     \end{itemize}
     
     Three different types of nodes:
@@ -860,7 +914,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
         \item Lightweight clients
     \end{enumerate}
     
-    Despite the type, all the nodes validate and propagate transactions (blocks)
+    %Despite the type, all the nodes validate and propagate blocks
   \end{frame}
   
   
@@ -872,10 +926,15 @@ the Bitcoin protocol and its scalability and privacy aspects}
         \begin{itemize}
             \item Maintain a full copy of the Blockchain
             \begin{itemize}
-                \item[\MVRightarrow] they can autonomously and authoritatively verify transactions
+                \item[\MVRightarrow] they can autonomously and authoritatively verify transactions (they can build the UTXO set)
             \end{itemize}
             \item Validate and forward transactions/blocks to their peers 
-            \item Drawback: the size of the Blockchain is currently around 178 GB \cite{statista}
+            \item \textcolor{red}{Drawback}: the size of the Blockchain is currently around 178 GB \cite{statista}
+            \item \textcolor{green}{Advantages}: 
+            \begin{itemize}
+                \item[-] contribution to Bitcoin security
+                \item[-] more security (full node can see all the transactions) 
+            \end{itemize}
         \end{itemize}
     \end{block}
   \end{frame}
@@ -915,12 +974,668 @@ the Bitcoin protocol and its scalability and privacy aspects}
         \end{itemize}
     \end{block}
   \end{frame}
+  
+  
+  
+  
+  \begin{frame}{Bitcoin Network}
+    \framesubtitle{Node types}
+    \begin{block}{Lightweight clients drawback}
+        \begin{itemize}
+            \item They have to trust full nodes (they assume that blocks and transactions are being correctly validated)
+            \item They cannot verify that a transaction \emph{does not exist} (they can only verify if it \emph{exists})
+            \begin{itemize}
+                \item[\MVRightarrow] possibility to double spend a transaction (spend the same UTXOs two times) by hiding to the node the first transaction
+                \pause
+                \item[\MVRightarrow] \textcolor{green}{Solution}: SPV nodes connect randomly to several nodes (high probability to find one honest node)
+            \end{itemize}
+        \end{itemize}
+    \end{block}
+  \end{frame}
+  
+  
+  \subsection{Mining and Consensus}
+  \begin{frame}{Mining and Proof of Work}
+      \begin{itemize}
+          \item Mining = process through which transactions are validated and new blocks are created and added to the Blockchain
+          \item A new block is created every 10 minutes 
+          \item Miners are rewarded with basecoin + fees
+          \item For creating a new block, miners have to solve the \textbf{Proof of Work}
+      \end{itemize}
+  \end{frame}
+  
+  
+  
+  \begin{frame}{Mining and Proof of Work}
+      \begin{block}{Proof of Work}
+      \begin{center}
+          $H(N||Prev\_hash||Tx||Tx||....||Tx)<Target$
+      \end{center}
+        \begin{itemize}
+            \item Hard problem based on cryptographic hash algorithm (SHA-256)
+            \item Acts as a proof that the miner spent enough computing effort
+            \item The target (difficulty) is always adjusted so that a new block is mined every ~10 minutes
+            \item The hash $H$ is actually calculated on the block header
+            \item After the block is mined, the node transmits it to its peers
+            \begin{itemize}
+                \item[\MVRightarrow] the nodes validate and propagate it
+            \end{itemize}
+        \end{itemize}
+      \end{block}
+  \end{frame}
+  
+  
+  
+  \begin{frame}{Consensus}
+    \begin{itemize}
+        \item No central authority
+        \item \textbf{Emergent consensus}: consensus is not achieved explicitly
+        \item Consensus emerges from:
+        \begin{enumerate}
+            \item independent verification of transactions
+            \item aggregation of transaction into blocks and solving of PoW
+            \item independent verification of new-mined blocks
+        \end{enumerate}
+        %\item A transaction is included in a block \MVRightarrow mined at a depth of 1 %\begin{itemize}
+        %    \item subsequent block found \MVRightarrow the number of blocks deep is increased by 1
+        %\end{itemize}
+        \item Classic Bitcoin client:  ``unconfirmed'' until the transaction is 6 blocks deep
+    \end{itemize}
+  \end{frame}
+  
+  
+  
+  
+  \begin{frame}{Consensus}
+      \begin{block}{Verification of Transactions}
+      The node checks:
+        \begin{itemize}
+            \item syntax of the transaction
+            \item neither transaction inputs or outputs are empty
+            \item transaction size 
+            \item ...
+            \item \textbf{for each input, the referenced output must exist and cannot be already spent}
+        \end{itemize}
+      \end{block}
+      After validating a transaction, the node:
+      \begin{itemize}
+          \item adds it to its memory pool waiting to include it into a block
+          \item propagates it to its peers
+      \end{itemize}
+  \end{frame}
+  
+  
+  \begin{frame}{Consensus}
+      \begin{block}{Verification of Blocks}
+      The node checks:
+        \begin{itemize}
+            \item syntax of the block
+            \item the hash of the header (check the PoW)
+            \item the block size 
+            \item the first transaction is a coinbase transaction
+            \item ...
+            \item \textbf{all transaction within the block are valid}
+        \end{itemize}
+      \end{block}
+      After validating a block, the node propagates it to its peers
+      \begin{itemize}
+          \item [\MVRightarrow] only valid blocks are propagated through the network
+          \item [\MVRightarrow] validation prevents dishonest miners % (e.g. miners that write for themselves an arbitrary amount of bitcoin instead of the correct basecoin reward) they would have their block rejected and they would only waste the PoW effort
+      \end{itemize}
+  \end{frame}
+  
+  
+  
+  \begin{frame}{Consensus}
+      \begin{block}{Blockchain Forks}
+        \begin{itemize}
+            \item Blocks might arrive at different nodes at different times
+            \item Nodes have different perspectives of the Blockchain (multiple different ``version'' of the Blockchain
+            \item Solution: each nodes always selects the ``longest'' Blockchain % The one with the greatest cumulative work (sum the work recorded in each block)
+            \item By doing this, the network eventually converges to a consistent state
+        \end{itemize}
+      \end{block}
+  \end{frame}
+  
+  
+  
+  
+  \begin{frame}{Consensus}
+      \begin{block}{The 51\% attack}
+        \begin{itemize}
+            \item Vulnerability of the consensus mechanism
+            \item Can be carried out by a group of miners controlling more than 50\% of the total hashing power
+            \item The attackers can: 
+            \begin{itemize}
+                \item[-] prevent new transactions from gaining confirmations
+                \item[-] reverse completed transactions
+            \end{itemize}
+            \item Extremely hard to perform, not considered a real threat 
+            \begin{itemize}
+                \item[\MVRightarrow] it however already happened on other Blockchains (e.g. Verge Blockchain \cite{bitcoinnews2018})
+            \end{itemize}
+        \end{itemize}
+      \end{block}
+      Even if carried out, the attackers cannot create new coins or alter old blocks
+  \end{frame}
+  
+  
+  
+  \begin{frame}{Consensus}
+  \framesubtitle{The 51\% attack}
+      \begin{figure}
+          \centering
+          \includegraphics[width=1\linewidth]{../img/attack_1.png}
+      \end{figure}
+      \begin{figure}
+          \centering
+          \includegraphics[width=1\linewidth]{../img/attack_2.png}
+      \end{figure}
+  \end{frame}
+  
+  
+  
+  \section{Bitcoin Anonymity}
+  \subsection{Anonymity issues}
+  \begin{frame}{Anonymity issues}
+      \begin{itemize}
+          \item Transactions are exchanged between addresses (``pseudonyms'')
+          \item Not enough for assuring users privacy: 
+          \begin{itemize}
+              \item[-] transactions are publicly available
+              \item[-] transactions = chain of digital signatures
+              \item[-] transactions can be linked together (e.g. through behavior-based analysis): single transaction is linked to the user identity $\rightarrow$ all of his transaction are exposed
+          \end{itemize}
+          \item Analogy with banks: bank statements publicly available but with blanked names
+      \end{itemize}
+  \end{frame}
+  
+  
+  
+  \begin{frame}{Anonymity issues}
+  \framesubtitle{Examples of compromised privacy}
+      \begin{enumerate}
+          \item \textbf{Exploitation of multi-input transactions}
+          \begin{itemize}
+              \item multi-input transaction = transaction which accepts more UXTOs as input
+              \item input UXTOs owned by different addresses $\rightarrow$ those addresses belong to the same user
+          \end{itemize}
+          \pause
+          \item \textbf{Exploitation of shadow addresses}
+          \begin{itemize}
+              \item shadow addresses = addresses automatically created for collecting the transactions changes
+              \item transaction has $n$ output addresses, only one is a new address $\rightarrow$ the new address is a shadow address for the user that sent the transaction
+          \end{itemize}
+          \pause
+          \item \textbf{Behaviour-based analysis}
+          \begin{itemize}
+              \item algorithms such as KMC and HAC have been tested in a simulated Bitcoin system \cite{androulaki2013evaluating}
+              \item they captured 42\% of the users profiles with an 80\% accuracy
+          \end{itemize}
+      \end{enumerate}
+  \end{frame}
+  
+  
+  
+  \begin{frame}{Anonymity issues}
+      \begin{block}{Tainted bitcoins}
+        \begin{itemize}
+            \item history of each bitcoin can be traced
+            \item consequence of the lack of anonymity
+            \item some bitcoins can be marked as \textbf{tainted}
+            \begin{itemize}
+                \item users are less likely to accept them $\rightarrow$ deflation of their value
+            \end{itemize}
+        \end{itemize}
+      \end{block}
+  \end{frame}
+  
+  
+  
+  
+  \begin{frame}{Enhancing Bitcoin Anonymity}
+      How to enhance Bitcoin anonymity? Two main approaches:
+      \begin{enumerate}
+          \item Mixing services
+          \begin{itemize}
+              \item[\MVRightarrow] efficient
+              \item[\MVRightarrow] require absolute trust in a third party
+          \end{itemize}
+          \item Cryptographic extensions of Bitcoin
+          \begin{itemize}
+              \item[\MVRightarrow] no need to trust third parties
+              \item[\MVRightarrow] lower performance
+              \item[\MVRightarrow] new cryptocurrencies \footnote{e.g. ZeroCoin \cite{miers2013zerocoin} and ZeroCash \cite{sasson2014zerocash}} or Bitcoin-compatible
+          \end{itemize}
+      \end{enumerate}
+  \end{frame}
+  
+  
+  \subsection{Mixing Services}
+  \begin{frame}{Mixing Services}
+      \begin{figure}
+          \centering
+          \includegraphics[width=0.6\linewidth]{../img/mixing-service-scheme.png}
+      \end{figure}
+      \begin{itemize}
+          \item Mediators that transfer payments from an input set of addresses to an output set of addresses
+          \item Transfers made in a way that is hard to trace which input addresses paid which output addresses
+      \end{itemize}
+  \end{frame}
+  
+  
+  
+  \begin{frame}{Mixing Services}
+      Examples of Mixing Services: 
+      \begin{itemize}
+          \item Mixcoin
+          \begin{itemize}
+              \item[-] relies on a single third party \MVRightarrow not so safe (e.g. could potentially steal the bitcoins) 
+          \end{itemize}
+          \item CoinParty
+          \begin{itemize}
+              \item[-] relies on more parties
+              \item[-] considered secure only if $2/3$ of the parties are honest
+          \end{itemize}
+      \end{itemize}
+  \end{frame}
+  
+  
+  \subsection{Bitcoin-compatible anonymity schemes}
+  \begin{frame}{Reference scenario}
+      \begin{itemize}
+          \item $A$ wants to send 1 bitcoin to $B$ anonymously
+          \item if $A$ sends 1 BTC from $address_A$ (owned by $A$) to $address_B$ (owned by $B$) then record in the Blockchain linking the two addresses is created
+          \begin{itemize}
+              \item[-] links between the addresses can be used to de-anonymize the users
+              \item[-] using a new address for each received payment is not enough
+          \end{itemize} \pause 
+          \item Solution:
+          \begin{minipage}{\linewidth}
+            \includegraphics[width=0.4\linewidth]{../img/scenario.png}
+          \end{minipage}
+          \item $I$ breaks the link between $A$ and $B$ addresses
+          \begin{itemize}
+              \item acts as a mixing service, but we don't want to trust $I$
+          \end{itemize}
+      \end{itemize}
+  \end{frame}
+  
+  
+  
+  \begin{frame}{Blind Signatures}
+      \begin{itemize}
+          \item Introduced by David Chaum in 1982 \cite{chaum1982blind}
+          \item Cryptographic primitive that allows to an entity to sign a message without being able to read the message it signs 
+          \item Analogy: envelope with carbon paper inside of it 
+      \end{itemize}
+      
+      \pause
+      \begin{block}{RSA Blind Signature scheme}
+        \begin{itemize}
+            \item Blinding factor $b=r^{e}\bmod n$, with $r$ random number
+            \item Message $m$ is blinded with $b$: $m_{*}=b\cdot m\bmod n$
+            \item $m_*$ sent to the signer. The signer signs it by
+          computing $s_*$: \[ s_*=m_*^d\bmod n = b^d\cdot m^d\bmod n = r^{e\cdot d}\cdot m^d \bmod n = r\cdot m^d \bmod n \]
+            \item The user can divide $s_*$ by $r$ for retrieving $s=m^d\bmod n$, namely the RSA signature of the message $m$
+        \end{itemize}
+      \end{block}
+  \end{frame}
+  
+  
+  
+  \begin{frame}{First scheme: eCash scheme}
+      \begin{figure}
+          \centering
+          \includegraphics[width=0.6\linewidth]{../img/eCash-scheme.png}
+      \end{figure}
+      \begin{itemize}
+          \item Conceived by David Chaum for eCash (an anonymous cryptocurrency) in 1982 \cite{chaum1982blind}
+          \item $I$ does not know who $A$ wants to pay \pause
+          \item \red{Main problem}: $I$ has to be honest
+          \begin{itemize}
+              \item[-] a malicious $I$ could refuse to issue a voucher to $A$
+          \end{itemize}
+          \pause
+          \item \textcolor{green}{Solution}: Heilman scheme \cite{heilman-blindly-signed-contracts}
+      \end{itemize}
+  \end{frame}
+  
+  
+  
+  
+  \begin{frame}{Second scheme: Heilman scheme}
+      \begin{figure}
+          \centering
+          \includegraphics[width=0.4\linewidth]{../img/heilman-scheme.png}
+      \end{figure}
+      \begin{itemize}
+          \item It uses \emph{transaction contracts} for achieving \emph{fair exchange}
+          \begin{itemize}
+              \item[\MVRightarrow] \textbf{key idea}: $A$ transfers a bitcoin to $I$ if and only if it received a valid $V$ in return 
+          \end{itemize}
+          \item It consist of 4 Blockchain transactions (confirmed in 3 blocks) implemented in 2 fair-exchanges
+      \end{itemize}
+  \end{frame}
+  
+  
+  
+  
+  \begin{frame}{Second scheme: Heilman scheme (Cont. 1)}
+      \begin{figure}
+          \centering
+          \includegraphics[width=0.4\linewidth]{../img/heilman-scheme.png}
+      \end{figure}
+      \begin{block}{1) Fair-exchange $V\rightarrow BTC$}
+        \begin{itemize}
+            \item Interaction between $B$ and $I$
+            \item Composed by transactions $T_{offer(V\rightarrow BTC)}$ and $T_{fullfill(V\rightarrow BTC)}$
+            \item Ensures that a malicious $I$ cannot redem $B$'s voucher without providing a bitcoin in return
+        \end{itemize}
+      \end{block}
+  \end{frame}
+  
+  
+  
+  
+  \begin{frame}{Second scheme: Heilman scheme (Cont. 2)}
+      \begin{figure}
+          \centering
+          \includegraphics[width=0.4\linewidth]{../img/heilman-scheme.png}
+      \end{figure}
+      \begin{block}{2) Fair-exchange $BTC\rightarrow V$}
+        \begin{itemize}
+            \item Interaction between $A$ and $I$
+            \item Composed by transactions $T_{offer(BTC\rightarrow V)}$ and $T_{fullfill(BTC\rightarrow V)}$
+            \item Ensures that a malicious $I$ cannot take a bitcoin from $A$ without providing him with a voucher $V$
+        \end{itemize}
+      \end{block}
+  \end{frame}
+  
+  
+  
+  \begin{frame}{Second scheme: Heilman scheme (Cont. 3)}
+      \begin{block}{Implementation of fair-exchange $BTC\rightarrow V$}
+        \begin{itemize}
+            \item Implemented through \emph{transaction contracts} (Script)
+            \begin{itemize}
+                \item[\MVRightarrow] transaction associated with rules that define the rules for spending the transaction outputs
+            \end{itemize}
+            \item CHECK\_LOCK\_TIME\_VERIFY used to timelock a transaction: if the contract is not spent within $Tw$, then refound 
+            \item $A$ generates $T_{offer(BTC\rightarrow V)}$. The output can be spent in a future transaction $T_f$ only if:
+            \begin{enumerate}
+                \item $T_f$ is signed by $I$ and contains a valid blind signature $\overline\sigma$ on $\overline{sn}$
+                \item[] OR 
+                \item $T_f$ is signed by $A$ and the time window $Tw$ has expired
+            \end{enumerate}
+        \end{itemize}
+      \end{block}
+      \pause
+      
+      The implementation of fair-exchange $BTC\rightarrow V$ is analogous
+  \end{frame}
+  
+  
+  
+  
+  
+  \begin{frame}{Anonymity Considerations}
+      \begin{figure}
+          \centering
+          \includegraphics[width=0.4\linewidth]{../img/epochs.png}
+      \end{figure}
+      \begin{itemize}
+          \item The 4 transactions are confirmed and stored in an epoch
+          \item The anonymity depends on the number of payments through $I$ in a given epoch
+      \end{itemize}
+  \end{frame}
+  
+  
+  
+  
+  \begin{frame}{Anonymity Considerations (Cont. 1)}
+      The following assumptions are made:  
+      \begin{enumerate}
+          \item the users coordinate in order to respect the epoch transactions arrangement (e.g. starting block with height multiple of 3) 
+          \item $A$ and $B$ trust each other 
+          \begin{itemize}
+              \item[-] if $A$ or $B$ were malicious they could consire with $I$ 
+          \end{itemize}
+          \item $B$ always receives payments using fresh addresses
+          \item payers only make on payment per epoch; payees accept only one payment per epoch
+      \end{enumerate}
+      \pause
+      \begin{block}{}
+      Assumptions 2 + 3 \MVRightarrow in each epoch there are $n$ addresses making payments and $n$ addresses receiving payments 
+      \begin{itemize}
+          \item[\MVRightarrow] $1/n$ of probability of linking a payer $A$ to a payee $B$
+      \end{itemize}
+      \end{block}
+  \end{frame}
+  
+  
+  
+  \begin{frame}{Anonymity Considerations (Cont. 2)}
+      \begin{itemize}
+          \item Users know the size of their anonymity set ($n$) by looking at the blockchain after the transactions complete
+          \item What if $B$ feels his $n$ is too small? \pause
+          \begin{itemize}
+              \item[-] it's assumed that $B$ has been paid on $address_B$
+              \item[-] $B$ creates a new ephemeral address $address_B'$
+              \item[-] $B$ pays from $address_B$ to $address_B'$ in another epoch
+          \end{itemize}
+      \end{itemize}
+  \end{frame}
+  
+  
+  
+  
+  
+  \section{Bitcoin Scalability}
+  \subsection{Overview}
+  \begin{frame}{Bitcoin Scalability Overview}
+      \begin{itemize}
+          \item Increasing adoption of Bitcoin \MVRightarrow ability to scale received a lot of attention 
+          \item Main concerns:
+          \begin{enumerate}
+              \item can blockchain-based cryptocurrencies (like Bitcoin) scale-up and reach the performance of traditional payment processor? 
+              \item what does it take to get there? 
+          \end{enumerate}
+          \pause
+          \item Current Bitcoin performance: 
+          \begin{itemize}
+              \item around 10 min to confirm a transaction 
+              \item maximum block size = 1 MB (average size = 800 KB) \cite{current-block-size}
+              \item maximum throughput of 7 transactions/sec \cite{wikipedia_scalability_2018}
+              \item throughput limited by max block size and block interval
+          \end{itemize} \pause
+          \item Comparison with Visa credit cards \cite{wikipedia_scalability_2018}:
+          \begin{itemize}
+              \item 2000 transactions/sec on average
+              \item peaks of 56 000 transactions/sec
+          \end{itemize}
+      \end{itemize}
+  \end{frame}
+  
+  
+  
+  
+  
+  \begin{frame}{Bitcoin Scalability Overview}
+      \begin{itemize}
+          \item Idea for increasing throughput: \textbf{reparametrization}
+          \begin{itemize}
+              \item[-] decrease blocks interval
+              \item[-] increase block maximum size (currently 1 MB)
+          \end{itemize}
+          \item Great debate
+          \begin{itemize}
+              \item[\MVRightarrow] \textcolor{red}{Main cons.}: less decentralization
+              \item[\MVRightarrow] better to optimize the current block space available 
+          \end{itemize}
+          \item In \cite{croman-scaling-blockchain}, the author shows that: 
+          \begin{itemize}
+              \item[-] reparametrization alone cannot address Bitcoin scaling
+              \begin{itemize}
+                  \item[\MVRightarrow] parameters limitations
+                  \item[\MVRightarrow] other bottlenecks in the Bitcoin system
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+  \end{frame}
+  
+ 
+  
+  
+  
+  \subsection{Reparametrization limitations}
+  \begin{frame}{Metrics definitions}
+      \begin{enumerate}
+          \item ``X\% block propagation delay'' = time required for X\% of the nodes to receive a full block
+          \begin{itemize}
+              \item[\MVRightarrow] it's calculated empirically
+          \end{itemize}
+          \item $\text{``X\% effective throughput''} = \frac{\text{block size}}{\text{X\% block propagation delay}}$
+      \end{enumerate}
+      \begin{itemize}
+          \item transaction rate $>$ X\% effective throughput $\rightarrow$ (100 -X)\% of the nodes unable to receive blocks as they arrive
+      \end{itemize}
+  \end{frame} 
+  
+  
+  \begin{frame}{Limits}
+    Premises:
+    \begin{itemize}
+        \item current level of decentralization has to be maintained 
+        \begin{itemize}
+            \item[\MVRightarrow] at least 90\% of properly working nodes
+        \end{itemize}
+        \item current Bitcoin peer-to-peer network is used, no changes to it 
+        \begin{itemize}
+            \item[\MVRightarrow] any change to the network would affect the X\% effective throughput
+        \end{itemize}
+    \end{itemize}
+    
+    \begin{block}{Throughput limit}
+        \[ \text{90\% block propagation delay} < \text{block interval} \]
+        namely 
+        \[ \frac{\text{block size}}{\text{90\% effective throughput}} < \text{block interval} \]
+        \begin{itemize}
+            \item[\MVRightarrow] \footnote{assuming block interval = 10 min} block size not more than 4 MB, e.g max throughput = 27 transactions/sec 
+        \end{itemize}
+    \end{block}
+  \end{frame}
+  
+  
+  
+  
+  \begin{frame}{Limits (Cont. 1)}
+      \begin{block}{Block interval limit}
+        \begin{itemize}
+            \item Reducing block interval = lower latency 
+            \item Reducing block interval \MVRightarrow block size has to be reduced as well (due to throughput limit equation)
+            \item Block size too small \MVRightarrow network bandwidth is not fully used
+            \item Result of experiments/measurements of \cite{croman-scaling-blockchain}: block interval not smaller then 12 seconds in order to: 
+            \begin{itemize}
+                \item[-] have at least 90\% effective throughput
+                \item[-] fully utilize the network bandwidth 
+            \end{itemize}
+        \end{itemize}
+      \end{block}
+  \end{frame}
+ 
+ 
+ 
+ 
+ 
+  \subsection{Bottleneck analysis}
+  \begin{frame}{Network Plane}
+      \begin{itemize}
+          \item Function: propagate messages corresponding to valid transactions
+          \item Bitcoin protocol does not fully use the available bandwidth
+          \item Two main inefficiencies: 
+          \begin{enumerate}
+              \item before propagating a transaction, a node has to fully receive it and validate it (for avoiding Dos)
+              \begin{itemize}
+                  \item[\MVRightarrow] \textcolor{green}{possible solution}: low-latency broadcast protocols, nodes allowed to rate-limit transmissions from their peers
+              \end{itemize}
+              \pause
+              \item first transactions are propagated (creation of pools), then blocks are propagated: some transactions are transmitted twice
+              \begin{itemize}
+                  \item[\MVRightarrow] \textcolor{green}{possible solution}: set reconciliation protocol (single transactions pools are similar) 
+              \end{itemize}
+          \end{enumerate}
+      \end{itemize}
+  \end{frame}
+  
+  
+  
+  \begin{frame}{Consensus Plane}
+      \begin{itemize}
+          \item Function: mining and achieving consensus
+          \item Limitation: Proof of Work 
+          \begin{itemize}
+              \item[-] tradeoff between consensus speed, bandwidth and security
+          \end{itemize}
+          \item \textcolor{green}{Possible solution}: different consensus mechanism (e.g. Proof of Stake) 
+      \end{itemize}
+  \end{frame}
+  
+  
+  
+  
+  \begin{frame}{Storage Plane}
+      \begin{itemize}
+          \item Function: store the Bitcoin ledger and support \texttt{read} and \texttt{write} operations
+          \item Main issue: each node stores a copy of the entire Blockchain
+          \begin{itemize}
+              \item[-] in June 2018 it was 178 GB \cite{statista}
+              \item[-] it grows exponentially
+          \end{itemize}
+      \end{itemize}
+  \end{frame}
+  
+  
+  
+  
+  \begin{frame}{View Plane}
+      \begin{itemize}
+          \item Function: allows miners to mine without storing the full copy of the Blockchain
+          \begin{itemize}
+              \item[-] they operate on a \emph{view} of the ledger: UTXO set
+              \item[-] UTXO set specifies the current balance of all the entities
+              \item[-] UTXO set has to be computed
+          \end{itemize}
+          \item Main issue: computing the view takes a lot of time \item \textcolor{green}{Possible solution}: storing the view in the Storage Plane 
+      \end{itemize}
+  \end{frame}
+  
+  
+  
+  
+  \section{Conclusions}
+  \begin{frame}{Contents}
+      \frametitle{\contentsname}
+    \begin{multicols}{2}
+        \tableofcontents[currentsection,currentsubsection]
+    \end{multicols}
+  \end{frame}
+  
+  
+  
+  \begin{frame}{Conclusions}
+      \begin{itemize}
+          \item 
+      \end{itemize}
+  \end{frame}
+  
+  
+  
+  
+  
 
 
-
-
-
-  \begin{frame}{References}
+  \begin{frame}[allowframebreaks]{References}
     \printbibliography
   \end{frame}
 
