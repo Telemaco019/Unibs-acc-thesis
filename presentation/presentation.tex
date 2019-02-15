@@ -290,7 +290,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
         \item Algoritmo proposto da M. Castro e B. Liskov. Versione ottimizzata della soluzione al problema dei generali Bizantini proposta da Lamport \cite{castro1999practical} 
         \item Ciascun ``generale'' mantiene uno stato interno. Quando riceve un messaggio, utilizza lo stato per eseguire una computazione che indica cosa pensare del messaggio in questione 
         \item Dopo aver raggiunto la sua conclusione individuale riguardo al messaggio ricevuto, il generale condivide tale conclusione con gli altri generali del sistema
-        \item La decisione finale è determinata in base alle decisioni presentate dai singoli generali \pause
+        \item Decisione finale determinata in base alle decisioni presentate dai singoli generali \pause
         \item \textcolor{green}{Pro}: molto efficiente \pause
         \item \red{Cons}: preclude l'anonimità degli utenti \pause
         \item Meccanismo adottato da Hyperledger e Ripple
@@ -715,41 +715,41 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 
-  \begin{frame}{Wallets (Cont. 1)}
-    \begin{block}{Wallet non deterministici}
-      \begin{itemize}
-        \item Ciascuna chiave è generata in modo indipendente a partire da un numero casuale \MVRightarrow\, le chiavi memorizzate non sono connesse tra loro in alcun modo
-        \item Principale svantaggio: ingombranti da gestire
-        \begin{itemize}
-          \item[-] richiesto backup frequente del wallet \MVRightarrow\, backup di ciascuna chiave che contiene 
-          \item[-] utente evita di riutilizzare indirizzi \MVRightarrow\, molti indirizzi \MVRightarrow\, molte chiavi di cui si deve fare il backup frequentemente
-        \end{itemize}
-      \end{itemize}
-    \end{block}
-  \end{frame}
+%  \begin{frame}{Wallets (Cont. 1)}
+%    \begin{block}{Wallet non deterministici}
+%      \begin{itemize}
+%        \item Ciascuna chiave è generata in modo indipendente a partire da un %numero casuale \MVRightarrow\, le chiavi memorizzate non sono connesse tra %loro in alcun modo
+%        \item Principale svantaggio: ingombranti da gestire
+%        \begin{itemize}
+%          \item[-] richiesto backup frequente del wallet \MVRightarrow\, %backup di ciascuna chiave che contiene 
+%          \item[-] utente evita di riutilizzare indirizzi \MVRightarrow\, %molti indirizzi \MVRightarrow\, molte chiavi di cui si deve fare il backup %frequentemente
+%        \end{itemize}
+%      \end{itemize}
+%    \end{block}
+%  \end{frame}
 
 
 
 
-  \begin{frame}{Wallets (Cont. 2)}
-    \begin{block}{Wallet deterministici}
-      \begin{itemize}
-        \item Tutte le chiavi vengono derivata da una singola chiave master (detta \emph{seed}) 
-        \item Le chiavi memorizzate possono essere generate nuovamente se si possiede il seed
-        \item Il backup riguarda solo il seed
-        \item Facili da gestire, anche quando si evita di riutilizzare gli indirizzi
-        \item Le chiavi sono normalmente derivate in una struttura ad albero (standard BIP-32) 
-        \begin{itemize}
-            \item elevata flessibilità
-        \end{itemize}
-        \item Seed normalmente creati come specificato dallo standard BIP-39 
-        \begin{itemize}
-          \item[-] sequenza di parole inglesi chiamate \emph{mnemonic} 
-          \item[-] facile da trascrivere, esportare e importare attraverso diversi wallet
-        \end{itemize}
-      \end{itemize}
-    \end{block}
-  \end{frame}
+%  \begin{frame}{Wallets (Cont. 2)}
+%    \begin{block}{Wallet deterministici}
+%      \begin{itemize}
+%        \item Tutte le chiavi vengono derivata da una singola chiave master %(detta \emph{seed}) 
+%        \item Le chiavi memorizzate possono essere generate nuovamente se si %possiede il seed
+%        \item Il backup riguarda solo il seed
+%        \item Facili da gestire, anche quando si evita di riutilizzare gli %indirizzi
+%        \item Le chiavi sono normalmente derivate in una struttura ad albero %(standard BIP-32) 
+%        \begin{itemize}
+%            \item elevata flessibilità
+%        \end{itemize}
+%        \item Seed normalmente creati come specificato dallo standard BIP-39 
+%        \begin{itemize}
+%          \item[-] sequenza di parole inglesi chiamate \emph{mnemonic} 
+%          \item[-] facile da trascrivere, esportare e importare attraverso %diversi wallet
+%        \end{itemize}
+%      \end{itemize}
+%    \end{block}
+%  \end{frame}
 
 
 
@@ -1112,7 +1112,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
           \pause
           \item \textbf{Analisi behaviour-based}
           \begin{itemize}
-              \item algoritmi come KMC e HAC sono stati testati in un ambiente Bitcoin simulato \cite{androulaki2013evaluating}
+              \item algoritmi di clustering (KMC, HAC) sono stati testati in un ambiente Bitcoin simulato \cite{androulaki2013evaluating}
               \item sono stati in grado di catturare il 43\% dei profili utente con un'accuratezza dell'80\% 
           \end{itemize}
       \end{enumerate}
@@ -1298,7 +1298,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
   \begin{frame}{Secondo schema: schema di Heilman (Cont. 3)}
       \begin{block}{Implementazione del fair-exchange $BTC\rightarrow V$}
         \begin{itemize}
-            \item Implementado tramite \emph{transaction contracts} (Script)
+            \item Implementato tramite \emph{transaction contract} (Script)
             \begin{itemize}
                 \item[\MVRightarrow] ciascuna transazione è associata ad un insieme di regole richieste per spendere l'output della transazione
             \end{itemize}
@@ -1317,6 +1317,77 @@ the Bitcoin protocol and its scalability and privacy aspects}
   \end{frame}
   
   
+  
+  
+  \begin{frame}{Secondo schema: schema di Heilman (Cont. 4)}
+      \begin{figure}
+          \centering
+          \includegraphics[width=0.4\linewidth]{../img/heilman-scheme.png}
+      \end{figure}
+      
+      \begin{enumerate}
+          \item $B$ crea un nuovo indirizzo effimero per ricevere il pagamento \pause
+          \item $A$ scegli un $sn$ casuale, calcola $h=H(sn)$ ed invia $h$ a $B$ \pause
+          \item $B$ invia $h$ ad $I$ e gli chiede di creare il contratto $T_{offer(V\rightarrow BTC)}$
+          \begin{itemize}
+              \item[\MVRightarrow] $B$ offre ad $I$ 1 BTC sotto le condizioni: 
+              \begin{enumerate}
+                  \item $B$ fornisca un voucher $V$ valido con numero seriale $sn$ t.c. $h=H(sn)$ entro il tempo $tw2$
+                  \item $h$ sia ``nuovo''
+              \end{enumerate}
+          \end{itemize}
+      \end{enumerate}
+  \end{frame}
+  
+  
+  
+  
+   \begin{frame}{Secondo schema: schema di Heilman (Cont. 5)}
+      \begin{figure}
+          \centering
+          \includegraphics[width=0.4\linewidth]{../img/heilman-scheme.png}
+      \end{figure}
+      
+      \begin{enumerate}
+      \setcounter{enumi}{3}
+          \item Se $h$ non è già stato usato, allora $I$ crea il contratto richiesto da $B$ e lo pubblica nella Blockchain \pause
+          \item $A$ oscura $sn$ e ottiene $\overline{sn}$, poi attende che $T_{offer(V\rightarrow BTC)}$ venga confermata. Quando questo avviene, $A$ crea il contratto $T_{offer(BTC\rightarrow V)}$
+          \begin{itemize}
+              \item[-] offre $1+w$ bitcoin, con $w$=ricompensa per $I$
+          \end{itemize}
+      \end{enumerate}
+  \end{frame}
+  
+  
+  
+  
+  \begin{frame}{Secondo schema: schema di Heilman (Cont. 6)}
+      \begin{figure}
+          \centering
+          \includegraphics[width=0.4\linewidth]{../img/heilman-scheme.png}
+      \end{figure}
+      
+      \begin{enumerate}
+      \setcounter{enumi}{5}
+          \item $I$ aspetta che $T_{offer(BTC\rightarrow V)}$ venga confermata. Quando questo avviene, $I$ completa il fair exchange creando $T_{fullfill(BTC\rightarrow V)}$
+          \item $A$ legge $\overline{\sigma}$ dalla transazione e invia $V=(\sigma,sn)$ a $B$
+      \end{enumerate}
+  \end{frame}
+  
+  
+  
+  
+  \begin{frame}{Secondo schema: schema di Heilman (Cont. 7)}
+      \begin{figure}
+          \centering
+          \includegraphics[width=0.4\linewidth]{../img/heilman-scheme.png}
+      \end{figure}
+      
+      \begin{enumerate}
+      \setcounter{enumi}{7}
+          \item $B$ completa il fair exchange creando $T_{fullfill(V\rightarrow BTC)}$, la quale contiene $V$
+      \end{enumerate}
+  \end{frame}
   
   
   
@@ -1355,8 +1426,36 @@ the Bitcoin protocol and its scalability and privacy aspects}
   \end{frame}
   
   
-  
   \begin{frame}{Considerazioni sull'anonimità dello schema (Cont. 2)}
+      \begin{block}{Perchè $B$ deve usare indirizzi nuovi?}
+          \begin{itemize}
+              \item Impedisce ad $I$ di deanonimizzare $A$ e $B$ annullando lo scambio
+              \item Esempio:
+                \begin{itemize}
+                    \item[-] $I$ rifiuta di rilasciare il Voucher $V$ ad $A$ (non effettua $T_{fullfill(BTC\rightarrow V)}$
+                    \item[-] $A$ non ottiene il voucher \MVRightarrow\, non può inviare $V$ a $B$ 
+                    \item[-] $B$ non è in grado di effettuare $T_{fullfill(V\rightarrow BTC)}$
+                    \item[\MVRightarrow] $I$ può fare il match tra gli scambi con $A$ annullati e gli scambi non completati con $B$ 
+                \end{itemize}
+                \pause
+               \item Esempio 2:
+               \begin{itemize}
+                   \item[-] $I$ si rifiuta di rilasciare il Voucher $V$ a tutti tranne $A$
+                   \item[-] $I$ può identificare $B$ come l'unico che soddisfa il contratto 
+               \end{itemize}
+               \pause
+               \item \textcolor{green}{Soluzione}:
+               \begin{itemize}
+                   \item[-] $B$ può accorgersi di questi attacchi 
+                   \item[-] quando si accorge scarta l'indirizzo (effimero) compromesso 
+               \end{itemize}
+          \end{itemize}
+      \end{block}
+  \end{frame}
+  
+  
+  
+  \begin{frame}{Considerazioni sull'anonimità dello schema (Cont. 3)}
       \begin{itemize}
           \item Gli utenti conoscono la dimensione del loro set di anonimità ($n$) osservando la Blockchain dopo che le transazioni sono state completate
           \item Cosa fare se $B$ ritiene che il suo $n$ sia troppo piccolo? \pause
@@ -1404,7 +1503,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   \begin{frame}{Panoramica della scalabilità di Bitcoin (Cont. 1)}
       \begin{itemize}
-          \item Idea per aumentare il throughput: \textbf{ri-parametrizzazione}
+          \item Idea per aumentare il throughput: \textbf{riparametrizzazione}
           \begin{itemize}
               \item[-] diminuire il block interval
               \item[-] aumentare la dimensione massima dei blocchi (attualmente 1 MB)
@@ -1416,7 +1515,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
           \end{itemize}
           \item In \cite{croman-scaling-blockchain}, l'autore dimostra che: 
           \begin{itemize}
-              \item[-] la ri-parametrizzazione da sola non basta per scalare Bitcoin
+              \item[-] la riparametrizzazione da sola non basta per scalare Bitcoin
               \begin{itemize}
                   \item[\MVRightarrow] limitazioni sui parametri
                   \item[\MVRightarrow] presenza di bottleneck all'interno del sistema Bitcoin
@@ -1429,7 +1528,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   
   
-  \subsection{Limitazioni della ri-parametrizzazione}
+  \subsection{Limitazioni della riparametrizzazione}
   \begin{frame}{Definizione di alcune metriche}
       \begin{enumerate}
           \item ``X\% block propagation delay'' = tempo richiesto affinchè il X\% dei nodi riceva completamente un blocco
