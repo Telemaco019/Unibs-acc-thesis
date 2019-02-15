@@ -62,9 +62,9 @@ the Bitcoin protocol and its scalability and privacy aspects}
   %%%%%%%%%%%%%%%%%%%%%
   %%% SECOND SECTION %%%
   %%%%%%%%%%%%%%%%%%%%%
-  \section{Introduction to Blockchain}
-  \subsection{Preliminary concepts}
- % \begin{frame}{Introduction}
+  \section{Introduzione alle Blockchain}
+  \subsection{Concetti preliminari}
+ % \begin{frame}{Introduzione}
  %   \framesubtitle{Distributed systems}
  %   \begin{columns}[onlytextwidth]
  %     \column{.5\textwidth} \begin{block}{Distributed system}
@@ -85,7 +85,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 
-%  \begin{frame}{Introduction}
+%  \begin{frame}{Introduzione}
 %    \framesubtitle{Distributed systems}
 %      The desired properties of a distributed system are the %following:\vspace{10pt}
 %      \begin{itemize}
@@ -98,51 +98,42 @@ the Bitcoin protocol and its scalability and privacy aspects}
 %  \end{frame}
 
 
-\begin{frame}{Introduction}
-    \begin{block}{Distributed system}
-    A \textcolor{red}{distributed system} is a network that consists of autonomous nodes,
-    connected using a distribution middleware, which acts in a coordinated way
-    (passing messages to each other) in order to achieve a common outcome and
-    that can be seen by the user as a single logical platform.
+\begin{frame}{Introduzione}
+    \begin{block}{Systema distribuito}
+    Un \textcolor{red}{sistema distribuito} è una rete composta da nodi autonomi, connessi attraverso un middleware, che operano in modo coordinato (scambiandosi messaggi) al fine di raggiungere un obiettivo comune e che possono essere visti dall'utente come singola piattaforma logica.  
     \end{block}
 \end{frame}
 
 
-  \begin{frame}{Introduction}
-    Even if some of the nodes fault or links break, a distributed system should tolerate
-    this and should continue to work correctly. There are two types of fault:
+  \begin{frame}{Introduzione}
+    Anche se alcuni nodi/collegamenti si guastano, un sistema distribuito deve continuare a funzionare correttamente. Due tipi di guasto: 
     \begin{itemize}
-      \item Simple node crash
-      \item Exhibition of malicious or inconsistent behavior arbitrarily: \red{Byzantine fault}
+      \item Semplice arresto del nodo
+      \item Esibizione di comportamento maligno/inconsistente in modo arbitrario: \red{Byzantine fault}
     \end{itemize}
 
     \pause 
     \begin{block}{Byzantine nodes}
-      A \textcolor{red}{Byzantine node} is a node that has an arbitrary behavior,
-      which can even be malicious.
+      Un \textcolor{red}{Byzantine node} è un nodo che manifesta un comportamento arbitrario, che può anche essere maligno. 
     \end{block}
   \end{frame}
   
   
   
   
-  \begin{frame}{Introduction}
-        \begin{block}{The Byzantine generals problem}
+  \begin{frame}{Introduzione}
+        \begin{block}{Il problema dei generali Bizantini}
           \begin{itemize}
-            \item Problem formulated by Leslie Lamport \cite{lamport1982byzantine}
-            \item A group of generals are surrounding a city and they have to agree
-            on a common decision: attack or retreat.
-            \item Their only communication way is a messenger
-            \item Some of the generals may be \emph{traitors}: they communicate
-            misleading message for preventing the loyal generals from reaching an
-            agreement
-            \item Requirement: algorithm that allows the loyal generals to agree
-            on the same plan regardless of traitors general
+            \item Problema formulato da Leslie Lamport \cite{lamport1982byzantine}
+            \item Un gruppo di generali sta circondando una città e deve concordare una decisione comune: attaccare o ritirarsi
+            \item Il loro unico mezzo di comunicazione sono i messaggeri 
+            \item Alcuni dei generali possono essere \emph{traditori}: possono comunicare messaggi fuorvianti al fine di impedire ai generali ``onesti'' di raggiungere un accordo comune
+            \item Requisito: algoritmo che permetta ai generali onesti di concordare un piano comune, indipendentemente da quello che fanno i generali traditori
           \end{itemize}
         \end{block}
     \end{frame}
 
-    \begin{frame}{Introduction}
+    \begin{frame}{Introduzione}
         \begin{figure}[!htb]
                 \centering
                 \includegraphics[width=0.5\linewidth]{../img/byzantine.jpg}
@@ -156,83 +147,69 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 
-  \begin{frame}{Introduction}
-    \begin{block}{Consensus}
-      \red{Consensus} is the process of agreement between untrusted nodes on a data
-      value.
+  \begin{frame}{Introduzione}
+    \begin{block}{Consenso}
+      \red{Consenso}: processo di accordo sul valore di un certo dato da parte di nodi che non si fidano tra di loro
     \end{block}
 
     \pause
-    Requirements for a consensus algorithm:
+    Requisiti per un algoritmo di Consenso:
     \begin{itemize}
-      \item \textbf{Agreement}: non-byzantine nodes must agree on the same value
-      \item \textbf{Termination}: the consensus process must come to an end (nodes
-      have to reach a decision)
-      \item \textbf{Validity}: the agreed value must have been proposed by at
-      least one honest node
-      \item \textbf{Fault tolerance}: the consensus algorithm must work even
-      in the presence of one or more Byzantine nodes
+      \item \textbf{Agreement}: i nodi non-Bizantini devono essere d'accordo sullo stesso valore
+      \item \textbf{Termination}: l'algoritmo deve terminare (i nodi devono prendere una decisione)
+      \item \textbf{Validity}: il valore concordato deve essere stato proposto da almeno un nodo \emph{onesto}
+      \item \textbf{Fault tolerance}: l'algoritmo deve funzionare anche in presenza di nodi Bizantini 
     \end{itemize}
   \end{frame}
 
   
   
   
-  \subsection{Definition}
-  \begin{frame}{What is Blockchain}
+  \subsection{Definizione di Blockchain}
+  \begin{frame}{Cosa è una Blockchain}
     \begin{block}{Business definition}
-      Blockchain is a platform whereby peers can exchange values without the need
-      for a central trusted party by using transactions which are stored inside
-      the platform in a verifiable and permanent way.
+      Una Blockchain è una piattaforma dove è possibile scambiarsi valori (tra peers) senza il bisogno di una autorità centrale fidata, usando transazioni che vengono salvate all'interno della piattaforma stessa in modo verificabile e permanente. 
     \end{block}
     
     \pause
-    \begin{block}{Technical definition}
-      Blockchain is a distributed ledger that is
+    \begin{block}{Definizione tecnica}
+      Una Blockchain è un ``libro mastro'' distribuito (distributed ledger) che è:
       \begin{itemize}
-        \item cryptographically secure
+        \item crittograficamente sicuro 
         \item append-only
-        \item immutable (extremely hard to change)
-        \item updateable only via consensus among nodes
+        \item immutabile (estremamente difficile da modificare)
+        \item aggiornabile solo attraverso consenso tra i nodi partecipanti
       \end{itemize}
     \end{block}
   \end{frame}
 
 
 
-  \subsection{Features}
-  \begin{frame}{Blockchain features}
+  \subsection{Caratteristiche}
+  \begin{frame}{Caratteristiche di una Blockchain}
     \begin{itemize}
-      \item \textbf{Decentralization}: no need of a central trusted entity
-      which stores the data and validates the transaction \pause
-      \item \textbf{Distributed consensus}: high Byzantine Fault
-      Tolerance, for each data value there's only a single version agreed by all
-      parties through a consensus algorithm \pause
-      \item \textbf{High availability}: Blockchain is based on a peer-to-peer
-      network and data replicated on each node: even if one or more nodes fail
-      the whole network can continue to work correctly
+      \item \textbf{Decentralization}: non vi è il bisogno di una autorità centrale fidata che memorizzi e dati e validi le transazioni \pause
+      \item \textbf{Distributed Consensus}: elevata tolleranza a Byzantine Faults, per ciascun dato vi è un'unica singola versione concordata da tutti i partecipanti attraverso un algoritmo di Consenso \pause
+      \item \textbf{High availability}: Blockchain è basata su una rete peer-to-peer e i dati sono replicati su ciascun nodo: se anche un nodo si guasta, il sistema può continuare a funzionare correttamente
     \end{itemize}
   \end{frame}
 
-  \begin{frame}{Blockchain features (Cont.)}
+  \begin{frame}{Caratteristiche di una Blockchain (Cont.)}
     \begin{itemize}
-      \item \textbf{Immutability}: once a block has been added to the blockchain,
-      changing it is computationally infeasible \pause
-      \item \textbf{Transparency}: every node can see what is in the blockchain \pause
-      \item \textbf{Security}: integrity of data, authentication and non-repudiation
-      are ensured. Confidentiality is not provided. Security is a consequence of
-      the distributed nature of Blockchain \pause
-      \item \textbf{Uniqueness}: every transaction is unique and has not been spent already
+      \item \textbf{Immutability}: una volta che un blocco viene aggiunto alla Blockchain, modificarlo è computazionalmente impossibile \pause
+      \item \textbf{Transparency}: ciascun nodo può vedere il contenuto della Blockchain \pause
+      \item \textbf{Security}: integrità dei dati, autenticazione e non-ripudio sono garantiti. La privacy non è invece fornita. La sicurezza di una Blockchain è diretta conseguenza della sua natura distribuita \pause
+      \item \textbf{Uniqueness}: ogni transazione è unica e non può essere già stata spesa
     \end{itemize}
   \end{frame}
 
 
 
-  \subsection{Structure}
-  \begin{frame}{Blockchain structure}
+  \subsection{Struttura}
+  \begin{frame}{Struttura di una Blockchain}
     \begin{itemize}
-      \item Linked list of ordered fixed-length \red{blocks}
-      \item Each block includes a set of \red{transactions}
+      \item Lista ordinata di \red{blocchi} ordinati di dimensione prestabilita 
+      \item Ciascun blocco contiene una lista di \red{transazioni}
     \end{itemize}
 
     \begin{figure}[!htb]
@@ -244,61 +221,57 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 
-  \begin{frame}{Blockchain structure}
-    \framesubtitle{Blocks structure}
+  \begin{frame}{Struttura di una Blockchain}
+    \framesubtitle{Struttura di un blocco}
         \begin{figure}[!htb]
           \centering
           \includegraphics[width=0.3\linewidth]{../img/blockchain-basic-schema.png}
         \end{figure}
       \begin{itemize}
-        \item  A block is a group of transactions. Generally, it is composed of:
+        \item  Un blocco è un insieme di transazioni. Generalmente, composto da:
         \begin{itemize}
-          \item[-] a set of transactions
-          \item[-] a hash which identifies the block
-          \item[-] a pointer to the previous block hash
-          \item[-] a nonce
-          \item[-] a timestamp
+          \item[-] un insieme di transazioni
+          \item[-] una hash che identifica il blocco
+          \item[-] un riferimento alla hash del blocco precedente
+          \item[-] un nonce (numero casuale usato una sola volta)
+          \item[-] un timestamp
         \end{itemize}
-        \item The first block in the blockchain is called \red{genesis block}.
+        \item Il primo blocco di una Blockchain viene chiamato \red{genesis block}.
       \end{itemize}
   \end{frame}
 
 
 
 
-  \begin{frame}{Blockchain structure}
-    \framesubtitle{Nodes, addresses and transactions}
+  \begin{frame}{Struttura di una Blockchain}
+    \framesubtitle{Nodi, indirizzi e transazioni}
     \begin{itemize}
-      \item \textbf{Nodes} are active entities which store a copy of the blockchain and can
-      perform and/or validate transactions \pause
-      \item \textbf{Addresses} are unique identifiers which identify the parties involved in a
-      transaction and usually are a public key or are derived from a public key. \pause
-      \item \textbf{Transactions} are transfers of value from an address to another. \pause
-      \item \textbf{Transaction scripts} are predefined sets of commands for nodes to transfer
-      values from one address to another and perform various other functions.
+      \item \textbf{Nodi} entità attive che mantengono una copia della Blockchain e che possono effettuare e/o validare transazioni \pause
+      \item \textbf{Indirizzi} identificatori univoci che identificano le parti coinvolte in una transazione. Generalmente sono chiavi pubbliche (o sono derivati da chiavi pubbliche) \pause
+      \item \textbf{Transazioni} trasferimenti di valore da un indirizzo all'altro \pause
+      \item \textbf{Transaction scripts} set di comandi predefiniti utilizzati dai nodi per trasferire valori da un nodo all'altro (es. possono definire le condizioni sotto cui un valore trasferito può essere utilizzato dal destinatario)
     \end{itemize}
   \end{frame}
 
 
 
-  \subsection{Consensus}
-  \begin{frame}{Consensus in Blockchain}
+  \subsection{Consenso}
+  \begin{frame}{Consenso all'interno di Blockchain}
       \begin{itemize}
-        \item Required to establish whether the ledger itself or new blocks are
-        valid or not
-        \item Analogy with the Byzantine Generals Problem:
+        \item Necessario per stabilire se i nuovi blocchi (o il libro mastro stesso) sono validi o no
+        \item Analogia con il problema dei generali Bizantini:
         \begin{itemize}
-            \item[-]``generals'' are the nodes of the Blockchain
-            \item[-]``messengers'' are the network links
-            \item[-]``traitors'' are malicious nodes which try to tamper with the data
+            \item[-]i ``generali'' sono i nodi della Blockchain
+            \item[-]i ``messengers'' sono i collegamenti tra i nodi della rete
+            \item[-]i ``traditori'' sono i nodi maligni che cercano di manomettere i dati memorizzati nella blockchain
         \end{itemize} 
       \end{itemize}
   \end{frame}
   
   
   
-  \begin{frame}{Consensus in Blockchain}
-      Consensus mechanisms commonly used in Blockchain:
+  \begin{frame}{Consenso in Blockchain}
+      Meccanismi di consenso comunemente usati in Blockchain: 
       \begin{enumerate}
         \item Practical Byzantine Fault Tolerance (\textbf{PBFT})
         \item Proof of Work (\textbf{PoW})
@@ -310,22 +283,17 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 
-  \begin{frame}{Consensus in Blockchain}
-    \framesubtitle{Common Consensus mechanisms}
+  \begin{frame}{Consenso in Blockchain}
+    \framesubtitle{Meccanismi di consenso comuni}
     \begin{block}{1) Practical Byzantine Fault Tolerance}
       \begin{itemize}
-        \item Algorithm proposed by M. Castro and B. Liskov as an optimized
-        solution to the Byzantine Generals Problem \cite{castro1999practical} 
-        \item Each “general” maintains an internal state. When he receives a
-        message, he uses it in conjunction with his internal state to
-        run a computation which tells what to think about the message in question 
-        \item  After reaching his individual decision about the message,
-        the general shares that decision with all the other “generals” in the system 
-        \item  A consensus decision is determined based on the total decisions
-        submitted by all generals \pause
-        \item \textcolor{green}{Pro}: very efficient \pause
-        \item \red{Cons}: precludes users anonymity \pause
-        \item Mechanism adopted by Hyperledger and Ripple
+        \item Algoritmo proposto da M. Castro e B. Liskov. Versione ottimizzata della soluzione al problema dei generali Bizantini proposta da Lamport \cite{castro1999practical} 
+        \item Ciascun ``generale'' mantiene uno stato interno. Quando riceve un messaggio, utilizza lo stato per eseguire una computazione che indica cosa pensare del messaggio in questione 
+        \item Dopo aver raggiunto la sua conclusione individuale riguardo al messaggio ricevuto, il generale condivide tale conclusione con gli altri generali del sistema
+        \item La decisione finale è determinata in base alle decisioni presentate dai singoli generali \pause
+        \item \textcolor{green}{Pro}: molto efficiente \pause
+        \item \red{Cons}: preclude l'anonimità degli utenti \pause
+        \item Meccanismo adottato da Hyperledger e Ripple
       \end{itemize}
     \end{block}
   \end{frame}
@@ -333,19 +301,15 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 
-  \begin{frame}{Consensus in Blockchain}
-    \framesubtitle{Common Consensus mechanisms}
+  \begin{frame}{Consenso in Blockchain}
+    \framesubtitle{Meccanismi di consenso comuni}
     \begin{block}{2) Proof of Work}
       \begin{itemize}
-        \item Contrary to the PBFT, it doesn’t require all nodes to submit
-        their individual conclusions 
-        \item Based on a proof that ensures that enough computational resources have
-        been spent before proposing a block for acceptance by the network 
-        \item Only a single node (the first one who solves the PoW) announces its
-        block 
-        \item The announced blocks can be independently verified by all
-        the nodes in the system \pause
-        \item Mechanism adopted by Bitcoin
+        \item Contrariamente a PBFT, non richiede che tutti i nodi presentino le loro conclusioni individuali 
+        \item È basato su una ``prova'' che assicura che sufficienti risorse computazionali siano state spese da parte del nodo prima di proporre un nuovo blocco alla rete (il quale gli altri nodi decideranno se accettare come valido)
+        \item Solamente un singolo nodo annuncia il blocco (il primo che risolve la PoW) 
+        \item Il blocco annunciato può essere indipendentemente verificato da tutti gli altri nodi \pause
+        \item Meccanismo utilizzato da Bitcoin
       \end{itemize}
     \end{block}
   \end{frame}
@@ -354,22 +318,19 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 
-  \begin{frame}{Consensus in Blockchain}
-    \framesubtitle{Common Consensus mechanisms}
+  \begin{frame}{Consenso in Blockchain}
+    \framesubtitle{Meccanismi di consenso comuni}
     \begin{block}{3) Proof of Stake}
       \begin{itemize}
-        \item Contrary to PoW, there isn't any individual attempting to carry out
-        an intensive computation in order to propose a block 
-        \item The network runs a lottery based on the nodes’ stake to decide
-        who will announce a block 
-        \item The more stake one node has, the higher the probability
-        to be chosen is 
-        \item \textcolor{green}{Main idea}: if a node that has enough stake in the system it means
-        that it has invested enough in the system \MVRightarrow\, any malicious
-        attempt/attack on the system wouldn't have any benefits for him \pause
-        \item \red{Main problem}: the system rewards more those who already are most
-        deeply involved in the network \MVRightarrow\, the system becomes always
-        more centralized
+        \item Per proporre un nuovo blocco non è necessario portare a termine una prova che richieda calcolo intensivo
+        \item Per decidere chi annuncierà il prossimo blocco, la rete esegue una ``lotteria'' basata sull'interesse (stake) dei singoli nodi
+        \begin{itemize}
+            \item[\MVRightarrow] e.g. stake = quantità di denaro depositata dal nodo
+            \item[\MVRightarrow] se un nodo approva transazioni non valide perde il suo stake
+        \end{itemize}
+        \item Maggiore stake un nodo ha, maggiori sono le probabilità che esso verrà scelto 
+        \item \textcolor{green}{Idea principale}: validatori hanno elevato stake \MVRightarrow azione maligne non garantisce abbastanza benefici \pause
+        \item \red{Problema principale}: maggiori ricompense a coloro che hanno maggiore stake \MVRightarrow\ il sistema tende a divenire sempre più centralizzato
       \end{itemize}
     \end{block}
   \end{frame}
@@ -378,36 +339,30 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 
-  \begin{frame}{Consensus in Blockchain}
-    \framesubtitle{Common Consensus mechanisms}
+  \begin{frame}{Consenso in Blockchain}
+    \framesubtitle{Meccanismi di consenso comuni}
     \begin{block}{4) Delegated Proof of Stake}
       \begin{itemize}
-        \item Evolution of the PoS 
-        \item Each node that has stake in the system can choose an entity to
-        represent its portion of stake in the system (by voting) 
-        \item The more stake one node has, the higher is the weight of his vote 
-        \item The entity with most votes (weighted) becomes a delegate which
-        proposes blocks 
-        \item The voting process is periodically executed: if the current delegate
-        doesn't behave correctly the other nodes just stop voting it
-      \end{itemize}
+        \item Evoluzione di PoS
+        \item Utilizza un sistema di votazione per eleggere delegati che valideranno i nuovi blocchi 
+        \item Maggiore stake uno nodo ha, maggiore è il valore del suo voto 
+        \item Il processo di votazione è eseguito periodicamente: se i delegati non si comportano correttamente, gli altri nodi non li voteranno più
+        \item Ciascun nodo può delegare il proprio stake ad un altro stakeholder (che voterà a suo nome) 
+        \end{itemize}
     \end{block}
   \end{frame}
 
 
 
-  \subsection{Types of Blockchain}
-  \begin{frame}{Types of Blockchain}
+  \subsection{Tipi di Blockchain}
+  \begin{frame}{Tipi di Blockchain}
     \begin{block}{1) Public Blockchain}
       \begin{itemize}
-        \item Blockchain open to the public in which everyone can join the network,
-        maintain the shared ledger and participate in the consensus process 
-        \item The ledger is not owned by anyone and everyone can read it 
-        \item Usually there's an incentive mechanism to encourage more participants
-        to join the network \pause
-        \item \red{Main problem}: lack of privacy (everyone can see the transactions
-        stored in the blockchain) \pause
-        \item Bitcoin is based on a public blockchain
+        \item Blockchain publiche, chiunque può unirsi alla rete, mantenere una copia del libro mastro e partecipare al processo di Consenso 
+        \item Il libro mastro non è posseduto da alcuna entità, chiunque può leggerlo
+        \item Solitamente vi sono incentivi per incoraggiare nuovi partecipanti ad unirsi alla rete \pause
+        \item \red{Principale problema}: mancanza di pricavy (chiunque può vedere tutte le transazioni) \pause
+        \item Bitcoin si basa su una Blockchain pubblica
       \end{itemize}
     \end{block}
   \end{frame}
@@ -415,13 +370,13 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 
-  \begin{frame}{Types of Blockchain (Cont. 1)}
+  \begin{frame}{Tipi di Blockchain (Cont. 1)}
     \begin{block}{2) Private Blockchain}
       \begin{itemize}
-        \item Open only to an organization or a group of individuals
-        \item Participants need to obtain an invitation or permission to join the Blockchain and maintain the ledger
-        \item Usually the network is permissioned: restrictions on who is allowed to participate in the network and only in certain transactions 
-        \item Example of private Blockchain: Hyperledger Fabric \cite{hyperledger-fabric}
+        \item Aperte solo a una determinata organizzazione o a un certo gruppo di individui
+        \item Per partecipare alla rete e mantenere una copia del libro mastro, i partecipanti devono ricevere un invito/permesso
+        \item Solitamente la rete è permissionata: restrizioni su chi può partecipare e su cosa può fare
+        \item Esempio di private Blockchain: Hyperledger Fabric \cite{hyperledger-fabric}
       \end{itemize}
     \end{block}
   \end{frame}
@@ -429,12 +384,12 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 
-  \begin{frame}{Types of Blockchain (Cont. 2)}
+  \begin{frame}{Tipi di Blockchain (Cont. 2)}
     \begin{block}{3) Consortium Blockchain}
       \begin{itemize}
-        \item Consensus process is controlled by a preselected set of nodes (e.g. a consortium of organizations, each of which operates a node) 
-        \item The right to read the blockchain might be public or permissioned 
-        \item Example of consortium Blockchain: R3 \cite{R3}
+        \item Il processo di Consenso è controllato da un gruppo di nodi preselezionati (e.g. un consorzio di organizzazioni, ciascuna delle quali controlla un nodo) 
+        \item Il permesso di lettura del libro mastro può essere ristretto o libero 
+        \item Esempio di consortium Blockchain: R3 \cite{R3}
       \end{itemize}
     \end{block}
   \end{frame}
@@ -452,26 +407,27 @@ the Bitcoin protocol and its scalability and privacy aspects}
   %%% THIRD SECTION %%%
   %%%%%%%%%%%%%%%%%%%%%
   \section{Bitcoin}
-  \subsection{What is Bitcoin}
-  \begin{frame}{What is Bitcoin}
+  \subsection{Cosa è Bitcoin}
+  \begin{frame}{Cosa è Bitcoin}
     \begin{itemize}
-      \item First fully decentralized cryptocurrency 
-      \item Invented by Satoshi Nakamoto in 2008: first real implementation of
-      Blockchain 
-      \item Bitcoin can be either defined as a protocol, a digital currency
-      and a platform: 
+      \item Prima crittovaluta completamente decentralizzata
+      \item Inventato da Satoshi Nakamoto nel 2008: prima vera implementazione di una Blockchain
+      \item Bitcoin può essere definito sia come protocollo, valuta digitale e piattaforma: 
       \begin{itemize}
         \item Bitcoin (capital B)  \MVRightarrow\, Bitcoin protocol
         \item bitcoin (lowercase b) \MVRightarrow\, bitcoin  currency
       \end{itemize} \pause
     \end{itemize}
 
-    \begin{block}{The reference implementation}
+    \begin{block}{L'implementazione di riferimento}
       \begin{itemize}
-        \item Bitcoin is an open source project and is developed by a community of volunteers
-        \item The reference implementation is \textbf{Bitcoin Core}
-        \item It is considered the authoritative implementation and it specifies
-        how each part of the system has to be implemented.
+        \item Bitcoin è un progetto Open Source ed è sviluppato da una comunità di volontari
+        \item L'implementazione di riferimento (nonchè la più usata) \textbf{Bitcoin Core}
+        \item È considerata l'implementazione ``autoritativa'' e specifica come ciascuna parte del sistema debba essere implementata
+        \item Esistono diversi Bitcoin client alternativi a Bitcoin Core
+        \begin{itemize}
+            \item[\MVRightarrow] implementazioni non autoritative
+        \end{itemize}
       \end{itemize}
     \end{block}
   \end{frame}
@@ -479,14 +435,13 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 
-  \begin{frame}{What is Bitcoin (Cont. 1)}
-    Bitcoin can be seen as a combination of:
+  \begin{frame}{Cosa è Bitcoin (Cont. 1)}
+    Bitcoin può essere visto come una combinazione di: 
     \begin{itemize}
-      \item a decentralized peer-to-peer-network (the Bitcoin protocol)
-      \item a public transaction ledger (the blockchain) 
-      \item a set of rules for validating transactions (consensus rules) 
-      \item a mechanism for reaching distributed consensus on the blockchain
-      (distributed consensus algorithm) 
+      \item rete peer-to-peer decentralizzata (il protocollo Bitcoin)
+      \item un libro mastro pubblico e aperto a tutti (la Blockchain) 
+      \item un insieme di regole per validare le transazioni  
+      \item un meccanismo di Consenso (un algoritmo distribuito di Consenso) 
     \end{itemize}
   \end{frame}
 
@@ -494,12 +449,11 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 
-  \begin{frame}{What is Bitcoin (Cont. 2)}
-    Bitcoins are entirely ``virtual'':
+  \begin{frame}{Cosa è Bitcoin (Cont. 2)}
+    I bitcoins sono interamente ``virtuali'': 
     \begin{itemize}
-      \item there aren't any physical or virtual coins stored anywhere 
-      \item the coins are implied in the transactions that send value from a sender to
-      a receiver
+      \item non vi è alcuna moneta fisica o digitale
+      \item i coins sono impliciti nelle transazioni 
     \end{itemize}
   \end{frame}
 
@@ -510,15 +464,12 @@ the Bitcoin protocol and its scalability and privacy aspects}
   \subsection{Scripts}
   \begin{frame}{Bitcoin scripts}
     \begin{itemize}
-      \item Script = list of instructions recorded with each transaction that describes
-      how the next person wanting to spend the Bitcoins being transferred can gain access to them \pause 
-      \item Programming language used: ``\red{Script}'' \cite{script-bitcoin-wiki} 
+      \item Script = lista di istruzioni registrate con ciascuna transazione che specificano come il prossimo utente che vuole spendere i bitcoin trasferiti può accedervi (e spenderli) \pause 
+      \item Linguaggio di programmazione utilizzato: ``\red{Script}'' \cite{script-bitcoin-wiki} 
       \begin{itemize}
-        \item very simple programming language 
-        \item not Turing-complete {\tiny(no loops and no complex control flow instructions)} 
-        \item deliberately disegned like this for avoiding abuses of the scripts
-        for conducting denial of service attacks {\tiny(each scripts has to be
-        executed on each node of the network)}
+        \item linguaggio molto semplice very simple programming language 
+        \item non Turing-complete {\tiny(no loops and no complex control flow instructions)} 
+        \item deliberatamente progettato per evitare abusi degli script volti a condurre attacchi Denial of Service {\tiny(ciascuno script deve essere eseguito ciascun nodo della rete)}
       \end{itemize}
     \end{itemize}
   \end{frame}
@@ -526,25 +477,22 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 
-  \subsection{Keys and addresses}
-  \begin{frame}{Keys and addresses}
+  \subsection{Chiavi e Indirizzi}
+  \begin{frame}{Chiavi e Indirizzi}
     \begin{itemize}
-      \item Ownership of bitcoins is established through:
+      \item Il possesso di bitcoin è stabilito tramite:
       \begin{itemize}
-          \item digital keys
-          \item Bitcoin addresses
-          \item digital signatures
+          \item chiavi digitali 
+          \item indirizzi Bitcoin 
+          \item firme digitali
       \end{itemize} 
-      \item In order to be included in the blockchain, transactions require a valid
-      signature which can be generated only with a private (secret) key 
-      \item The private key proves the ownership of bitcoins by signing transactions and
-      transferring value from a user to another \pause
+      \item Per essere inclusa nella Blockchain, una transazione richiede uan firma valida, la quale può essere generata solo attraverso una chiave privata (segreta)  
+      \item La chiave privata prova il possesso dei bitcoin (firmando transazioni e trasferendo valuta da un indirizzo all'altro) \pause
     \end{itemize}
-    \begin{block}{Analogy with traditional banking}
+    \begin{block}{Analogia con le banche tradizionali}
       \begin{itemize}
-        \item public key \MVRightarrow\, bank account number
-        \item private key \MVRightarrow\, secret PIN (or signature on a check)
-        which which allows to unlock the value and transferring it to other people
+        \item chiave pubblica \MVRightarrow\, numero del conto bancario
+        \item chiave privata \MVRightarrow\, PIN segreto (o firma su un assegno) che permette di ``sbloccare'' il valore e trasferirlo ad altre persone 
       \end{itemize}
     \end{block}
   \end{frame}
@@ -553,17 +501,16 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 
-  \begin{frame}{Keys and addresses (Cont. 1)}
-    \begin{block}{Addresses}
+  \begin{frame}{Chiavi e Indirizzi (Cont. 1)}
+    \begin{block}{Indirizzi}
       \begin{itemize}
-        \item unique strings of digits and characters which identify the originator and/or the destination of a transaction \pause
-        \item derived from public keys through one-way cryptographic hashing:
+        \item indirizzo = stringa univoca di lettere e cifre che identifica il mittente o il destinatario di una transazione  \pause
+        \item derivate dalle chiavi pubbliche attraverso hashing one-way:
         \begin{enumerate}
           \item Double hashing: SHA-256 + RIPEMD160
-          \item 160-bit hash as result
+          \item hash di 160-bit come risultato
           \item Base58Check encoding of the 160-bit hash
-          \item Result: 26-35 characters string which begins with “1” (\red{public key
-          address}) or “3” (\red{pay-to-script-hash address})
+          \item Risultato: stringa di 26-35 charatteri che inizia con ``1'' (\red{public key address}) o con ``3'' (\red{pay-to-script-hash address})
         \end{enumerate}
       \end{itemize}
     \end{block}
@@ -573,21 +520,18 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 
-  \begin{frame}{Keys and addresses (Cont. 2)}
-    \begin{block}{Keys}
+  \begin{frame}{Chiavi e Indirizzi (Cont. 2)}
+    \begin{block}{Chiavi}
       \begin{itemize}
-        \item Private keys are 256-bit random numbers and can be represented
-        in different formats \pause
-        \item Public keys are generated starting from the private keys using
-        elliptic curve multiplication: \pause
+        \item Le chiavi private sono numeri casuali di 256 bit e possono essere rappresentati in diversi formati \pause
+        \item Le chiavi pubbliche sono generate partendo dalle chiavi private usando la moltiplicazione su curve ellittiche: \pause
         \begin{itemize}
-          \item ``Trap door'' function 
-          \item Elliptic curve  specified by the secp256k1 standard, defined by the NIST:
+          \item Funzione ``a botola'' 
+          \item Curva ellittica specificata dallo standard secp256k1, definito dal NIST:
           \[ y^2 \bmod p = (x^3 + 7) \bmod p \]
-          where $p = 2^{256} – 2^{32} – 2^9 – 2^8 – 2^7 – 2^6 – 2^4 – 1$ is a very large prime number 
-          \item Public key $K=k*G$, where $k$ is the private key and $G$ is
-          a point on the curve defined by the standard 
-          \item The generator point $G$ is always the same for all Bitcoin users
+          dove $p = 2^{256} – 2^{32} – 2^9 – 2^8 – 2^7 – 2^6 – 2^4 – 1$ è un numero primo molto grande 
+          \item Chiave pubblica $K=k*G$, dove $k$ è la chiave privata e $G$ è un punto sulla curva definita dallo standard 
+          \item Il punto generatore $G$ è sempre lo stesso per tutti gli utenti di Bitcoin
         \end{itemize}
       \end{itemize}
     \end{block}
@@ -597,24 +541,18 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 
-  \begin{frame}{Keys and addresses (Cont. 3)}
-    \begin{block}{Public key formats}
+  \begin{frame}{Chiavi e Indirizzi (Cont. 3)}
+    \begin{block}{Formati delle chiavi pubbliche}
       \begin{itemize}
-        \item \textbf{Uncompressed format}: the key is the coordinates pair
-        $(x,y)$ of a point on the curve \MVRightarrow\, prefix $04$ followed by
-        two 256-bit numbers (65 Bytes) \pause
-        \item \textbf{Compressed format}: prefix $03$ (if the y-coordinate is an
-        odd number) or $02$ (if the y-coordinate is an even number) followed
-        by the x-coordinate \MVRightarrow\ 33 Bytes.
+        \item \textbf{Formato non compresso}: la chiave corrisponde alle coordinate $(x,y)$ di un punto sulla curva \MVRightarrow\, prefisso $04$ seguito da due numeri da 256 bit (65 byte) \pause
+        \item \textbf{Formato compresso}: prefisso $03$ (se la coordinata y è un numero dispari) o $02$ (se la coordinata y è un numero pari) seguito dalla coordinata x \MVRightarrow\, 33 Bytes
         \begin{itemize}
-          \item the y-coordinate can be derived from the x one \pause
+          \item la coordinata y può essere derivata da quella x \pause
         \end{itemize}
-        \item Address derived from a compressed public key $\neq$ address derived
-        from the uncompressed version \pause
+        \item indirizzo derivato da chiave compressa $\neq$ indirizzo derivato dalla versione non compressa \pause
         \begin{itemize}
-          \item solution: \textbf{compressed private keys}
-          \item private keys from which only compressed
-          public keys should be derived
+          \item soluzione: \textbf{chiavi private compresse}
+          \item chiavi private da cui solamente chiavi pubbliche in formato compresso possono essere derivate
         \end{itemize}
       \end{itemize}
     \end{block}
@@ -623,13 +561,12 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 
-  \subsection{Transactions}
-  \begin{frame}{Transactions}
+  \subsection{Transazioni}
+  \begin{frame}{Transazioni}
     \begin{itemize}
-      \item Data structures that encode the transfer of value between participants
-      in the bitcoin system 
-      \item They're public visible by anyone 
-      \item A transaction includes at least one input and output
+      \item Strutture dati che contengono i valori trasferiti dai partecipanti all'interno del sistema Bitcoin
+      \item Sono pubbliche e visibili a chiunque 
+      \item Una transazione include almeno un input e almeno un output
     \end{itemize}
   \end{frame}
 
@@ -637,21 +574,20 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 
-  \begin{frame}{Transactions (Cont. 1)}
-    \begin{block}{Transaction outputs}
+  \begin{frame}{Transazioni (Cont. 1)}
+    \begin{block}{Outputs}
       \begin{itemize}
-        \item Consist of two parts:
+        \item L'output è composto da due parti:
         \begin{enumerate}
-          \item amount of bitcoin (discrete and indivisible, expressed in Satoshi)
-          \item set of conditions required for spending the output (\textbf{locking script})
+          \item una quantità di bitcoin (discreta e indivisibile, espressa in Satoshi) 
+          \item un insieme di condizioni da soddisfare per poter spendere i bitcoin in output (\textbf{locking script})
         \end{enumerate}
         \pause
-        \item All the available and spendable outputs are stored in the blockchain
-        and they are called unspent transaction outputs (\textbf{UTXO}) 
-        \item Wallet balance = e aggregated value of all the UTXOs the user can spend with the keys it controls 
-        \item UXTO can only be spent in its entirety 
+        \item Tutti gli output spendibili memorizzati all'interno della Blockchain vengono chiamati \textbf{UTXO} (Unspent Transaction Outputs)
+        \item Saldo del Wallet = valore aggregato di tutti gli UTXOs che l'utente può spendere con le chiavi in suo possesso 
+        \item Un UXTO può solo essere speso interamente
         \begin{itemize}
-          \item[$\rightarrow$] usually transactions generate \emph{change}
+          \item[$\rightarrow$] normalmente le transizioni generano \emph{resto} in output
         \end{itemize}
       \end{itemize}
     \end{block}
@@ -661,14 +597,14 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 
-  \begin{frame}{Transactions (Cont. 2)}
-    \begin{block}{Transaction inputs}
-      A transaction input consists of: 
+  \begin{frame}{Transazioni (Cont. 2)}
+    \begin{block}{Inputs}
+      L'input di una transazione è composto da: 
       \begin{enumerate}
-        \item one or more UTXOs that will be consumed 
-        \item a proof of ownership through the locking script to unlock the selected UXTO 
+        \item uno o più UTXOs che verranno ``consumati''
+        \item una prova che certifichi la proprietà degli UTXOs da consumare attraverso il locking script 
         \begin{itemize}
-          \item[$\rightarrow$] usually consists of a digital signature and a public key
+          \item[$\rightarrow$] normalmente si tratta di una firma digitale + relativa chiave pubblica 
         \end{itemize}
       \end{enumerate}
     \end{block}
@@ -677,8 +613,8 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   
   
-  \begin{frame}{Transactions (Cont. 3)}
-    \begin{block}{Example of transaction}
+  \begin{frame}{Transazioni (Cont. 3)}
+    \begin{block}{Esempio di transazione}
         \textbf{Input}\\
         \begin{itemize}
             \item Previous tx: \begin{tiny}f5d8ee39a430901c91a5917b9f2dc19d6d1a0e9cea205b009ca73dd04470b9a6\end{tiny}
@@ -701,7 +637,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   
   
-%  \begin{frame}{Transactions (Cont. 4)}
+%  \begin{frame}{Transazioni (Cont. 4)}
 %      \begin{figure}
 %          \centering
 %          \includegraphics[width=0.8\linewidth]{../img/Transaction.png}
@@ -712,7 +648,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 
-%  \begin{frame}{Transactions (Cont. 3)}
+%  \begin{frame}{Transazioni (Cont. 3)}
 %    \begin{block}{Transaction typical life cycle}
 %      \begin{enumerate}
 %        \item A sender sends a transaction (using a wallet application) 
@@ -727,21 +663,21 @@ the Bitcoin protocol and its scalability and privacy aspects}
 %    \end{block}
 %  \end{frame}
 
-  \begin{frame}{Transactions (Cont. 4)}
-    \begin{block}{Transaction fees}
+  \begin{frame}{Transazioni (Cont. 4)}
+    \begin{block}{Tasse sulle transazioni}
       \begin{itemize}
-        \item Two purposes:
+        \item Due scopi:
         \begin{enumerate}
-          \item Compensate the miners 
-          \item Act as a security mechanism: economically infeasible for attackers to flood the network with transactions 
+          \item ricompensare i miner
+          \item meccanismo di sicurezza: rendere economicamente impossibile per gli attaccanti inondare la rete di transazioni (DoS) 
         \end{enumerate}
-        \item Their value depends on the size of the transaction:
+        \item Il loro valore dipende dalla dimensione della transazione: 
         \[ Fees = Sum(Inputs)–Sum(Outputs) \] 
-        \item The spender is the one that decides how much fee to pay
+        \item Lo spender della transazioen è colui che decide il valore della tassa da pagare
         \begin{itemize}
-            \item the miners choose from a pool the transactions to include in the next block
-            \item higher fee = faster confirmation (mined quicker)
-            \item null fee = the transaction will likely never be mined
+            \item i miner scelgono da un pool le transazioni che includeranno nel prossimo blocco
+            \item maggiori tasse = transazione confermata più velocemente (il blocco verrà minato prima) 
+            \item tasse nulle = la transazione probabilmente non verrà mai confermata
         \end{itemize}
       \end{itemize}
     \end{block}
@@ -751,13 +687,13 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 
-  \begin{frame}{Transactions (Cont. 5)}
-    \begin{block}{Coinbase transactions}
+  \begin{frame}{Transazioni (Cont. 5)}
+    \begin{block}{Transazione Coinbase}
       \begin{itemize}
-        \item First transaction in a block 
-        \item Created by the first node which solves the proof-of-work 
-        \item Create brand-new bitcoins that the miner can spend as a reward for mining
-        \item Do not consume UTXO: they have special type of input called coinbase
+        \item Prima transazione di ciascun blocco
+        \item Creata dal primo nodo che risolve al Proof-Of-Work
+        \item Genera nuovi bitcoin che il miner può spendere (ricompensa per aver minato il blocco)
+        \item no UTXO in input: hanno un input speciale detto coinbase
       \end{itemize}
     \end{block}
   \end{frame}
@@ -769,10 +705,10 @@ the Bitcoin protocol and its scalability and privacy aspects}
   \subsection{Wallets}
   \begin{frame}{Wallets}
     \begin{itemize}
-      \item Applications that serve as a user interface and manage user’s money 
-      \item Technically: data structures that securely store the user’s private keys required for spending the bitcoins he possesses 
-      \item They don't store ``money'' but only pairs of public/private keys
-      \item Two kind of wallets: \emph{deterministic} and \emph{nondeterministic}
+      \item Applicazioni che fungono da interfaccia utente e ne gestiscono il denaro 
+      \item Def. tecnica: strutture dati che memorizzano in modo sicuro le chiavi private dell'utente richieste per spendere i bitcoin che gli possiede 
+      \item Non memorizzano ``denaro'', ma solamente coppie di chiavi pubbliche/private
+      \item Due tipi di wallet: \emph{deterministici} e \emph{non deterministici}
     \end{itemize}
   \end{frame}
 
@@ -780,13 +716,13 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
   \begin{frame}{Wallets (Cont. 1)}
-    \begin{block}{Nondeterministic wallets}
+    \begin{block}{Wallet non deterministici}
       \begin{itemize}
-        \item Each key is independently generated starting from a random number \MVRightarrow\, keys stored in the wallet are not related to each other \
-        \item Main disadvantage: cumbersome to manage 
+        \item Ciascuna chiave è generata in modo indipendente a partire da un numero casuale \MVRightarrow\, le chiavi memorizzate non sono connesse tra loro in alcun modo
+        \item Principale svantaggio: ingombranti da gestire
         \begin{itemize}
-          \item[-] they have to be backed up frequently \MVRightarrow\, each key has to be backed up 
-          \item[-] address reuse avoidance \MVRightarrow\, many addresses \MVRightarrow\, many keys that has to be backed up frequently
+          \item[-] richiesto backup frequente del wallet \MVRightarrow\, backup di ciascuna chiave che contiene 
+          \item[-] utente evita di riutilizzare indirizzi \MVRightarrow\, molti indirizzi \MVRightarrow\, molte chiavi di cui si deve fare il backup frequentemente
         \end{itemize}
       \end{itemize}
     \end{block}
@@ -796,20 +732,20 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
   \begin{frame}{Wallets (Cont. 2)}
-    \begin{block}{Deterministic wallets}
+    \begin{block}{Wallet deterministici}
       \begin{itemize}
-        \item All the keys are derived from a single master key (the \emph{seed}) 
-        \item The stored keys can be generated again if one has the original seed 
-        \item Only the seed has to be backed up 
-        \item Easily manageable, even if using address reuse avoidance 
-        \item Keys usually derived in a tree structure (BIP-32 standard) 
+        \item Tutte le chiavi vengono derivata da una singola chiave master (detta \emph{seed}) 
+        \item Le chiavi memorizzate possono essere generate nuovamente se si possiede il seed
+        \item Il backup riguarda solo il seed
+        \item Facili da gestire, anche quando si evita di riutilizzare gli indirizzi
+        \item Le chiavi sono normalmente derivate in una struttura ad albero (standard BIP-32) 
         \begin{itemize}
-            \item high flexibility
+            \item elevata flessibilità
         \end{itemize}
-        \item Seeds usually created according to BIP-39 standard 
+        \item Seed normalmente creati come specificato dallo standard BIP-39 
         \begin{itemize}
-          \item[-] sequence of English words called \emph{mnemonic} 
-          \item[-] easy to transcribe, export and import across wallets
+          \item[-] sequenza di parole inglesi chiamate \emph{mnemonic} 
+          \item[-] facile da trascrivere, esportare e importare attraverso diversi wallet
         \end{itemize}
       \end{itemize}
     \end{block}
@@ -821,16 +757,17 @@ the Bitcoin protocol and its scalability and privacy aspects}
   \subsection{Bitcoin Blockchain}
   \begin{frame}{Bitcoin Blockchain}
      \begin{itemize}
-         \item Linked list of blocks of transactions
-         \item Each block is identified by a SHA-256 hash
-         \item Each blocks embeds in its header the hash of the previous block
+         \item Lista di blocchi di transazioni collegati tra loro
+         \item Ciascun blocco identificato da una hash SHA-256
+         \item Ciascun blocco include nell'header l'hash del blocco precedente
          \begin{itemize}
-             \item changing a block causes its hash to change
-             \item the hash of the children blocks changes as well (cascade effect)
+             \item modificare un blocco modifica anche la sua hash
+             \item anche l'hash dei blocchi figli cambia (effetto cascata)
          \end{itemize}
-         \item Once a block has enough children, it cannot be changed without recalculating all the subsequent blocks
+         \item Un blocco a più figli in cascata \MVRightarrow per modificarlo bisogna anche modificare tutti i blocchi successivi
          \begin{itemize}
-             \item[\MVRightarrow] blockchain history is practically immutable
+             \item[\MVRightarrow] bisogna risolvere nuovamente la PoW 
+             \item[\MVRightarrow] i blocchi sono praticamente immutabili 
          \end{itemize}
      \end{itemize}
   \end{frame}
@@ -847,13 +784,13 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   
   \begin{frame}{Bitcoin Blockchain}
-      \begin{block}{Merkle Trees}
+      \begin{block}{Alberi di Merkle}
           \begin{itemize}
-              \item Data structure used for summarize and verify the integrity of large sets of data in an efficient way (Binary tree of hashes)
-              \item Used for efficiently verify if a transaction is included in a block
-              \item The root of the tree stored in each block summarizes all the transactions included in that block
+              \item Strutture dati usate per riassumere e verificare l'integrità di grandi insiemi di dati in modo efficiente (alberi binari di hash)
+              \item Utilizzati per verificare in modo efficiente se una certa transazione è inclusa in un certo blocco
+              \item La radice dell'albero è memorizzata nell'header di ciascun blocco e riassume le transazioni incluse in esso
               \begin{itemize}
-                  \item [\MVRightarrow] nodes can verify transactions without downloading all the block transactions (but just a Merkle path + block header)
+                  \item [\MVRightarrow] i nodi possono verificare le transazioni senza dover scaricare i blocchi interi (scaricano solo Merkle path + block header)
               \end{itemize} 
           \end{itemize}
       \end{block}
@@ -862,12 +799,12 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   
   \begin{frame}{Bitcoin Blockchain}
-    \framesubtitle{Merkle Trees}
+    \framesubtitle{Alberi di Merkle}
     \begin{figure}
       \includegraphics[width=0.6\linewidth]{../img/merkle-tree-path.png}
     \end{figure}
     \begin{itemize}
-        \item To check if a transaction is included in a block, only $log_2(N)$ hashes have to be downloaded ($N$ number of transactions of the block)
+        \item Per verificare se una transazione è inclusa in un blocco, solo  $log_2(N)$ hash devono essere scaricate ($N$ numero di transazioni del blocco)
     \end{itemize}
   \end{frame}
   
@@ -876,7 +813,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   
   \begin{frame}{Bitcoin Blockchain}
-  \framesubtitle{Merkle Trees}
+  \framesubtitle{Alberi di Merkle}
       \footnotesize
        \begin{tabularx}{\textwidth}{l l l l}
          \toprule
@@ -897,17 +834,17 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   \subsection{Bitcoin Network}
   \begin{frame}{Bitcoin Network}
-    The network is a peer-to-peer network
+    Rete peer-to-peer:
     \begin{itemize}
-        \item no ``special'' nodes (all the nodes consume and provide services) 
-        \item flat network topology
-        \item nodes connected in a mesh (each node connected only to few peers)
+        \item no nodi ``speciali'' (tutti i nodi utilizzano e forniscono servizi) 
+        \item topologia ``flat''
+        \item ciascun nodo connesso a pochi peers
         \begin{itemize}
-            \item[\MVRightarrow] DoS attack prevention % otherwise a node could broadcast many bad-formed blocks/transactions
+            \item[\MVRightarrow] prevenzione di attacchi DoS  % otherwise a node could broadcast many bad-formed blocks/Transazioni
         \end{itemize}
     \end{itemize}
     
-    Three different types of nodes:
+    Tre diversi tipi di nodi:
     \begin{enumerate}
         \item Full nodes
         \item Miners
@@ -921,19 +858,19 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   
   \begin{frame}{Bitcoin Network}
-    \framesubtitle{Node types}
+    \framesubtitle{Tipi di nodi}
     \begin{block}{1) Full nodes}
         \begin{itemize}
-            \item Maintain a full copy of the Blockchain
+            \item Mantengono una copia dell'intera Blockchain
             \begin{itemize}
-                \item[\MVRightarrow] they can autonomously and authoritatively verify transactions (they can build the UTXO set)
+                \item[\MVRightarrow] possono autonomamente e autoritativamente verificare tutte le transazioni (possonon ricostruire l'insieme degli UTXOs)
             \end{itemize}
-            \item Validate and forward transactions/blocks to their peers 
-            \item \textcolor{red}{Drawback}: the size of the Blockchain is currently around 178 GB \cite{statista}
-            \item \textcolor{green}{Advantages}: 
+            \item Validano e inoltrano transazioni/blocchi ai loro peer
+            \item \textcolor{red}{Svantaggio}: la dimensione della Blockchain è attualmente di circa 178 GB \cite{statista}
+            \item \textcolor{green}{Vantaggi}: 
             \begin{itemize}
-                \item[-] contribution to Bitcoin security
-                \item[-] more security (full node can see all the transactions) 
+                \item[-] contribuiscono alla sicurezza di Bitcoin
+                \item[-] maggiore sicurezza (un full node può vedere tutte le transazioni), può verificare transazioni senza appoggiarsi a terze parti
             \end{itemize}
         \end{itemize}
     \end{block}
@@ -943,14 +880,14 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   
    \begin{frame}{Bitcoin Network}
-    \framesubtitle{Node types}
+    \framesubtitle{Tipi di Nodi}
     \begin{block}{2) Miners}
         \begin{itemize}
-            \item Nodes that solve the proof-of-work and create new blocks
-            \item They compete with each other
-            \item They do not necessarily have to be full-nodes
+            \item Nodi che risolvono la proof-of-work e creano nuovi blocchi
+            \item Competono tra di loro 
+            \item Non devono necessariamente essere full-nodes
             \begin{itemize}
-                \item[\MVRightarrow] they participate to mining pools \footnote{Mining pool = groups of cooperating miners who agree to share block rewards in proportion to their contributed mining hash power} in which a pool server maintain the full copy of the Blockchain
+                \item[\MVRightarrow] partecipano a mining pool \footnote{Mining pool = gruppo di miners che cooperano tra loro e si spartiscono le ricompense in proporzione alla loro hash power messa a disposizione} in cui solo un server mantiene la copia completa della Blockchain
             \end{itemize}
         \end{itemize}
     \end{block}
@@ -960,16 +897,16 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   
   \begin{frame}{Bitcoin Network}
-    \framesubtitle{Node types}
+    \framesubtitle{Tipi di Nodi}
     \begin{block}{3) Lightweight clients}
         \begin{itemize}
-            \item Clients designed to run on limited resources devices (e.g. smartphones, tablets, etc.) 
-            \item They store only the headers of the blocks 
-            \item They validate transactions using a Simple Payment Verification (SPV) scheme \footnote{e.g. they have to verify that none of the transaction's inputs have been previously spent}
+            \item Clients progettati per essere eseguiti su device con risorse limitate (e.g. smartphones, tablets, etc.) 
+            \item Memorizzano solo gli header dei blocchi 
+            \item Validano le transazioni usando lo schema SPV (Simple Payment Verification) \footnote{e.g. verificano che nessuno degli input della transazione sia già stato precedentemente speso}
             \begin{itemize}
-                \item[-] they check if a transaction belongs to a block by requesting a Merkle Path to a full node
-                \item[-] they validate the proof-of-work of the block
-                \item[-] they do not build the UTXO set: they check how deep the block of the transaction is ``buried'' \MVRightarrow many blocks above it = the transaction is valid (e.g. it's not double-spent)
+                \item[-] controllano che una transazione appartenga a un blocco richiedendo un Merkle Path ad un full node
+                \item[-] verificano la proof-of-work del blocco
+                \item[-] non ricostruiscono l'insieme degli UTXO: controllano quanto profondamente il blocco della transazione è ``sepolto'' \MVRightarrow\, molti blocchi sopra di esso = la transazione è valida (e.g. non è già stata spesa)
             \end{itemize}
         \end{itemize}
     \end{block}
@@ -980,45 +917,46 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   \begin{frame}{Bitcoin Network}
     \framesubtitle{Node types}
-    \begin{block}{Lightweight clients drawback}
+    \begin{block}{Svantaggi dei Lightweight Client}
         \begin{itemize}
-            \item They have to trust full nodes (they assume that blocks and transactions are being correctly validated)
-            \item They cannot verify that a transaction \emph{does not exist} (they can only verify if it \emph{exists})
+            \item Devono fidarsi dei full nodes (assumono che i blocchi e le transazioni siano validati correttamente da quest'ultimi)
+            \item Non possono verificare che una transazione \emph{non esiste} (possono solo verificare se \emph{esiste})
             \begin{itemize}
-                \item[\MVRightarrow] possibility to double spend a transaction (spend the same UTXOs two times) by hiding to the node the first transaction
+                \item[\MVRightarrow] possibilità di spendere una transazione due volte (spendere gli stessi UTXO due volte) nascondendo al nodo la prima transazione
                 \pause
-                \item[\MVRightarrow] \textcolor{green}{Solution}: SPV nodes connect randomly to several nodes (high probability to find one honest node)
+                \item[\MVRightarrow] \textcolor{green}{Soluzione}: i nodi SPV
+                si connettono in modo casuale a diversi full node (maggiore possibilità di trovare almeno un nodo onesto) 
             \end{itemize}
         \end{itemize}
     \end{block}
   \end{frame}
   
   
-  \subsection{Mining and Consensus}
-  \begin{frame}{Mining and Proof of Work}
+  \subsection{Mining e Consenso}
+  \begin{frame}{Mining e Proof of Work}
       \begin{itemize}
-          \item Mining = process through which transactions are validated and new blocks are created and added to the Blockchain
-          \item A new block is created every 10 minutes 
-          \item Miners are rewarded with basecoin + fees
-          \item For creating a new block, miners have to solve the \textbf{Proof of Work}
+          \item Mining = processo attraverso il quale le transazioni sono validate e nuovi blocchi sono creati e aggiunti alla Blockchain
+          \item Un nuovo blocco viene creato ogni circa 10 min 
+          \item I miners sono ricompensati con basecoin + tasse
+          \item Per creare un nuovo blocco, i miners devono risolvere la \textbf{Proof of Work}
       \end{itemize}
   \end{frame}
   
   
   
-  \begin{frame}{Mining and Proof of Work}
+  \begin{frame}{Mining e Proof of Work}
       \begin{block}{Proof of Work}
       \begin{center}
           $H(N||Prev\_hash||Tx||Tx||....||Tx)<Target$
       \end{center}
         \begin{itemize}
-            \item Hard problem based on cryptographic hash algorithm (SHA-256)
-            \item Acts as a proof that the miner spent enough computing effort
-            \item The target (difficulty) is always adjusted so that a new block is mined every ~10 minutes
-            \item The hash $H$ is actually calculated on the block header
-            \item After the block is mined, the node transmits it to its peers
+            \item Problema difficile basato su un algoritmo crittografico di hash (SHA-256)
+            \item Rappresenta la prova che il miner ha speso abbastanza abbastanza risorse computazionali
+            \item Il target (la difficoltà) viene sempre aggiornata in modo che i blocchi vengano minati ogni circa 10 min
+            \item L'hash $H$ è calcolata solo sull'header del blocco
+            \item Dopo che un blocco è stato minato, il nodo lo trasmette a tutti i suoi peer
             \begin{itemize}
-                \item[\MVRightarrow] the nodes validate and propagate it
+                \item[\MVRightarrow] i nodi lo validano e lo propagano a loro volta
             \end{itemize}
         \end{itemize}
       \end{block}
@@ -1026,73 +964,73 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   
   
-  \begin{frame}{Consensus}
+  \begin{frame}{Consenso}
     \begin{itemize}
-        \item No central authority
-        \item \textbf{Emergent consensus}: consensus is not achieved explicitly
-        \item Consensus emerges from:
+        \item No autorità centrale
+        \item \textbf{Consenso Emergente}: il consenso non viene raggiunto esplicitamente
+        \item Il consenso emerge da:
         \begin{enumerate}
-            \item independent verification of transactions
-            \item aggregation of transaction into blocks and solving of PoW
-            \item independent verification of new-mined blocks
+            \item verifica indipendente delle transazioni da parte dei nodi
+            \item aggregazione delle transazioni in blocchi e risoluzione della PoW
+            \item verifica indipendente dei nuovi blocchi minati 
         \end{enumerate}
         %\item A transaction is included in a block \MVRightarrow mined at a depth of 1 %\begin{itemize}
         %    \item subsequent block found \MVRightarrow the number of blocks deep is increased by 1
         %\end{itemize}
-        \item Classic Bitcoin client:  ``unconfirmed'' until the transaction is 6 blocks deep
+        \item Client Bitcoin classico:  ``unconfirmed'' fino a che la transazione è profonda blocchi
     \end{itemize}
   \end{frame}
   
   
   
   
-  \begin{frame}{Consensus}
-      \begin{block}{Verification of Transactions}
-      The node checks:
+  \begin{frame}{Consenso}
+      \begin{block}{Verifica delle transazioni}
+      Il nodo controlla: 
         \begin{itemize}
-            \item syntax of the transaction
-            \item neither transaction inputs or outputs are empty
-            \item transaction size 
+            \item sintassi della transazione
+            \item input e output della transazione non vuoti
+            \item dimensione della transazione 
             \item ...
-            \item \textbf{for each input, the referenced output must exist and cannot be already spent}
+            \item \textbf{per ciascun input, l'output referenziato esiste e non è già stato speso}
         \end{itemize}
       \end{block}
-      After validating a transaction, the node:
+      Dopo aver verificato una transazione, il nodo:
       \begin{itemize}
-          \item adds it to its memory pool waiting to include it into a block
-          \item propagates it to its peers
+          \item la aggiunge al suo memory pool in attesa di includerla in un blocco
+          \item la propaga ai suoi peer
       \end{itemize}
   \end{frame}
   
   
-  \begin{frame}{Consensus}
-      \begin{block}{Verification of Blocks}
-      The node checks:
+  \begin{frame}{Consenso}
+      \begin{block}{Verifica dei blocchi}
+      Il nodo controlla:
         \begin{itemize}
-            \item syntax of the block
-            \item the hash of the header (check the PoW)
-            \item the block size 
-            \item the first transaction is a coinbase transaction
+            \item sintassi del blocco
+            \item hash dell'header (verifica della PoW)
+            \item dimensione del blocco 
+            \item la prima transazione del blocco è una transazione coinbase
             \item ...
-            \item \textbf{all transaction within the block are valid}
+            \item \textbf{tutte le transazioni all'interno del blocco sono valide}
         \end{itemize}
       \end{block}
-      After validating a block, the node propagates it to its peers
+      Dopo aver verificato un blocco, il nodo lo propaga ai suoi peer
       \begin{itemize}
-          \item [\MVRightarrow] only valid blocks are propagated through the network
-          \item [\MVRightarrow] validation prevents dishonest miners % (e.g. miners that write for themselves an arbitrary amount of bitcoin instead of the correct basecoin reward) they would have their block rejected and they would only waste the PoW effort
+          \item [\MVRightarrow] solamente i blocchi validi vengono propagati nella rete
+          \item [\MVRightarrow] il processo di validazione tutela da miner disonesti % (e.g. miners that write for themselves an arbitrary amount of bitcoin instead of the correct basecoin reward) they would have their block rejected and they would only waste the PoW effort
       \end{itemize}
   \end{frame}
   
   
   
-  \begin{frame}{Consensus}
+  \begin{frame}{Consenso}
       \begin{block}{Blockchain Forks}
         \begin{itemize}
-            \item Blocks might arrive at different nodes at different times
-            \item Nodes have different perspectives of the Blockchain (multiple different ``version'' of the Blockchain
-            \item Solution: each nodes always selects the ``longest'' Blockchain % The one with the greatest cumulative work (sum the work recorded in each block)
-            \item By doing this, the network eventually converges to a consistent state
+            \item I blocchi possono arrivare a nodi diversi in tempi diversi
+            \item I nodi hanno diverse percezioni della Blockchain (ci sono più ``versioni'' diverse) 
+            \item Soluzione: ciascun nodo sceglie sempre la Blockchain ``più lunga''  % The one with the greatest cumulative work (sum the work recorded in each block)
+            \item Facendo ciò, la rete converge ad uno stato consistente 
         \end{itemize}
       \end{block}
   \end{frame}
@@ -1100,28 +1038,28 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   
   
-  \begin{frame}{Consensus}
+  \begin{frame}{Consenso}
       \begin{block}{The 51\% attack}
         \begin{itemize}
-            \item Vulnerability of the consensus mechanism
-            \item Can be carried out by a group of miners controlling more than 50\% of the total hashing power
-            \item The attackers can: 
+            \item Vulnerabilità del meccanismo di consenso utilizzato
+            \item Può essere eseguito da un gruppo di miner che controlli più del 50\% della potenza di hash totale
+            \item Gli attaccanti possono: 
             \begin{itemize}
-                \item[-] prevent new transactions from gaining confirmations
-                \item[-] reverse completed transactions
+                \item[-] impedire alle nuove transazioni di essere confermate
+                \item[-] invertire (annullare) transazioni già completate
             \end{itemize}
-            \item Extremely hard to perform, not considered a real threat 
+            \item Estremamente difficile da portare a termine, non è considerata una minaccia reale
             \begin{itemize}
-                \item[\MVRightarrow] it however already happened on other Blockchains (e.g. Verge Blockchain \cite{bitcoinnews2018})
+                \item[\MVRightarrow] tuttavia, è già stato eseguito su altre Blockchain (e.g. Verge Blockchain \cite{bitcoinnews2018})
             \end{itemize}
         \end{itemize}
       \end{block}
-      Even if carried out, the attackers cannot create new coins or alter old blocks
+      Anche se eseguito, gli attaccanti non possono creare nuovi coin o alterare vecchi blocchi precedentemente esistenti
   \end{frame}
   
   
   
-  \begin{frame}{Consensus}
+  \begin{frame}{Consenso}
   \framesubtitle{The 51\% attack}
       \begin{figure}
           \centering
@@ -1135,56 +1073,61 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   
   
-  \section{Bitcoin Anonymity}
-  \subsection{Anonymity issues}
-  \begin{frame}{Anonymity issues}
+  \section{Anonimità in Bitcoin}
+  \subsection{Problemi di anonimità}
+  \begin{frame}{Problemi di anonimità}
       \begin{itemize}
-          \item Transactions are exchanged between addresses (``pseudonyms'')
-          \item Not enough for assuring users privacy: 
+          \item Le transazioni avvengono tra indirizzi (``pseudonimi'')
+          \item Gli indirizzi non sono abbastanza per assicurare la privacy degli utenti
           \begin{itemize}
-              \item[-] transactions are publicly available
-              \item[-] transactions = chain of digital signatures
-              \item[-] transactions can be linked together (e.g. through behavior-based analysis): single transaction is linked to the user identity $\rightarrow$ all of his transaction are exposed
+              \item[-] le transazioni sono pubbliche 
+              \item[-] transazioni = ``catene'' di firme digitali
+              \item[-] le transazioni possono essere collegate tra loro (e.g. tramite analisi behaviour-based): singola transazione collegata all'identità dell'utente \MVRightarrow\, tutte le sue transazioni sono esposte
           \end{itemize}
-          \item Analogy with banks: bank statements publicly available but with blanked names
+          \item Soluzione (parziale): ricevere pagamenti usando solo indirizzi nuovi (evitare address reuse) 
+          \begin{itemize}
+              \item[-] non sufficiente per garantire la privacy  
+          \end{itemize}
+          %\item Analogia con le banche: estratto conto bancario pubblico ma con i nomi oscurati
       \end{itemize}
   \end{frame}
   
   
   
-  \begin{frame}{Anonymity issues}
-  \framesubtitle{Examples of compromised privacy}
+  \begin{frame}{Problemi di anonimità}
+  \framesubtitle{Esempi di compromissione della privacy}
       \begin{enumerate}
-          \item \textbf{Exploitation of multi-input transactions}
+          \item \textbf{Sfruttare le transazioni multi-input}
           \begin{itemize}
-              \item multi-input transaction = transaction which accepts more UXTOs as input
-              \item input UXTOs owned by different addresses $\rightarrow$ those addresses belong to the same user
+              \item transazione multi-input = transazione che accetta in input più UTXOs 
+              \item gli UTXOs in input appartengono a indirizzi diversi \MVRightarrow\, quegli indirizzi appartengono allo stesso utente
           \end{itemize}
           \pause
-          \item \textbf{Exploitation of shadow addresses}
+          \item \textbf{Sfruttare gli indirizzi shadow}
           \begin{itemize}
-              \item shadow addresses = addresses automatically created for collecting the transactions changes
-              \item transaction has $n$ output addresses, only one is a new address $\rightarrow$ the new address is a shadow address for the user that sent the transaction
+              \item indirizzo shadow = indirizzo automaticamente creato per raccogliere il resto di una transazione
+              \item una transazione ha $n$ indirizzi in output, di cui solo uno è un indirizzo nuovo \MVRightarrow il nuovo indirizzo è un indirizzo shadow dell'utente che ha generato la transazione
+              \item Soluzione: evitare address reuse 
           \end{itemize}
           \pause
-          \item \textbf{Behaviour-based analysis}
+          \item \textbf{Analisi behaviour-based}
           \begin{itemize}
-              \item algorithms such as KMC and HAC have been tested in a simulated Bitcoin system \cite{androulaki2013evaluating}
-              \item they captured 42\% of the users profiles with an 80\% accuracy
+              \item algoritmi come KMC e HAC sono stati testati in un ambiente Bitcoin simulato \cite{androulaki2013evaluating}
+              \item sono stati in grado di catturare il 43\% dei profili utente con un'accuratezza dell'80\% 
           \end{itemize}
       \end{enumerate}
   \end{frame}
   
   
   
-  \begin{frame}{Anonymity issues}
+  \begin{frame}{Problemi di anonimità}
       \begin{block}{Tainted bitcoins}
         \begin{itemize}
-            \item history of each bitcoin can be traced
-            \item consequence of the lack of anonymity
-            \item some bitcoins can be marked as \textbf{tainted}
+            \item la storia di ciascun bitcoin può essere tracciata
+            \item conseguenza della mancanza di anonimità
+            \item alcuni bitcoin possono essere marcati come \textbf{tainted}
             \begin{itemize}
-                \item users are less likely to accept them $\rightarrow$ deflation of their value
+                \item gli utenti sono meno propensi ad accettarli \MVRightarrow\, deflazione del loro valore
             \end{itemize}
         \end{itemize}
       \end{block}
@@ -1193,19 +1136,19 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   
   
-  \begin{frame}{Enhancing Bitcoin Anonymity}
-      How to enhance Bitcoin anonymity? Two main approaches:
+  \begin{frame}{Aumentare l'anonimità di Bitcoin}
+      Come amentare l'anonimità in Bitcoin? Due principali approcci:
       \begin{enumerate}
           \item Mixing services
           \begin{itemize}
-              \item[\MVRightarrow] efficient
-              \item[\MVRightarrow] require absolute trust in a third party
+              \item[\MVRightarrow] efficienti
+              \item[\MVRightarrow] richiedono fiducia assoluta in una terza parte
           \end{itemize}
-          \item Cryptographic extensions of Bitcoin
+          \item Estensioni crittografiche di Bitcoin
           \begin{itemize}
-              \item[\MVRightarrow] no need to trust third parties
-              \item[\MVRightarrow] lower performance
-              \item[\MVRightarrow] new cryptocurrencies \footnote{e.g. ZeroCoin \cite{miers2013zerocoin} and ZeroCash \cite{sasson2014zerocash}} or Bitcoin-compatible
+              \item[\MVRightarrow] non richiedono fiducia in parti terze
+              \item[\MVRightarrow] performance inferiori
+              \item[\MVRightarrow] nuove crittovalute \footnote{e.g. ZeroCoin \cite{miers2013zerocoin} e ZeroCash \cite{sasson2014zerocash}} o estensioni Bitcoin-compatible (soft-fork)
           \end{itemize}
       \end{enumerate}
   \end{frame}
@@ -1218,45 +1161,44 @@ the Bitcoin protocol and its scalability and privacy aspects}
           \includegraphics[width=0.6\linewidth]{../img/mixing-service-scheme.png}
       \end{figure}
       \begin{itemize}
-          \item Mediators that transfer payments from an input set of addresses to an output set of addresses
-          \item Transfers made in a way that is hard to trace which input addresses paid which output addresses
+          \item Mediatori che trasferiscono pagamenti da un insieme di indirizzi in input a un insieme di indirizzi in output
+          \item Il trasferimento viene fatto tale che sia difficile risalire a ``chi ha pagato chi''
       \end{itemize}
   \end{frame}
   
   
   
   \begin{frame}{Mixing Services}
-      Examples of Mixing Services: 
+      Esempi Mixing Services: 
       \begin{itemize}
           \item Mixcoin
           \begin{itemize}
-              \item[-] relies on a single third party \MVRightarrow not so safe (e.g. could potentially steal the bitcoins) 
+              \item[-] si appoggia a una singola parte terza \MVRightarrow non così sicuro (e.g. la parte terza può potenzialmente rubare i bitcoins) 
           \end{itemize}
           \item CoinParty
           \begin{itemize}
-              \item[-] relies on more parties
-              \item[-] considered secure only if $2/3$ of the parties are honest
+              \item[-] si appoggia su più parti terze
+              \item[-] considerato sicuro solo se $2/3$ delle parti sono oneste
           \end{itemize}
       \end{itemize}
   \end{frame}
   
   
-  \subsection{Bitcoin-compatible anonymity schemes}
-  \begin{frame}{Reference scenario}
+  \subsection{Schemi di anonimità Bitcoin-compatible}
+  \begin{frame}{Scenario di riferimento}
       \begin{itemize}
-          \item $A$ wants to send 1 bitcoin to $B$ anonymously
-          \item if $A$ sends 1 BTC from $address_A$ (owned by $A$) to $address_B$ (owned by $B$) then record in the Blockchain linking the two addresses is created
+          \item $A$ vuole mandare 1 bitcoin a $B$ in modo anonimo          \item se $A$ invia 1 BTC da $address_A$ (posseduto da $A$) a $address_B$ (posseduto da $B$) allora nella Blockchain viene generato un record che collega i due indirizzi tra loro
           \begin{itemize}
-              \item[-] links between the addresses can be used to de-anonymize the users
-              \item[-] using a new address for each received payment is not enough
+              \item[-] i collegamenti tra indirizzi possono essere usati per de-anonimizzare gli utenti
+              \item[-] usare nuovi indirizzi per ciascun pagamento ricevuto non è sufficiente
           \end{itemize} \pause 
-          \item Solution:
+          \item Soluzione:
           \begin{minipage}{\linewidth}
             \includegraphics[width=0.4\linewidth]{../img/scenario.png}
           \end{minipage}
-          \item $I$ breaks the link between $A$ and $B$ addresses
+          \item $I$ rompe il collegamento tra gli indirizzi usati da $A$ e $B$
           \begin{itemize}
-              \item acts as a mixing service, but we don't want to trust $I$
+              \item agisce di fatto come un mixing service, ma non è richiesta fiducia
           \end{itemize}
       \end{itemize}
   \end{frame}
@@ -1265,72 +1207,71 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   \begin{frame}{Blind Signatures}
       \begin{itemize}
-          \item Introduced by David Chaum in 1982 \cite{chaum1982blind}
-          \item Cryptographic primitive that allows to an entity to sign a message without being able to read the message it signs 
-          \item Analogy: envelope with carbon paper inside of it 
+          \item Introdotte da David Chaum nel 1982 \cite{chaum1982blind}
+          \item Primitiva crittografica che permette a un'entità di firmare un messaggio senza essere in grado di leggerlo
+          \item Analogia: busta con carta carbone al suo interno 
       \end{itemize}
       
       \pause
       \begin{block}{RSA Blind Signature scheme}
         \begin{itemize}
-            \item Blinding factor $b=r^{e}\bmod n$, with $r$ random number
-            \item Message $m$ is blinded with $b$: $m_{*}=b\cdot m\bmod n$
-            \item $m_*$ sent to the signer. The signer signs it by
-          computing $s_*$: \[ s_*=m_*^d\bmod n = b^d\cdot m^d\bmod n = r^{e\cdot d}\cdot m^d \bmod n = r\cdot m^d \bmod n \]
-            \item The user can divide $s_*$ by $r$ for retrieving $s=m^d\bmod n$, namely the RSA signature of the message $m$
+            \item Blinding factor $b=r^{e}\bmod n$, con $r$ numero casuale
+            \item Il messaggio $m$ è oscurato con $b$: $m_{*}=b\cdot m\bmod n$
+            \item $m_*$ viene mandato al firmatario. Il firmatario lo firma calcolando $s_*$: \[ s_*=m_*^d\bmod n = b^d\cdot m^d\bmod n = r^{e\cdot d}\cdot m^d \bmod n = r\cdot m^d \bmod n \]
+            \item L'utente può dividere $s_*$ per $r$ al fine di ottenere $s=m^d\bmod n$, ossia la firma RSA sul messaggio $m$
         \end{itemize}
       \end{block}
   \end{frame}
   
   
   
-  \begin{frame}{First scheme: eCash scheme}
+  \begin{frame}{Primo schema: schema di eCash}
       \begin{figure}
           \centering
           \includegraphics[width=0.6\linewidth]{../img/eCash-scheme.png}
       \end{figure}
       \begin{itemize}
-          \item Conceived by David Chaum for eCash (an anonymous cryptocurrency) in 1982 \cite{chaum1982blind}
-          \item $I$ does not know who $A$ wants to pay \pause
-          \item \red{Main problem}: $I$ has to be honest
+          \item Concepito da David Chaum per eCash (una crittovaluta anonima) nel 1982 \cite{chaum1982blind}
+          \item $I$ non conosce chi $A$ vole pagare \pause
+          \item \red{Problema principale}: $I$ deve esseere onesto
           \begin{itemize}
-              \item[-] a malicious $I$ could refuse to issue a voucher to $A$
+              \item[-] un $I$ maligno potrebbe rifiutarsi di emettere il voucher ad $A$
           \end{itemize}
           \pause
-          \item \textcolor{green}{Solution}: Heilman scheme \cite{heilman-blindly-signed-contracts}
+          \item \textcolor{green}{Soluzione}: schema di Heilman \cite{heilman-blindly-signed-contracts}
       \end{itemize}
   \end{frame}
   
   
   
   
-  \begin{frame}{Second scheme: Heilman scheme}
+  \begin{frame}{Secondo schema: schema di Heilman}
       \begin{figure}
           \centering
           \includegraphics[width=0.4\linewidth]{../img/heilman-scheme.png}
       \end{figure}
       \begin{itemize}
-          \item It uses \emph{transaction contracts} for achieving \emph{fair exchange}
+          \item Utilizza \emph{transaction contracts} per implementare due \emph{fair exchange}
           \begin{itemize}
-              \item[\MVRightarrow] \textbf{key idea}: $A$ transfers a bitcoin to $I$ if and only if it received a valid $V$ in return 
+              \item[\MVRightarrow] \textbf{idea base}: $A$ trasferisce un bitcoin ad $I$ se e solo se riceve in cambio un voucher $V$ valido
           \end{itemize}
-          \item It consist of 4 Blockchain transactions (confirmed in 3 blocks) implemented in 2 fair-exchanges
+          \item Composto da 4 transazioni (confermate in 3 blocchi della Blockchain) che implementano 2 fair exchange
       \end{itemize}
   \end{frame}
   
   
   
   
-  \begin{frame}{Second scheme: Heilman scheme (Cont. 1)}
+  \begin{frame}{Secondo schema: schema di Heilman (Cont. 1)}
       \begin{figure}
           \centering
           \includegraphics[width=0.4\linewidth]{../img/heilman-scheme.png}
       \end{figure}
       \begin{block}{1) Fair-exchange $V\rightarrow BTC$}
         \begin{itemize}
-            \item Interaction between $B$ and $I$
-            \item Composed by transactions $T_{offer(V\rightarrow BTC)}$ and $T_{fullfill(V\rightarrow BTC)}$
-            \item Ensures that a malicious $I$ cannot redem $B$'s voucher without providing a bitcoin in return
+            \item Interazione tra $B$ ed $I$
+            \item Composto dalle transazioni $T_{offer(V\rightarrow BTC)}$ e $T_{fullfill(V\rightarrow BTC)}$
+            \item Garantisce che un $I$ maligno non possa ricevere il voucher di $B$ senza in cambio fornirgli un bitcoin
         \end{itemize}
       \end{block}
   \end{frame}
@@ -1338,91 +1279,91 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   
   
-  \begin{frame}{Second scheme: Heilman scheme (Cont. 2)}
+  \begin{frame}{Secondo schema: schema di Heilman (Cont. 2)}
       \begin{figure}
           \centering
           \includegraphics[width=0.4\linewidth]{../img/heilman-scheme.png}
       \end{figure}
       \begin{block}{2) Fair-exchange $BTC\rightarrow V$}
         \begin{itemize}
-            \item Interaction between $A$ and $I$
-            \item Composed by transactions $T_{offer(BTC\rightarrow V)}$ and $T_{fullfill(BTC\rightarrow V)}$
-            \item Ensures that a malicious $I$ cannot take a bitcoin from $A$ without providing him with a voucher $V$
+            \item Interazione tra $A$ ed $I$
+            \item Composto dalle transazioni $T_{offer(BTC\rightarrow V)}$ e $T_{fullfill(BTC\rightarrow V)}$
+            \item Garantisce che un $I$ maligno non possa ricevere il bitcoin da $A$ senza fornirgli in cambio il voucher $V$
         \end{itemize}
       \end{block}
   \end{frame}
   
   
   
-  \begin{frame}{Second scheme: Heilman scheme (Cont. 3)}
-      \begin{block}{Implementation of fair-exchange $BTC\rightarrow V$}
+  \begin{frame}{Secondo schema: schema di Heilman (Cont. 3)}
+      \begin{block}{Implementazione del fair-exchange $BTC\rightarrow V$}
         \begin{itemize}
-            \item Implemented through \emph{transaction contracts} (Script)
+            \item Implementado tramite \emph{transaction contracts} (Script)
             \begin{itemize}
-                \item[\MVRightarrow] transaction associated with rules that define the rules for spending the transaction outputs
+                \item[\MVRightarrow] ciascuna transazione è associata ad un insieme di regole richieste per spendere l'output della transazione
             \end{itemize}
-            \item CHECK\_LOCK\_TIME\_VERIFY used to timelock a transaction: if the contract is not spent within $Tw$, then refound 
-            \item $A$ generates $T_{offer(BTC\rightarrow V)}$. The output can be spent in a future transaction $T_f$ only if:
+            \item CHECK\_LOCK\_TIME\_VERIFY usato per bloccare temporalmente la transazione: se il contratto non è soddisfatto entro $Tw$, allora rimborso 
+            \item $A$ genera $T_{offer(BTC\rightarrow V)}$. L'output potrà essere speso in una futura transazione $T_f$ solo se:
             \begin{enumerate}
-                \item $T_f$ is signed by $I$ and contains a valid blind signature $\overline\sigma$ on $\overline{sn}$
-                \item[] OR 
-                \item $T_f$ is signed by $A$ and the time window $Tw$ has expired
+                \item $T_f$ è firmata da $I$ e contiene una valida blind signature $\overline\sigma$ su $\overline{sn}$
+                \item[] OPPURE 
+                \item $T_f$ è firmata da $A$ e la time window $Tw$ è scaduta
             \end{enumerate}
         \end{itemize}
       \end{block}
       \pause
       
-      The implementation of fair-exchange $BTC\rightarrow V$ is analogous
+      L'implementazione del fair-exchange $BTC\rightarrow V$ è analoga
   \end{frame}
   
   
   
   
   
-  \begin{frame}{Anonymity Considerations}
+  \begin{frame}{Considerazioni sull'anonimità dello schema}
       \begin{figure}
           \centering
           \includegraphics[width=0.4\linewidth]{../img/epochs.png}
       \end{figure}
       \begin{itemize}
-          \item The 4 transactions are confirmed and stored in an epoch
-          \item The anonymity depends on the number of payments through $I$ in a given epoch
+          \item Le 4 transazioni sono confermate e memorizzate in un'epoca
+          \item L'anonimità dipende dal numero di pagamenti effettuati attraverso $I$ in una determinata epoca
       \end{itemize}
   \end{frame}
   
   
   
   
-  \begin{frame}{Anonymity Considerations (Cont. 1)}
-      The following assumptions are made:  
+  \begin{frame}{Considerazioni sull'anonimità dello schema (Cont. 1)}
+      Valgono le seguenti assunzioni: 
       \begin{enumerate}
-          \item the users coordinate in order to respect the epoch transactions arrangement (e.g. starting block with height multiple of 3) 
-          \item $A$ and $B$ trust each other 
+          \item gli utenti si coordinano al fine di rispettare la disposizione in epoche delle transazioni (e.g. scelta del blocco iniziale come blocco con altezza multiplo di 3) 
+          \item $A$ e $B$ si fidano tra loro 
           \begin{itemize}
-              \item[-] if $A$ or $B$ were malicious they could consire with $I$ 
+              \item[-] se $A$ o $B$ fossero maligni allora uno di loro potrebbe cospirare con $I$
           \end{itemize}
-          \item $B$ always receives payments using fresh addresses
-          \item payers only make on payment per epoch; payees accept only one payment per epoch
+          \item $B$ riceve i pagamenti usando sempre indirizzi nuovi
+          \item i pagatori effettuano un solo pagamento per epoca; i beneficiari accettano un solo pagamento per epoca
       \end{enumerate}
       \pause
       \begin{block}{}
-      Assumptions 2 + 3 \MVRightarrow in each epoch there are $n$ addresses making payments and $n$ addresses receiving payments 
+      Assunzioni 2 + 3 \MVRightarrow\, in ciascuna epoca vi sono $n$ indirizzi che effettuano pagamenti ed $n$ indirizzi che ricevono pagamenti
       \begin{itemize}
-          \item[\MVRightarrow] $1/n$ of probability of linking a payer $A$ to a payee $B$
+          \item[\MVRightarrow] $1/n$ di probabilità di collegare un pagatore $A$ ad un beneficiario $B$
       \end{itemize}
       \end{block}
   \end{frame}
   
   
   
-  \begin{frame}{Anonymity Considerations (Cont. 2)}
+  \begin{frame}{Considerazioni sull'anonimità dello schema (Cont. 2)}
       \begin{itemize}
-          \item Users know the size of their anonymity set ($n$) by looking at the blockchain after the transactions complete
-          \item What if $B$ feels his $n$ is too small? \pause
+          \item Gli utenti conoscono la dimensione del loro set di anonimità ($n$) osservando la Blockchain dopo che le transazioni sono state completate
+          \item Cosa fare se $B$ ritiene che il suo $n$ sia troppo piccolo? \pause
           \begin{itemize}
-              \item[-] it's assumed that $B$ has been paid on $address_B$
-              \item[-] $B$ creates a new ephemeral address $address_B'$
-              \item[-] $B$ pays from $address_B$ to $address_B'$ in another epoch
+              \item[-] si assume che $B$ sia stato pagato all'indirizzo $address_B$
+              \item[-] $B$ crea un nuovo indirizzo effimero $address_B'$
+              \item[-] $B$ paga $address_B$ a $address_B'$ in un'altra epoca
           \end{itemize}
       \end{itemize}
   \end{frame}
@@ -1431,28 +1372,28 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   
   
-  \section{Bitcoin Scalability}
+  \section{Scalabilità di Bitcoin}
   \subsection{Overview}
-  \begin{frame}{Bitcoin Scalability Overview}
+  \begin{frame}{Panoramica della scalabilità di Bitcoin}
       \begin{itemize}
-          \item Increasing adoption of Bitcoin \MVRightarrow ability to scale received a lot of attention 
-          \item Main concerns:
+          \item Bitcoin viene usato sempre di più \MVRightarrow\, la sua abilità di scalare ha ultimamente ricevuto parecchie attenzioni
+          \item Principali preoccupazioni:
           \begin{enumerate}
-              \item can blockchain-based cryptocurrencies (like Bitcoin) scale-up and reach the performance of traditional payment processor? 
-              \item what does it take to get there? 
+              \item possono le crittovalute basate su Blockchain scalare e raggiungere le performance dei tradizionali processori di pagamenti? (e.g. Visa)
+              \item come fare per raggiungere tali performance? 
           \end{enumerate}
           \pause
-          \item Current Bitcoin performance: 
+          \item Performance attuali di Bitcoin: 
           \begin{itemize}
-              \item around 10 min to confirm a transaction 
-              \item maximum block size = 1 MB (average size = 800 KB) \cite{current-block-size}
-              \item maximum throughput of 7 transactions/sec \cite{wikipedia_scalability_2018}
-              \item throughput limited by max block size and block interval
+              \item circa 10 min per confermare una transazione 
+              \item dimensione massima del blocco = 1 MB (dimensione media = 800 KB) \cite{current-block-size}
+              \item throughput massimo = 7 transazioni/sec \cite{wikipedia_scalability_2018}
+              \item throughput limitato dalla dimensione massima del blocco e dal tempo con cui i blocchi vengono prodotti (block interval)
           \end{itemize} \pause
-          \item Comparison with Visa credit cards \cite{wikipedia_scalability_2018}:
+          \item Confronto con Visa:  \cite{wikipedia_scalability_2018}
           \begin{itemize}
-              \item 2000 transactions/sec on average
-              \item peaks of 56 000 transactions/sec
+              \item 2000 transazioni/sec in media 
+              \item picchi di 56 000 transazioni/sec
           \end{itemize}
       \end{itemize}
   \end{frame}
@@ -1461,24 +1402,24 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   
   
-  \begin{frame}{Bitcoin Scalability Overview}
+  \begin{frame}{Panoramica della scalabilità di Bitcoin (Cont. 1)}
       \begin{itemize}
-          \item Idea for increasing throughput: \textbf{reparametrization}
+          \item Idea per aumentare il throughput: \textbf{ri-parametrizzazione}
           \begin{itemize}
-              \item[-] decrease blocks interval
-              \item[-] increase block maximum size (currently 1 MB)
+              \item[-] diminuire il block interval
+              \item[-] aumentare la dimensione massima dei blocchi (attualmente 1 MB)
           \end{itemize}
-          \item Great debate
+          \item Grande dibattito 
           \begin{itemize}
-              \item[\MVRightarrow] \textcolor{red}{Main cons.}: less decentralization
-              \item[\MVRightarrow] better to optimize the current block space available 
+              \item[\MVRightarrow] \textcolor{red}{Principale svantaggio}: minore decentralizzazione
+              \item[\MVRightarrow] meglio ottimizzare l'uso dello spazio disponibile attuale
           \end{itemize}
-          \item In \cite{croman-scaling-blockchain}, the author shows that: 
+          \item In \cite{croman-scaling-blockchain}, l'autore dimostra che: 
           \begin{itemize}
-              \item[-] reparametrization alone cannot address Bitcoin scaling
+              \item[-] la ri-parametrizzazione da sola non basta per scalare Bitcoin
               \begin{itemize}
-                  \item[\MVRightarrow] parameters limitations
-                  \item[\MVRightarrow] other bottlenecks in the Bitcoin system
+                  \item[\MVRightarrow] limitazioni sui parametri
+                  \item[\MVRightarrow] presenza di bottleneck all'interno del sistema Bitcoin
               \end{itemize}
           \end{itemize}
       \end{itemize}
@@ -1488,40 +1429,40 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   
   
-  \subsection{Reparametrization limitations}
-  \begin{frame}{Metrics definitions}
+  \subsection{Limitazioni della ri-parametrizzazione}
+  \begin{frame}{Definizione di alcune metriche}
       \begin{enumerate}
-          \item ``X\% block propagation delay'' = time required for X\% of the nodes to receive a full block
+          \item ``X\% block propagation delay'' = tempo richiesto affinchè il X\% dei nodi riceva completamente un blocco
           \begin{itemize}
-              \item[\MVRightarrow] it's calculated empirically
+              \item[\MVRightarrow] calcolato empiricamente
           \end{itemize}
           \item $\text{``X\% effective throughput''} = \frac{\text{block size}}{\text{X\% block propagation delay}}$
       \end{enumerate}
       \begin{itemize}
-          \item transaction rate $>$ X\% effective throughput $\rightarrow$ (100 -X)\% of the nodes unable to receive blocks as they arrive
+          \item transaction rate $>$ X\% effective throughput $\rightarrow$ (100 -X)\% dei nodi saranno di fatto inattivi
       \end{itemize}
   \end{frame} 
   
   
-  \begin{frame}{Limits}
-    Premises:
+  \begin{frame}{Limiti}
+    Premesse:
     \begin{itemize}
-        \item current level of decentralization has to be maintained 
+        \item si vuole mantenere il livello corrente di decentralizzazione 
         \begin{itemize}
-            \item[\MVRightarrow] at least 90\% of properly working nodes
+            \item[\MVRightarrow] almeno 90\% dei nodi devono funzionare correttamente
         \end{itemize}
-        \item current Bitcoin peer-to-peer network is used, no changes to it 
+        \item viene utilizzata la rete peer-to-peer attuale di Bitcoin, senza alcuna modifica
         \begin{itemize}
-            \item[\MVRightarrow] any change to the network would affect the X\% effective throughput
+            \item[\MVRightarrow] una qualunque modifica cambierebbe il valore di X\% effective throughput
         \end{itemize}
     \end{itemize}
     
-    \begin{block}{Throughput limit}
+    \begin{block}{Limiti sul throughput}
         \[ \text{90\% block propagation delay} < \text{block interval} \]
-        namely 
+        ossia 
         \[ \frac{\text{block size}}{\text{90\% effective throughput}} < \text{block interval} \]
         \begin{itemize}
-            \item[\MVRightarrow] \footnote{assuming block interval = 10 min} block size not more than 4 MB, e.g max throughput = 27 transactions/sec 
+            \item[\MVRightarrow] \footnote{assumendo block interval = 10 min} dimensione massima non superiore a 4 MB, e.g throughput massimo = 27 transazioni/sec 
         \end{itemize}
     \end{block}
   \end{frame}
@@ -1529,16 +1470,16 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   
   
-  \begin{frame}{Limits (Cont. 1)}
-      \begin{block}{Block interval limit}
+  \begin{frame}{Limiti (Cont. 1)}
+      \begin{block}{Limiti sul block interval}
         \begin{itemize}
-            \item Reducing block interval = lower latency 
-            \item Reducing block interval \MVRightarrow block size has to be reduced as well (due to throughput limit equation)
-            \item Block size too small \MVRightarrow network bandwidth is not fully used
-            \item Result of experiments/measurements of \cite{croman-scaling-blockchain}: block interval not smaller then 12 seconds in order to: 
+            \item ridurre block interval = ridurre latenza 
+            \item ridurre block interval \MVRightarrow\, anche la dimensione del blocco deve essere ridotta (si veda equazione limite throughput)
+            \item Dimensione del blocco troppo piccola \MVRightarrow\, la banda della rete non viene usata a pieno
+            \item Risultati ottenuti da \cite{croman-scaling-blockchain} effettuando esperimenti/misurazioni: il block interval non deve essere inferiore a 12 secondi al fine di:
             \begin{itemize}
-                \item[-] have at least 90\% effective throughput
-                \item[-] fully utilize the network bandwidth 
+                \item[-] avere almeno il 90\% di effective throughput
+                \item[-] utilizzare a pieno la banda disponibile
             \end{itemize}
         \end{itemize}
       \end{block}
@@ -1548,21 +1489,22 @@ the Bitcoin protocol and its scalability and privacy aspects}
  
  
  
-  \subsection{Bottleneck analysis}
+  \subsection{Analisi dei bottleneck}
   \begin{frame}{Network Plane}
       \begin{itemize}
-          \item Function: propagate messages corresponding to valid transactions
-          \item Bitcoin protocol does not fully use the available bandwidth
-          \item Two main inefficiencies: 
+          \item Funzione: propagare le transazioni valide
+          \item Bitcoin a pieno la banda disponibile
+          \item Due principali inefficienze: 
           \begin{enumerate}
-              \item before propagating a transaction, a node has to fully receive it and validate it (for avoiding Dos)
+              \item prima di propagare una transazione, i nodi devono riceverla completamente e validarla (prevenzione DoS)
               \begin{itemize}
-                  \item[\MVRightarrow] \textcolor{green}{possible solution}: low-latency broadcast protocols, nodes allowed to rate-limit transmissions from their peers
+                  \item[\MVRightarrow] \textcolor{green}{soluzione possibile}:
+                  protocolli di broadcas a bassa latenza + permettere ai nodi di limitare le trasmissioni dai loro peer
               \end{itemize}
               \pause
-              \item first transactions are propagated (creation of pools), then blocks are propagated: some transactions are transmitted twice
+              \item le transazioni vengono propagate (creazione dei pool), poi anche i blocchi vengono propagati: alcune transazioni vengono trasmesse 2 volte
               \begin{itemize}
-                  \item[\MVRightarrow] \textcolor{green}{possible solution}: set reconciliation protocol (single transactions pools are similar) 
+                  \item[\MVRightarrow] \textcolor{green}{soluzione possibile}: set reconciliation protocol (i pool di transazioni dei singoli nodi sono simili) 
               \end{itemize}
           \end{enumerate}
       \end{itemize}
@@ -1572,12 +1514,12 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   \begin{frame}{Consensus Plane}
       \begin{itemize}
-          \item Function: mining and achieving consensus
-          \item Limitation: Proof of Work 
+          \item Funzione: mining e raggiungimento del consenso
+          \item Limitazione: Proof of Work 
           \begin{itemize}
-              \item[-] tradeoff between consensus speed, bandwidth and security
+              \item[-] compromesso tra velocità di consenso, bandwidth e sicurezza
           \end{itemize}
-          \item \textcolor{green}{Possible solution}: different consensus mechanism (e.g. Proof of Stake) 
+          \item \textcolor{green}{Possibile soluzione}: utilizzare meccanismi di consenso alternativi (e.g. Proof of Stake) 
       \end{itemize}
   \end{frame}
   
@@ -1586,11 +1528,11 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   \begin{frame}{Storage Plane}
       \begin{itemize}
-          \item Function: store the Bitcoin ledger and support \texttt{read} and \texttt{write} operations
-          \item Main issue: each node stores a copy of the entire Blockchain
+          \item Funzione: memorizzare il libro mastro di Bicoin e permettere le operazioni \texttt{read} and \texttt{write} su di esso
+          \item Principale problema: ciascun nodo memorizza una copia dell'intera Blockchain
           \begin{itemize}
-              \item[-] in June 2018 it was 178 GB \cite{statista}
-              \item[-] it grows exponentially
+              \item[-] in Giugno 2018 la dimensione era di 178 GB \cite{statista}
+              \item[-] la dimensione cresce esponenzialmente
           \end{itemize}
       \end{itemize}
   \end{frame}
@@ -1600,13 +1542,14 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   \begin{frame}{View Plane}
       \begin{itemize}
-          \item Function: allows miners to mine without storing the full copy of the Blockchain
+          \item Funzione: permettere ai miner di minare senza dover memorizzare una copia dell'intera Blockchain
           \begin{itemize}
-              \item[-] they operate on a \emph{view} of the ledger: UTXO set
-              \item[-] UTXO set specifies the current balance of all the entities
-              \item[-] UTXO set has to be computed
+              \item[-] operano su una \emph{view} del libro mastro: UTXO set
+              \item[-] l'UTXO set specifica il saldo corrente di tutte le entità
+              \item[-] UTXO deve essere calcolato
           \end{itemize}
-          \item Main issue: computing the view takes a lot of time \item \textcolor{green}{Possible solution}: storing the view in the Storage Plane 
+          \item Problema principale: calcolare la view richiede molto tempo
+          \item \textcolor{green}{Soluzione possibile}: memorizzare la view nello Storage Plane
       \end{itemize}
   \end{frame}
   
