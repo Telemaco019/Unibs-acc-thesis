@@ -198,8 +198,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
     \begin{itemize}
       \item \textbf{Immutability}: una volta che un blocco viene aggiunto alla Blockchain, modificarlo è computazionalmente impossibile \pause
       \item \textbf{Transparency}: ciascun nodo può vedere il contenuto della Blockchain \pause
-      \item \textbf{Security}: integrità dei dati, autenticazione e non-ripudio sono garantiti. La privacy non è invece fornita. La sicurezza di una Blockchain è diretta conseguenza della sua natura distribuita \pause
-      \item \textbf{Uniqueness}: ogni transazione è unica e non può essere già stata spesa
+      \item \textbf{Security}: integrità dei dati, autenticazione e non-ripudio sono garantiti. La privacy non è invece fornita. La sicurezza di una Blockchain è diretta conseguenza della sua natura distribuita
     \end{itemize}
   \end{frame}
 
@@ -244,12 +243,12 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
   \begin{frame}{Struttura di una Blockchain}
-    \framesubtitle{Nodi, indirizzi e transazioni}
+    \framesubtitle{Elementi caratteristici: nodi, indirizzi e transazioni}
     \begin{itemize}
       \item \textbf{Nodi} entità attive che mantengono una copia della Blockchain e che possono effettuare e/o validare transazioni \pause
       \item \textbf{Indirizzi} identificatori univoci che identificano le parti coinvolte in una transazione. Generalmente sono chiavi pubbliche (o sono derivati da chiavi pubbliche) \pause
       \item \textbf{Transazioni} trasferimenti di valore da un indirizzo all'altro \pause
-      \item \textbf{Transaction scripts} set di comandi predefiniti utilizzati dai nodi per trasferire valori da un nodo all'altro (es. possono definire le condizioni sotto cui un valore trasferito può essere utilizzato dal destinatario)
+      %\item \textbf{Transaction scripts} set di comandi predefiniti utilizzati dai nodi per trasferire valori da un nodo all'altro (es. possono definire le condizioni sotto cui un valore trasferito può essere utilizzato dal destinatario)
     \end{itemize}
   \end{frame}
 
@@ -419,17 +418,17 @@ the Bitcoin protocol and its scalability and privacy aspects}
       \end{itemize} \pause
     \end{itemize}
 
-    \begin{block}{L'implementazione di riferimento}
-      \begin{itemize}
-        \item Bitcoin è un progetto Open Source ed è sviluppato da una comunità di volontari
-        \item L'implementazione di riferimento (nonchè la più usata) \textbf{Bitcoin Core}
-        \item È considerata l'implementazione ``autoritativa'' e specifica come ciascuna parte del sistema debba essere implementata
-        \item Esistono diversi Bitcoin client alternativi a Bitcoin Core
-        \begin{itemize}
-            \item[\MVRightarrow] implementazioni non autoritative
-        \end{itemize}
-      \end{itemize}
-    \end{block}
+   % \begin{block}{L'implementazione di riferimento}
+%      \begin{itemize}
+%        \item Bitcoin è un progetto Open Source ed è %sviluppato da una comunità di volontari
+%        \item L'implementazione di riferimento (nonchè la %più usata) \textbf{Bitcoin Core}
+%        \item È considerata l'implementazione %``autoritativa'' e specifica come ciascuna parte del %sistema debba essere implementata
+%        \item Esistono diversi Bitcoin client alternativi %a Bitcoin Core
+%        \begin{itemize}
+%%            \item[\MVRightarrow] implementazioni non a%utoritative
+ %       \end{itemize}
+ %     \end{itemize}
+ %   \end{block}
   \end{frame}
 
 
@@ -482,12 +481,16 @@ the Bitcoin protocol and its scalability and privacy aspects}
     \begin{itemize}
       \item Il possesso di bitcoin è stabilito tramite:
       \begin{itemize}
-          \item chiavi digitali 
+          \item chiavi crittografiche 
           \item indirizzi Bitcoin 
           \item firme digitali
       \end{itemize} 
-      \item Per essere inclusa nella Blockchain, una transazione richiede uan firma valida, la quale può essere generata solo attraverso una chiave privata (segreta)  
-      \item La chiave privata prova il possesso dei bitcoin (firmando transazioni e trasferendo valuta da un indirizzo all'altro) \pause
+      \item Per essere inclusa nella Blockchain, una transazione richiede una firma valida, la quale può essere generata solo attraverso una chiave privata (segreta)  
+      \begin{itemize}
+          \item prova il possesso dei bitcoin
+          \item non ripudio
+      \end{itemize}
+    \pause
     \end{itemize}
     \begin{block}{Analogia con le banche tradizionali}
       \begin{itemize}
@@ -523,8 +526,8 @@ the Bitcoin protocol and its scalability and privacy aspects}
   \begin{frame}{Chiavi e Indirizzi (Cont. 2)}
     \begin{block}{Chiavi}
       \begin{itemize}
-        \item Le chiavi private sono numeri casuali di 256 bit e possono essere rappresentati in diversi formati \pause
-        \item Le chiavi pubbliche sono generate partendo dalle chiavi private usando la moltiplicazione su curve ellittiche: \pause
+        \item \textbf{Chiavi private}: numeri casuali di 256 bit \pause
+        \item \textbf{Chiavi pubbliche}: generate partendo dalle chiavi private usando la moltiplicazione su curve ellittiche: \pause
         \begin{itemize}
           \item Funzione ``a botola'' 
           \item Curva ellittica specificata dallo standard secp256k1, definito dal NIST:
@@ -977,7 +980,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
         %\item A transaction is included in a block \MVRightarrow mined at a depth of 1 %\begin{itemize}
         %    \item subsequent block found \MVRightarrow the number of blocks deep is increased by 1
         %\end{itemize}
-        \item Client Bitcoin classico:  ``unconfirmed'' fino a che la transazione è profonda blocchi
+        \item Client Bitcoin classico:  ``unconfirmed'' fino a che la transazione è profonda 6 blocchi
     \end{itemize}
   \end{frame}
   
@@ -1252,9 +1255,9 @@ the Bitcoin protocol and its scalability and privacy aspects}
       \end{figure}
       \begin{itemize}
           \item Utilizza \emph{transaction contracts} per implementare due \emph{fair exchange}
-          \begin{itemize}
-              \item[\MVRightarrow] \textbf{idea base}: $A$ trasferisce un bitcoin ad $I$ se e solo se riceve in cambio un voucher $V$ valido
-          \end{itemize}
+        %  \begin{itemize}
+         %     \item[\MVRightarrow] \textbf{idea base}: $A$ trasferisce un bitcoin ad $I$ se e solo se riceve in cambio un voucher $V$ valido
+         % \end{itemize}
           \item Composto da 4 transazioni (confermate in 3 blocchi della Blockchain) che implementano 2 fair exchange
       \end{itemize}
   \end{frame}
@@ -1302,7 +1305,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
             \begin{itemize}
                 \item[\MVRightarrow] ciascuna transazione è associata ad un insieme di regole richieste per spendere l'output della transazione
             \end{itemize}
-            \item CHECK\_LOCK\_TIME\_VERIFY usato per bloccare temporalmente la transazione: se il contratto non è soddisfatto entro $Tw$, allora rimborso 
+            \item CHECK\_LOCK\_TIME\_VERIFY usato per bloccare temporalmente la transazione
             \item $A$ genera $T_{offer(BTC\rightarrow V)}$. L'output potrà essere speso in una futura transazione $T_f$ solo se:
             \begin{enumerate}
                 \item $T_f$ è firmata da $I$ e contiene una valida blind signature $\overline\sigma$ su $\overline{sn}$
@@ -1330,11 +1333,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
           \item $A$ scegli un $sn$ casuale, calcola $h=H(sn)$ ed invia $h$ a $B$ \pause
           \item $B$ invia $h$ ad $I$ e gli chiede di creare il contratto $T_{offer(V\rightarrow BTC)}$
           \begin{itemize}
-              \item[\MVRightarrow] $B$ offre ad $I$ 1 BTC sotto le condizioni: 
-              \begin{enumerate}
-                  \item $B$ fornisca un voucher $V$ valido con numero seriale $sn$ t.c. $h=H(sn)$ entro il tempo $tw2$
-                  \item $h$ sia ``nuovo''
-              \end{enumerate}
+              \item[\MVRightarrow] $I$ offre ad $B$ 1 BTC sotto la condizione che $B$ fornisca un voucher $V$ valido con numero seriale $sn$ t.c. $h=H(sn)$ entro il tempo $tw2$
           \end{itemize}
       \end{enumerate}
   \end{frame}
@@ -1432,7 +1431,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
               \item Impedisce ad $I$ di deanonimizzare $A$ e $B$ annullando lo scambio
               \item Esempio:
                 \begin{itemize}
-                    \item[-] $I$ rifiuta di rilasciare il Voucher $V$ ad $A$ (non effettua $T_{fullfill(BTC\rightarrow V)}$
+                    \item[-] $I$ rifiuta di rilasciare il Voucher $V$ ad $A$ (non effettua $T_{fullfill(BTC\rightarrow V)}$)
                     \item[-] $A$ non ottiene il voucher \MVRightarrow\, non può inviare $V$ a $B$ 
                     \item[-] $B$ non è in grado di effettuare $T_{fullfill(V\rightarrow BTC)}$
                     \item[\MVRightarrow] $I$ può fare il match tra gli scambi con $A$ annullati e gli scambi non completati con $B$ 
@@ -1556,12 +1555,12 @@ the Bitcoin protocol and its scalability and privacy aspects}
         \end{itemize}
     \end{itemize}
     
-    \begin{block}{Limiti sul throughput}
+    \begin{block}{Limite sulla dimensione massima del blocco}
         \[ \text{90\% block propagation delay} < \text{block interval} \]
         ossia 
         \[ \frac{\text{block size}}{\text{90\% effective throughput}} < \text{block interval} \]
         \begin{itemize}
-            \item[\MVRightarrow] \footnote{assumendo block interval = 10 min} dimensione massima non superiore a 4 MB, e.g throughput massimo = 27 transazioni/sec 
+            \item[\MVRightarrow] \footnote{assumendo block interval = 10 min} dimensione massima non superiore a 4 MB
         \end{itemize}
     \end{block}
   \end{frame}
@@ -1592,7 +1591,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
   \begin{frame}{Network Plane}
       \begin{itemize}
           \item Funzione: propagare le transazioni valide
-          \item Bitcoin a pieno la banda disponibile
+          \item Bitcoin non utilizza a pieno la banda disponibile
           \item Due principali inefficienze: 
           \begin{enumerate}
               \item prima di propagare una transazione, i nodi devono riceverla completamente e validarla (prevenzione DoS)
@@ -1616,7 +1615,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
           \item Funzione: mining e raggiungimento del consenso
           \item Limitazione: Proof of Work 
           \begin{itemize}
-              \item[-] compromesso tra velocità di consenso, bandwidth e sicurezza
+              \item[-] compromesso tra velocità di consenso e sicurezza
           \end{itemize}
           \item \textcolor{green}{Possibile soluzione}: utilizzare meccanismi di consenso alternativi (e.g. Proof of Stake) 
       \end{itemize}
@@ -1655,7 +1654,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   
   
-  \section{Conclusions}
+  \section{Conclusioni}
   \begin{frame}{Contents}
       \frametitle{\contentsname}
     \begin{multicols}{2}
@@ -1665,15 +1664,71 @@ the Bitcoin protocol and its scalability and privacy aspects}
   
   
   
-  \begin{frame}{Conclusions}
+  \begin{frame}{Conclusioni}
       \begin{itemize}
-          \item 
+          \item Blockchain: tecnologia sempre più popolare 
+          \item Soluzione di ogni problema?  
+          \begin{itemize}
+              \item[-] bisogno di un database condiviso? 
+              \item[-] i dati del DB cambiano frequentemente ed è necessario poter verificare la storia di ciascun dato? 
+              \item[-] i dati trattati sono riservati? 
+              \item[-] più entità che leggono/scrivono nel DB? 
+              \item[-] le parti coinvolte non sono fidate? 
+              \item[-] possono i dati essere controllati da un'unica entità centrale fidata? 
+              \item[-] quanto sono importanti le performance? 
+              \item[-] ...
+              \item[\MVRightarrow] \textcolor{orange}{dipende dall'applicazione e dal contesto} 
+          \end{itemize}
+          \pause
+          \item Ideale per crittovalute
       \end{itemize}
   \end{frame}
   
   
   
   
+  \begin{frame}{Conclusioni}
+      \begin{itemize}
+          \item Bitcoin: prima reale applicazione di Blockchain
+          \item Diversi vantaggi rispetto alle valute tradizionali 
+          \begin{itemize}
+              \item[-] no autorità centrali 
+              \item[-] trasparenza
+              \item[-] sicurezza
+              \item[-] maggiore anonimità
+          \end{itemize}
+      \end{itemize}
+  \end{frame}
+  
+  
+  \begin{frame}{Conclusioni}
+     \begin{itemize}
+          \item Problema scalabilità
+          \item Problema anonimità 
+          \begin{itemize}
+              \item[-] risolvibile (mixing services, schemi, estensioni, etc.) 
+              \item[-] esistono altre crittovalute appositamente progettate per garantire privacy (Monero \cite{getmonero}, ZCash \cite{zcash}, ...)  
+          \end{itemize}
+          \item Altri problemi vari
+          \begin{itemize}
+              \item[-] scalabilità \& performance
+              \item[-] anonimità 
+              \item[-] Proof-of-Work
+              \item[-] supporto limitato a smart contract 
+          \end{itemize}
+          \pause
+          \item Numerose crittovalute alternative. Più diffusa: Ethereum
+          \begin{itemize}
+              \item[-] supporta smart contracts (linguaggio di programmazione Turing completo)
+              \item[-] permette di realizzare applicazioni distribuite 
+          \end{itemize}
+      \end{itemize}
+  \end{frame}
+  
+  \begin{frame}{Conclusioni}
+      \centering \Huge
+      \emph{Grazie per l'attenzione}
+  \end{frame}
   
 
 

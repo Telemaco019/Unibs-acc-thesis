@@ -1,4 +1,5 @@
 
+\label{sec:privacy-enhancing}
 \section{Enhancing Bitcoin privacy}
 There are basically two approaches for enhancing users privacy in Bitcoin:
 \begin{itemize}
@@ -126,6 +127,25 @@ return. The four transactions implement two fair exchanges:
 	\caption{High-level view of the scheme proposed in \cite{heilman-blindly-signed-contracts}}
 	\label{fig:heilman-scheme}
 \end{figure}
+
+\subsubsection{Heilman scheme step-by-step}
+\begin{enumerate}
+          \item $B$ creates a new ephemeral adddress for receiving the payment
+          \item $A$ chooses a random $sn$, computes $h=H(sn)$ and sends $h$ to $B$
+          \item $B$ sends $h$ to $I$ and asks him to create the transaction contract $T_{offer(V\rightarrow BTC)}$
+          \begin{itemize}
+              \item $B$ offers to $I$ 1 BTC under the condition that $B$ provides a valid voucher $V$ with serial number $sn$ so that $h=H(sn)$ whithin the time window $tw2$
+          \end{itemize}
+          \item If $h$ is fresh (it does not match any $h$ from prior transaction contracts signed by $I$), then $I$ creates the requested contract and posts it to the Blockchain
+          \item $A$ blinds $sn$ to $\overline{sn}$, then it waits $T_{offer(V\rightarrow BTC)}$ to be confirmed. When this happens, then $A$ creates the transaction contract $T_{offer(BTC\rightarrow V)}$
+          \begin{itemize}
+              \item $A$ offers $1 + w$ bitcoins to $I$ under the condition that $A$ must provide a valid blind signature on the blinded serial number sn within time window $tw1$
+              \item $tw1 > tw2$ so that $I$ cannot cheat by waiting until $T_{offer(BTC\rightarrow V)}$ expires but $T_{offer(V\rightarrow BTC)}$ has not
+          \end{itemize}
+          \item $I$ waits $T_{offer(BTC\rightarrow V)}$ to be confirmed. When this happens, $I$ completes the fair exchange by creating $T_{fullfill(BTC\rightarrow V)}$, which contains the blind signature $\overline{\sigma}$ on $\over{sn}$. This transaction is posted to the Blockchain
+          \item $A$ reads $\overline{\sigma}$ from the last transaction posted by $I$ and sends the voucher $V=(\sigma,sn)$ to $B$
+          \item $B$ completes the fair exchange by creating $T_{fullfill(BTC\rightarrow V)}$, which contains the voucher $V$ 
+\end{enumerate}
 
 \subsubsection{Fair exchange implementation} In the following section, it will be
 explained how the transaction contracts $T_{offer(BTC\rightarrow V)}$ and (2)
