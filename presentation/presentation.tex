@@ -99,7 +99,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
 
 
 \begin{frame}{Introduzione}
-    \begin{block}{Systema distribuito}
+    \begin{block}{Sistema distribuito}
     Un \textcolor{red}{sistema distribuito} è una rete composta da nodi autonomi, connessi attraverso un middleware, che operano in modo coordinato (scambiandosi messaggi) al fine di raggiungere un obiettivo comune e che possono essere visti dall'utente come singola piattaforma logica.  
     \end{block}
 \end{frame}
@@ -360,7 +360,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
         \item Blockchain publiche, chiunque può unirsi alla rete, mantenere una copia del libro mastro e partecipare al processo di Consenso 
         \item Il libro mastro non è posseduto da alcuna entità, chiunque può leggerlo
         \item Solitamente vi sono incentivi per incoraggiare nuovi partecipanti ad unirsi alla rete \pause
-        \item \red{Principale problema}: mancanza di pricavy (chiunque può vedere tutte le transazioni) \pause
+        \item \red{Principale problema}: mancanza di privacy (chiunque può vedere tutte le transazioni) \pause
         \item Bitcoin si basa su una Blockchain pubblica
       \end{itemize}
     \end{block}
@@ -465,7 +465,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
       \item Script = lista di istruzioni registrate con ciascuna transazione che specificano come il prossimo utente che vuole spendere i bitcoin trasferiti può accedervi (e spenderli) \pause 
       \item Linguaggio di programmazione utilizzato: ``\red{Script}'' \cite{script-bitcoin-wiki} 
       \begin{itemize}
-        \item linguaggio molto semplice very simple programming language 
+        \item linguaggio molto semplice 
         \item non Turing-complete {\tiny(no loops and no complex control flow instructions)} 
         \item deliberatamente progettato per evitare abusi degli script volti a condurre attacchi Denial of Service {\tiny(ciascuno script deve essere eseguito ciascun nodo della rete)}
       \end{itemize}
@@ -487,7 +487,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
       \item Per essere inclusa nella Blockchain, una transazione richiede una firma valida, la quale può essere generata solo attraverso una chiave privata (segreta)  
       \begin{itemize}
           \item prova il possesso dei bitcoin
-          \item non ripudio
+%          \item non ripudio
       \end{itemize}
     \pause
     \end{itemize}
@@ -766,11 +766,6 @@ the Bitcoin protocol and its scalability and privacy aspects}
              \item modificare un blocco modifica anche la sua hash
              \item anche l'hash dei blocchi figli cambia (effetto cascata)
          \end{itemize}
-         \item Un blocco a più figli in cascata \MVRightarrow per modificarlo bisogna anche modificare tutti i blocchi successivi
-         \begin{itemize}
-             \item[\MVRightarrow] bisogna risolvere nuovamente la PoW 
-             \item[\MVRightarrow] i blocchi sono praticamente immutabili 
-         \end{itemize}
      \end{itemize}
   \end{frame}
   
@@ -865,7 +860,7 @@ the Bitcoin protocol and its scalability and privacy aspects}
         \begin{itemize}
             \item Mantengono una copia dell'intera Blockchain
             \begin{itemize}
-                \item[\MVRightarrow] possono autonomamente e autoritativamente verificare tutte le transazioni (possonon ricostruire l'insieme degli UTXOs)
+                \item[\MVRightarrow] possono autonomamente e autoritativamente verificare tutte le transazioni (possono ricostruire l'insieme degli UTXOs)
             \end{itemize}
             \item Validano e inoltrano transazioni/blocchi ai loro peer
             \item \textcolor{red}{Svantaggio}: la dimensione della Blockchain è attualmente di circa 178 GB \cite{statista}
@@ -976,6 +971,11 @@ the Bitcoin protocol and its scalability and privacy aspects}
             \item aggregazione delle transazioni in blocchi e risoluzione della PoW
             \item verifica indipendente dei nuovi blocchi minati 
         \end{enumerate}
+        \item Un blocco ha più figli in cascata \MVRightarrow per modificarlo bisogna anche modificare tutti i blocchi successivi
+         \begin{itemize}
+             \item[\MVRightarrow] bisogna risolvere nuovamente la PoW 
+             \item[\MVRightarrow] i blocchi sono praticamente immutabili
+         \end{itemize}
         %\item A transaction is included in a block \MVRightarrow mined at a depth of 1 %\begin{itemize}
         %    \item subsequent block found \MVRightarrow the number of blocks deep is increased by 1
         %\end{itemize}
